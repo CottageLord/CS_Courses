@@ -1,81 +1,13 @@
 #include "SDLGraphicsProgram.h"
+#include "rectangle.h"
 
-
-// Try toggling this number!
-#define BLOCKS 500
-
-// Just a cheap little class to give a visual effect that stresses the system.
-// This should also be useful for helping you get started with your breakout code!
-// Move this to its own .h and .cpp files for best practice!
-class Rectangle{
-public:
-    Rectangle(){
-        // Empty constructor! We haev complete control!
-    }
-
-    // Okay, but do not forget to call this!
-    void init(int screenWidth, int screenHeight){
-        x = rand()%screenWidth;
-        y = rand()%screenHeight;
-        w = rand()%100;
-        h = rand()%100;
-        speed = rand()%2+1; 
-    }
-
-    // Arguments here are a little redundant--do we need them?
-    // (Perhaps if the screen resizes? Hmm!)
-    void update(int screenWidth, int screenHeight){
-        if(up){
-            y+=speed;
-            if(y>screenHeight){
-                up = !up;
-            }
-        }
-
-        if(!up){
-            y-=speed;
-            if(y<0){
-                up = !up;
-            }
-        }
-        if(left){
-            x+=speed;
-            if(x>screenWidth){
-                left = !left;
-            }
-        }
-
-        if(!left){
-            x-=speed;
-            if(x<0){
-                left = !left;
-            }
-        }
-    }
-
-    // Okay, render our rectangles!
-    void render(SDL_Renderer* gRenderer){
-        SDL_Rect fillRect = {x,y,w,h};
-        SDL_SetRenderDrawColor(gRenderer, 0xFF, 0x00, 0x00, 0xFF);
-        SDL_RenderDrawRect(gRenderer, &fillRect); 
-    }
-
-private:
-     
-    int x{100};
-    int y{100};
-    int w{100};
-    int h{100};
-    int speed{1};
-    bool up{true};
-    bool left{true};
-
-};
-
-
-// Create our list of rectangles!
-Rectangle r[BLOCKS];
-
+#define FRAME_RATE      60
+// I used microseconds instead of miliseconds for better precision
+// using miliseconds (larger gap) would sometimes ignore time elapsed if
+// the last update/render loop runs too fast
+#define MCS_PER_SECOND  1000000
+// switch between ideal frame rate and crazy frame rate
+#define STABLE_FRAME    true
 
 // Initialization function
 // Returns a true or false value based on successful completion of setup.
@@ -186,28 +118,66 @@ void SDLGraphicsProgram::loop(){
     // Main loop flag
     // If this is quit = 'true' then the program terminates.
     bool quit = false;
+    // define microseconds per update
+    double mcs_per_update = MCS_PER_SECOND / FRAME_RATE;
+
+    // elapsed_time - measure how much time spent after last update/render
+    // elapsed_time_total - measure total time elapsed
+    // lag - accumulate elapsed time for determining when to update to ensure steady frame rate
+    double lag, elapsed_time, elapsed_time_total = 0.0;
+    // frame_counter - measure the real frame rate
+    int    frame_counter     = 0;
     // Event handler that handles various events in SDL
     // that are related to input and output
     SDL_Event e;
     // Enable text input
     SDL_StartTextInput();
+    // for measuring times while running
+    std::chrono::steady_clock::time_point previous_time, current_time, duration;
+    // record the initial time
+    previous_time = std::chrono::steady_clock::now();
     // While application is running
     while(!quit){
-      //Handle events on queue
-      while(SDL_PollEvent( &e ) != 0){
-        // User posts an event to quit
-        // An example is hitting the "x" in the corner of the window.
-        if(e.type == SDL_QUIT){
-          quit = true;
-        }		
-      }
-	  // Update our scene
-	  update();
-      // Render using OpenGL
-      render();
-      //Update screen of our specified window
-      // SDL_GL_SwapWindow(getSDLWindow());
-    }
+        //Handle events on queue
+        while(SDL_PollEvent( &e ) != 0){
+            // User posts an event to quit
+            // An example is hitting the "x" in the corner of the window.
+            if(e.type == SDL_QUIT){
+                quit = true;
+            }		
+        }
+        current_time  = std::chrono::steady_clock::now();
+        elapsed_time  = (double)std::chrono::duration_cast<std::chrono::microseconds>
+                          (current_time - previous_time).count();
+        // renew time record
+        previous_time = current_time;
+        // record overall time elapsed (in microseconds)
+        elapsed_time_total += elapsed_time;
+
+        if(STABLE_FRAME) {
+            // record how much time has been spent since last loop (in microseconds)
+            lag += elapsed_time;
+            //std::cout << lag;
+            while(lag >= mcs_per_update) {
+                // Update our scene
+                update();
+                lag -= mcs_per_update;
+                frame_counter ++;
+            }
+        } else {
+            update();
+            frame_counter ++;
+        }
+        // for every 1 second, report frame rate and re-initialize counters
+        if (elapsed_time_total > MCS_PER_SECOND)
+        {
+            std::cout << "current frame rate: " << frame_counter << std::endl;
+            frame_counter = 0;
+            elapsed_time_total = 0.0;
+        }
+        // Render using OpenGL
+        render();
+    } 
 
     //Disable text input
     SDL_StopTextInput();
@@ -215,10 +185,10 @@ void SDLGraphicsProgram::loop(){
 
 // Get Pointer to Window
 SDL_Window* SDLGraphicsProgram::getSDLWindow(){
-  return gWindow;
+    return gWindow;
 }
 
 // Get Pointer to Renderer
 SDL_Renderer* SDLGraphicsProgram::getSDLRenderer(){
-  return gRenderer;
+    return gRenderer;
 }

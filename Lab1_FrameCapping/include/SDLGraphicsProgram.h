@@ -23,6 +23,7 @@
 #include <fstream>
 #include <stdlib.h>
 #include <time.h>       /* time */
+#include <chrono>
 
 
 // This class sets up a full graphics program
