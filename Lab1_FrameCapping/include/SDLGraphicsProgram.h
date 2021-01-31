@@ -44,7 +44,10 @@ public:
     SDL_Window* getSDLWindow();
     // Get Pointer to Renderer
     SDL_Renderer* getSDLRenderer();
-
+    // the Update() helper function that provide a frame stablizer
+    void updateWithTimer(std::chrono::steady_clock::time_point &previous_time,
+                        double &elapsed_time_total, int &frame_counter, 
+                        double &lag, double mcs_per_update);
 private:
     // Screen dimension constants
     int screenHeight;
@@ -53,6 +56,14 @@ private:
     SDL_Window* gWindow ;
     // SDL Renderer
     SDL_Renderer* gRenderer = NULL;
+
+    int frame_rate {60};
+    // I used microseconds instead of miliseconds for better precision
+    // using miliseconds (larger gap) would sometimes ignore time elapsed if
+    // the last update/render loop runs too fast
+    int mcs_per_second {1000000};
+    // switch between ideal frame rate and crazy frame rate
+    bool stable_frame {true};
 };
 
 #endif

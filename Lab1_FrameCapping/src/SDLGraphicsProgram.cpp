@@ -1,13 +1,5 @@
 #include "SDLGraphicsProgram.h"
-#include "rectangle.h"
-
-#define FRAME_RATE      60
-// I used microseconds instead of miliseconds for better precision
-// using miliseconds (larger gap) would sometimes ignore time elapsed if
-// the last update/render loop runs too fast
-#define MCS_PER_SECOND  1000000
-// switch between ideal frame rate and crazy frame rate
-#define STABLE_FRAME    true
+#include "rectangle.cpp"
 
 // Initialization function
 // Returns a true or false value based on successful completion of setup.
@@ -111,7 +103,43 @@ void SDLGraphicsProgram::render(){
     SDL_RenderPresent(gRenderer);
 }
 
-
+void SDLGraphicsProgram::updateWithTimer(std::chrono::steady_clock::time_point &previous_time,
+                     double &elapsed_time_total, int &frame_counter, 
+                     double &lag, double mcs_per_update) {
+    // time recorders
+    std::chrono::steady_clock::time_point current_time;
+    double elapsed_time;
+    // calculate how much time has elapsed since last record (usually 1 render loop earlier)
+    current_time  = std::chrono::steady_clock::now();
+    elapsed_time  = (double)std::chrono::duration_cast<std::chrono::microseconds>
+                      (current_time - previous_time).count();
+    // renew time record
+    previous_time = current_time;
+    // record overall time spend (in microseconds)
+    elapsed_time_total += elapsed_time;
+    // stablizer switch
+    if(stable_frame) {
+        // if the last update/render loop spent more than fps limit (16.67ms for 60 fps)
+        // we update untill the game progress catches up
+        lag += elapsed_time;
+        while(lag >= mcs_per_update) {
+            // Update our scene
+            update();
+            lag -= mcs_per_update;
+            frame_counter ++;
+        }
+    } else {
+        update();
+        frame_counter ++;
+    }
+    // for every 1 second, report frame rate and re-initialize counters
+    if (elapsed_time_total > mcs_per_second)
+    {
+        std::cout << "current frame rate: " << frame_counter << std::endl;
+        frame_counter = 0;
+        elapsed_time_total = 0.0;
+    }
+}
 
 //Loops forever!
 void SDLGraphicsProgram::loop(){
@@ -119,21 +147,21 @@ void SDLGraphicsProgram::loop(){
     // If this is quit = 'true' then the program terminates.
     bool quit = false;
     // define microseconds per update
-    double mcs_per_update = MCS_PER_SECOND / FRAME_RATE;
+    double mcs_per_update = mcs_per_second / frame_rate;
 
     // elapsed_time - measure how much time spent after last update/render
     // elapsed_time_total - measure total time elapsed
     // lag - accumulate elapsed time for determining when to update to ensure steady frame rate
-    double lag, elapsed_time, elapsed_time_total = 0.0;
+    double lag, elapsed_time_total = 0.0;
     // frame_counter - measure the real frame rate
-    int    frame_counter     = 0;
+    int frame_counter = 0;
     // Event handler that handles various events in SDL
     // that are related to input and output
     SDL_Event e;
     // Enable text input
     SDL_StartTextInput();
-    // for measuring times while running
-    std::chrono::steady_clock::time_point previous_time, current_time, duration;
+    // chrono::steadyclock for measuring times accurately while rendering
+    std::chrono::steady_clock::time_point previous_time;
     // record the initial time
     previous_time = std::chrono::steady_clock::now();
     // While application is running
@@ -144,37 +172,10 @@ void SDLGraphicsProgram::loop(){
             // An example is hitting the "x" in the corner of the window.
             if(e.type == SDL_QUIT){
                 quit = true;
-            }		
-        }
-        current_time  = std::chrono::steady_clock::now();
-        elapsed_time  = (double)std::chrono::duration_cast<std::chrono::microseconds>
-                          (current_time - previous_time).count();
-        // renew time record
-        previous_time = current_time;
-        // record overall time elapsed (in microseconds)
-        elapsed_time_total += elapsed_time;
-
-        if(STABLE_FRAME) {
-            // record how much time has been spent since last loop (in microseconds)
-            lag += elapsed_time;
-            //std::cout << lag;
-            while(lag >= mcs_per_update) {
-                // Update our scene
-                update();
-                lag -= mcs_per_update;
-                frame_counter ++;
             }
-        } else {
-            update();
-            frame_counter ++;
         }
-        // for every 1 second, report frame rate and re-initialize counters
-        if (elapsed_time_total > MCS_PER_SECOND)
-        {
-            std::cout << "current frame rate: " << frame_counter << std::endl;
-            frame_counter = 0;
-            elapsed_time_total = 0.0;
-        }
+        // update with a frame stablizer
+        updateWithTimer(previous_time, elapsed_time_total, frame_counter, lag, mcs_per_update);
         // Render using OpenGL
         render();
     } 

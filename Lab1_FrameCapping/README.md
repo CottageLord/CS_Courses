@@ -11,11 +11,18 @@
 ## Modify this section
 
 - How many hours did it take you to complete this lab?
+- Around 2 hours to finish basic functionality, plus 1 hour to polish/write
+
 - Did you collaborate with any other students/TAs/Professors?
+- No
+
 - Did you use any external resources? (Cite them below)
-  - tbd
-  - tbd
+  - I referenced the codes and ideas from the text book
+  - I looked up the C++ online library from additional libraries like std::chrono
+
 - (Optional) What was your favorite part of the lab?
+- It encourages us to make better practices, instead of only making the code work.
+
 - (Optional) How would you improve the lab?
 
 ## Logistics
