@@ -17,8 +17,9 @@
 - No
 
 - Did you use any external resources? (Cite them below)
-  - I referenced the codes and ideas from the text book
+  - I referenced the frame stablizer codes and ideas from the text book
   - I looked up the C++ online library from additional libraries like std::chrono
+  - I browsed lazyfoo.net to learn the related SDL functions
 
 - (Optional) What was your favorite part of the lab?
 - It encourages us to make better practices, instead of only making the code work.
@@ -58,9 +59,7 @@ Good luck!
 
 Answer: 
 
-1. *fill this in*
-2. *fill this in*
-
+1. The SDL abstraction supports handy approaches to perform graphic tasks. Since I haven't dove into it very much, I could hardly find any improvements for it yet. The only thing I can come up with is that some functions balance tradeoffs between convenience and free of control, which makes desired improvements harder to achive. For example, the get_ticks uses miliseconds, which might not be precise enough in some cases. This is also why I used std::chrono.
 
 ## Helpful Resources
 
