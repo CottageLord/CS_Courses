@@ -103,6 +103,7 @@ void SDLGraphicsProgram::render(){
     SDL_RenderPresent(gRenderer);
 }
 
+// The helper function that performs one update() with frame stablizer
 void SDLGraphicsProgram::updateWithTimer(std::chrono::steady_clock::time_point &previous_time,
                      double &elapsed_time_total, int &frame_counter, 
                      double &lag, double mcs_per_update) {

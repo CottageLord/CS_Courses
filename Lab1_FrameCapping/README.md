@@ -59,7 +59,8 @@ Good luck!
 
 Answer: 
 
-1. The SDL abstraction supports handy approaches to perform graphic tasks. Since I haven't dove into it very much, I could hardly find any improvements for it yet. The only thing I can come up with is that some functions balance tradeoffs between convenience and free of control, which makes desired improvements harder to achive. For example, the get_ticks uses miliseconds, which might not be precise enough in some cases. This is also why I used std::chrono.
+1. The SDL abstraction supports handy functions to perform render tasks. The screen setup and running are pretty elegant, and the internal mechanics are easy to grasp. 
+2. Since I haven't dove into it very much, I could hardly find any improvements for it yet. The only thing I can come up with is that some functions balance tradeoffs between convenience and free of control, which makes desired improvements harder to achieve. For example, the get_ticks uses miliseconds, which might not be precise enough in some cases. This is also why I used std::chrono.
 
 ## Helpful Resources
 
