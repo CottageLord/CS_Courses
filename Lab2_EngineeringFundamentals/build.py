@@ -25,9 +25,9 @@ elif platform.system()=="Darwin":
 elif platform.system()=="Windows":
     COMPILER="g++ -std=c++17" # Note we use g++ here as it is more likely what you have
     ARGUMENTS="-D MINGW -std=c++17 -static-libgcc -static-libstdc++" 
-    INCLUDE_DIR="-I./include/ -I./../common/thirdparty/old/glm/"
+    INCLUDE_DIR="-I./include/ -I./../common/thirdparty/old/glm/ -ISDL2_ttf_lib/include/SDL2 -LSDL2_ttf_lib/lib"
     EXECUTABLE="lab.exe"
-    LIBRARIES="-lmingw32 -lSDL2main -lSDL2 -mwindows"
+    LIBRARIES="-lmingw32 -lSDL2main -lSDL2 -lSDL2_ttf -mwindows"
 # (2)=================== Platform specific configuration ===================== #
 
 # (3)====================== Building the Executable ========================== #

@@ -14,7 +14,7 @@
 #include "lab.hpp"
 
 // Initialization function
-bool init() {
+bool init_window() {
 	// Initialization flag
     bool success = true;
     // String to hold any errors that occur.
@@ -61,6 +61,12 @@ bool init() {
     return success;
 }
 
+bool init_components() {
+	TTF_Init();
+	// Initialize the font
+	scoreFont = TTF_OpenFont("DejaVuSansMono.ttf", 40);
+	
+}
 // This is where we do work in our graphics applications
 // that is constantly refreshed.
 void update() {
@@ -89,20 +95,35 @@ void render() {
 		}
 	}
 
-	//==================== Finish the net ==================//
+	//==================== Draw the ball ==================//
+	//ball.x = ;
+	//ball.y = ;
+	ball.Draw(g_renderer);
+	paddle_1.Draw(g_renderer);
+	paddle_2.Draw(g_renderer);
 
+	player_1_score_text.Draw();
+	player_2_score_text.Draw();
+	//================= Render all elements ================//
 	SDL_RenderPresent(g_renderer);
 }
 
 // Proper shutdown and destroy initialized objects
 void close() {
+
+	// close the font
+	TTF_CloseFont(scoreFont);
+	TTF_Quit();
+
     // Destroy Renderer
     SDL_DestroyRenderer(g_renderer);
 	//Destroy window
 	SDL_DestroyWindow( g_window );
+
     // Point g_window to NULL to ensure it points to nothing.
 	g_renderer = NULL;
     g_window = NULL;
+
 	//Quit SDL subsystems
 	SDL_Quit();
 }
@@ -189,7 +210,7 @@ void loop() {
 int main(int argc, char* args[])
 {
 	// Start up SDL and create window
-	if (init()) loop();
+	if (init_window()) loop();
 	close();
 	return 0;
 }
