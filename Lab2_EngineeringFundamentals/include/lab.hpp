@@ -4,10 +4,6 @@
 #include "PlayerScore.hpp"
 // ========================= Classes =======================
 
-//Screen dimension constants
-const int SCREEN_WIDTH = 1080;
-const int SCREEN_HEIGHT = 720;
-
 //Starts up SDL, creates window, and initializes OpenGL
 bool init_window();
 
@@ -29,6 +25,16 @@ void update_with_timer(std::chrono::steady_clock::time_point &previous_time,
                     double &elapsed_time_total, int &frame_counter, 
                     double &lag, double mcs_per_update);
 
+// ======================SDL essentials ===================//
+
+//The window we'll be rendering to
+SDL_Window* g_window {NULL};
+//SDL renderer
+SDL_Renderer* g_renderer {NULL};
+
+// Initialize the font
+TTF_Font* score_font = TTF_OpenFont("DejaVuSansMono.ttf", 40);
+
 // ================== frame stablizer vars ================//
 
 const int frame_rate {60};
@@ -48,22 +54,33 @@ Ball ball(Vec2((SCREEN_WIDTH / 2.0f) - (BALL_WIDTH / 2.0f),
 
 // Create the paddles
 Paddle paddle_1(Vec2(50.0f, 
-	(SCREEN_HEIGHT / 2.0f) - (PADDLE_HEIGHT / 2.0f)));
+	(SCREEN_HEIGHT / 2.0f) - (PADDLE_HEIGHT / 2.0f)),
+	Vec2(0.0f, 0.0f));
 
 Paddle paddle_2(Vec2(SCREEN_WIDTH - 50.0f, 
-	(SCREEN_HEIGHT / 2.0f) - (PADDLE_HEIGHT / 2.0f)));
+	(SCREEN_HEIGHT / 2.0f) - (PADDLE_HEIGHT / 2.0f)),
+	Vec2(0.0f, 0.0f));
 
 // Create the player score text fields
 // player 1 at 1/4 width pos
-PlayerScore player_1_score_text(Vec2(WINDOW_WIDTH / 4, 20), renderer, scoreFont, scoreColor);
+PlayerScore player_1_score_text(Vec2(SCREEN_WIDTH / 4, 20), g_renderer, score_font);
 // player 2 at 3/4 width pos
-PlayerScore player_2_score_text(Vec2(3 * WINDOW_WIDTH / 4, 20), renderer, scoreFont, scoreColor);
+PlayerScore player_2_score_text(Vec2(3 * SCREEN_WIDTH / 4, 20), g_renderer, score_font);
 
-// ======================SDL essentials ===================//
+//====================== Event handle ===================//
 
-//The window we'll be rendering to
-SDL_Window* g_window {NULL};
-//SDL renderer
-SDL_Renderer* g_renderer {NULL};
+enum Buttons
+{
+	paddle_1_up = 0,
+	paddle_1_down,
+	paddle_2_up,
+	paddle_2_down,
+};
 
-TTF_Font* scoreFont;
+bool buttons[4] = {};
+
+// ======================== Game Rule== ===================//
+
+const float PADDLE_SPEED = 1.0f;
+
+

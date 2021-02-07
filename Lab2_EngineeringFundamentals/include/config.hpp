@@ -11,7 +11,7 @@
 // dependencies.
 #if defined(LINUX) || defined(MINGW)
 	#include <SDL2/SDL.h>
-	#include <SDL_ttf.h>
+	#include <SDL2/SDL_ttf.h>
 #else
 	// Windows and Mac use a different path
 	// If you have compilation errors, change this as needed.
@@ -24,5 +24,9 @@
 #include <sstream>
 #include <string>
 #include <chrono>
+
+//Screen dimension constants
+const int SCREEN_WIDTH = 1080;
+const int SCREEN_HEIGHT = 720;
 
 #endif

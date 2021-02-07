@@ -15,22 +15,21 @@
 
 // Initialization function
 bool init_window() {
-	// Initialization flag
+    // Initialization flag
     bool success = true;
     // String to hold any errors that occur.
     std::stringstream errorStream;
     // The window we'll be rendering to
     g_window = NULL;
     // Render flag
-
-	// Initialize SDL
-	if(SDL_Init(SDL_INIT_VIDEO)< 0){
-		errorStream << "SDL could not initialize! SDL Error: " << SDL_GetError() << "\n";
-		success = false;
-	}
-	else{
-		//Create window
-		g_window = SDL_CreateWindow( "Lab",
+    // Initialize SDL
+    if(SDL_Init(SDL_INIT_VIDEO)< 0){
+        errorStream << "SDL could not initialize! SDL Error: " << SDL_GetError() << "\n";
+        success = false;
+    }
+    else{
+        //Create window
+        g_window = SDL_CreateWindow( "Lab",
                                 SDL_WINDOWPOS_UNDEFINED,
                                 SDL_WINDOWPOS_UNDEFINED,
                                 SCREEN_WIDTH,
@@ -38,16 +37,16 @@ bool init_window() {
                                 SDL_WINDOW_SHOWN );
         // Check if Window did not create.
         if( g_window == NULL ){
-			errorStream << "Window could not be created! SDL Error: " << SDL_GetError() << "\n";
-			success = false;
-		}
-		//Create a Renderer to draw on
+            errorStream << "Window could not be created! SDL Error: " << SDL_GetError() << "\n";
+            success = false;
+        }
+        //Create a Renderer to draw on
         g_renderer = SDL_CreateRenderer(g_window, -1, SDL_RENDERER_ACCELERATED);
         // Check if Renderer did not create.
         if( g_renderer == NULL ){
-			errorStream << "Renderer could not be created! SDL Error: " << SDL_GetError() << "\n";
-			success = false;
-		}
+            errorStream << "Renderer could not be created! SDL Error: " << SDL_GetError() << "\n";
+            success = false;
+        }
     }
 
     // If initialization did not work, then print out a list of errors in the constructor.
@@ -62,70 +61,67 @@ bool init_window() {
 }
 
 bool init_components() {
-	TTF_Init();
-	// Initialize the font
-	scoreFont = TTF_OpenFont("DejaVuSansMono.ttf", 40);
-	
+    TTF_Init();
+    return true;
 }
 // This is where we do work in our graphics applications
 // that is constantly refreshed.
 void update() {
-	// set the window to black
+    // set the window to black
 
 }
 
 // This function draws images.
 void render() {
-	//============= Clear the window to black ==============//
+    //============= Clear the window to black ==============//
+    SDL_SetRenderDrawColor(g_renderer, 0x55, 0x0, 0x0, 0xFF);
+    SDL_RenderClear(g_renderer);
 
-	SDL_SetRenderDrawColor(g_renderer, 0x0, 0x0, 0x0, 0xFF);
-	SDL_RenderClear(g_renderer);
+    //==================== Draw the net ====================//
 
-	//==================== Draw the net ====================//
+    // Set the draw color to be white
+    SDL_SetRenderDrawColor(g_renderer, 0xFF, 0xFF, 0xFF, 0xFF);
 
-	// Set the draw color to be white
-	SDL_SetRenderDrawColor(g_renderer, 0xFF, 0xFF, 0xFF, 0xFF);
+    // Draw the net
+    for (int y = 0; y < SCREEN_HEIGHT; ++y)
+    {
+        if (y % 5)
+        {
+            SDL_RenderDrawPoint(g_renderer, SCREEN_WIDTH / 2, y);
+        }
+    }
 
-	// Draw the net
-	for (int y = 0; y < SCREEN_HEIGHT; ++y)
-	{
-		if (y % 5)
-		{
-			SDL_RenderDrawPoint(g_renderer, SCREEN_WIDTH / 2, y);
-		}
-	}
+    //==================== Draw the ball ==================//
+    //ball.x = ;
+    //ball.y = ;
+    ball.Draw(g_renderer);
+    paddle_1.Draw(g_renderer);
+    paddle_2.Draw(g_renderer);
 
-	//==================== Draw the ball ==================//
-	//ball.x = ;
-	//ball.y = ;
-	ball.Draw(g_renderer);
-	paddle_1.Draw(g_renderer);
-	paddle_2.Draw(g_renderer);
-
-	player_1_score_text.Draw();
-	player_2_score_text.Draw();
-	//================= Render all elements ================//
-	SDL_RenderPresent(g_renderer);
+    player_1_score_text.Draw();
+    player_2_score_text.Draw();
+    //================= Render all elements ================//
+    SDL_RenderPresent(g_renderer);
 }
 
 // Proper shutdown and destroy initialized objects
 void close() {
 
-	// close the font
-	TTF_CloseFont(scoreFont);
-	TTF_Quit();
+    // close the font
+    //TTF_CloseFont(score_font);
+    TTF_Quit();
 
     // Destroy Renderer
     SDL_DestroyRenderer(g_renderer);
-	//Destroy window
-	SDL_DestroyWindow( g_window );
+    //Destroy window
+    SDL_DestroyWindow( g_window );
 
     // Point g_window to NULL to ensure it points to nothing.
-	g_renderer = NULL;
+    g_renderer = NULL;
     g_window = NULL;
 
-	//Quit SDL subsystems
-	SDL_Quit();
+    //Quit SDL subsystems
+    SDL_Quit();
 }
 
 // the Update() helper function that provide a frame stablizer
@@ -166,9 +162,46 @@ void update_with_timer(std::chrono::steady_clock::time_point &previous_time, dou
     }
 }
 
+// handle various keyboard event
+void handle_event(bool &quit) {
+    // Event handler that handles various events in SDL
+    // that are related to input and output
+    SDL_Event event;
+    //Handle events on queue
+    while(SDL_PollEvent( &event ) != 0){
+        // User posts an event to quit
+        // An example is hitting the "x" in the corner of the window.
+        if(event.type == SDL_QUIT){
+            quit = true;
+        } else if (event.type == SDL_KEYDOWN) { // respond to various keyboard inputs
+            if (event.key.keysym.sym == SDLK_ESCAPE)    quit = true;
+            else if (event.key.keysym.sym == SDLK_w)    buttons[Buttons::paddle_1_up]   = true;
+            else if (event.key.keysym.sym == SDLK_s)    buttons[Buttons::paddle_1_down] = true;
+            else if (event.key.keysym.sym == SDLK_UP)   buttons[Buttons::paddle_2_up]   = true;
+            else if (event.key.keysym.sym == SDLK_DOWN) buttons[Buttons::paddle_2_down] = true;
+        }
+        else if (event.type == SDL_KEYUP)
+        {
+            if (event.key.keysym.sym == SDLK_w)         buttons[Buttons::paddle_1_up]   = false;
+            else if (event.key.keysym.sym == SDLK_s)    buttons[Buttons::paddle_1_down] = false;
+            else if (event.key.keysym.sym == SDLK_UP)   buttons[Buttons::paddle_2_up]   = false;
+            else if (event.key.keysym.sym == SDLK_DOWN) buttons[Buttons::paddle_2_down] = false;
+        }
+    }
+
+    // adjust paddle's velocity accordingly
+    if (buttons[Buttons::paddle_1_up])        paddle_1.velocity.y = -PADDLE_SPEED;
+    else if (buttons[Buttons::paddle_1_down]) paddle_1.velocity.y = PADDLE_SPEED;
+    else                                      paddle_1.velocity.y = 0.0f;
+
+    if (buttons[Buttons::paddle_2_up])        paddle_2.velocity.y = -PADDLE_SPEED;
+    else if (buttons[Buttons::paddle_2_down]) paddle_2.velocity.y = PADDLE_SPEED;
+    else                                      paddle_2.velocity.y = 0.0f;
+}
+
 // execute main game loop
 void loop() {
-	// If this is quit = 'true' then the program terminates.
+    // If this is quit = 'true' then the program terminates.
     bool quit = false;
     // define microseconds per update
     double mcs_per_update = mcs_per_second / frame_rate;
@@ -177,30 +210,25 @@ void loop() {
     double lag, elapsed_time_total = 0.0;
     // frame_counter - measure the real frame rate
     int frame_counter = 0;
-    // Event handler that handles various events in SDL
-    // that are related to input and output
-    SDL_Event e;
+
+    // ==================== LOGIC BEGIN ==================== //
+
     // Enable text input
     SDL_StartTextInput();
+
     // chrono::steadyclock for measuring times accurately while rendering
     std::chrono::steady_clock::time_point previous_time;
     // record the initial time
     previous_time = std::chrono::steady_clock::now();
     // While application is running
     while(!quit){
-        //Handle events on queue
-        while(SDL_PollEvent( &e ) != 0){
-            // User posts an event to quit
-            // An example is hitting the "x" in the corner of the window.
-            if(e.type == SDL_QUIT){
-                quit = true;
-            }
-        }
+        handle_event(quit);
         // update with a frame stablizer
         update_with_timer(previous_time, elapsed_time_total, frame_counter, lag, mcs_per_update);
         // Render using SDL
         render();
     } 
+
     //Disable text input
     SDL_StopTextInput();
 }
@@ -209,8 +237,10 @@ void loop() {
 // where the program starts.
 int main(int argc, char* args[])
 {
-	// Start up SDL and create window
-	if (init_window()) loop();
-	close();
-	return 0;
+    // Start up SDL and create window
+    
+    if (init_window() && init_components()) loop();
+    close();
+    
+    return 0;
 }

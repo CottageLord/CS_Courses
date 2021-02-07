@@ -14,6 +14,7 @@ public:
 	{
 		// the surfaces to be written
 		surface = TTF_RenderText_Solid(font, "0", {0xFF, 0xFF, 0xFF, 0xFF});
+		
 		texture = SDL_CreateTextureFromSurface(renderer, surface);
 
 		int width, height;
@@ -43,6 +44,6 @@ public:
 	SDL_Rect rect{};
 };
 
-extern PlayerScore score_display;
+extern PlayerScore player_1_score_text, player_2_score_text;
 
 #endif
