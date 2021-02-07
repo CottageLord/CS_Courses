@@ -66,7 +66,7 @@ I have provided some links below. [Lazy Foo](http://lazyfoo.net/tutorials/SDL/01
 
 ## Part 2 - Simple DirectMedia Layer (SDL) (Reading ~2 minutes)
 
-SDL("Simple DirectMedia Layer") is a library that allows us to draw a window to the screen. We will be using SDL version 2.0+ for this course. SDL itself is an abstraction layer that can create windows for the appropriate platform(i.e. Windows, Mac, Linux, mobile, etc.), without us have to do the real nitty gritty details of setting up a window.
+SDL("Simple DirectMedia Layer") is a library that allows us to draw a window to the screen. We will be using SDL version 2.0+ for this course. SDL itself is an abstraction layer that can create windows for the appropriate platform (i.e. Windows, Mac, Linux, mobile, etc.), without us have to do the real nitty gritty details of setting up a window.
 
 Some additional notes:
 
@@ -80,7 +80,12 @@ Some additional notes:
 
 List one good coding style practice you have learned (Specify if in another language other than C++):
 
-*edit here to add your best coding practice*
+Frequently review the code to make it not only runnable, but readable, maintainable and expandable. In specific, this includes:
+- perioducal test: I usually test from the very beginning, including file reading, main program loop, etc.
+- consistent indentation & naming convention
+- descriptions above each file and class / function
+- meaningful in text comment
+- apply modularity, reduce redundancy - high cohesion and low coupling
 
 # Part 4 - Pong
 
