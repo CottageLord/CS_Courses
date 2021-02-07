@@ -61,6 +61,7 @@ bool init_window() {
 }
 
 bool init_components() {
+    SDL_Init(SDL_INIT_VIDEO);
     TTF_Init();
     return true;
 }

@@ -44,6 +44,6 @@ public:
 	SDL_Rect rect{};
 };
 
-extern PlayerScore player_1_score_text, player_2_score_text;
+//extern PlayerScore player_1_score_text, player_2_score_text;
 
 #endif
