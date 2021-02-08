@@ -30,13 +30,13 @@ public:
 		rect.h = height;
 	}
 
-	void set_score(int score)
+	void set_score(std::string const &text_to_display)
 	{
 		// free the former surface
 		SDL_FreeSurface(surface);
 		SDL_DestroyTexture(texture);
 
-		surface = TTF_RenderText_Solid(font, std::to_string(score).c_str(), {0xFF, 0xFF, 0xFF, 0xFF});
+		surface = TTF_RenderText_Solid(font, text_to_display.c_str(), {0xFF, 0xFF, 0xFF, 0xFF});
 		texture = SDL_CreateTextureFromSurface(renderer, surface);
 
 		int width, height;

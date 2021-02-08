@@ -64,7 +64,7 @@ bool init_components() {
     TTF_Init();
     // load font
     score_font = TTF_OpenFont("DejaVuSansMono.ttf", 40);
-    // load sound player
+    // load score display
     score_display.display_1 = new PlayerScore(Vec2(SCREEN_WIDTH / 4, 20), g_renderer, score_font);
     // player 2 at 3/4 width pos
     score_display.display_2 = new PlayerScore(Vec2(3 * SCREEN_WIDTH / 4, 20), g_renderer, score_font);
@@ -72,48 +72,83 @@ bool init_components() {
 
     return true;
 }
+
+void restart_game() {
+    pause = true;
+    player_1_score = 0;
+    player_2_score = 0;
+}
+
 // This is where we do work in our graphics applications
 // that is constantly refreshed.
 void update(double elapsed_time) {
-    // set the window to black
-    // Update the paddle positions
-    paddle_1.Update(elapsed_time);
-    paddle_2.Update(elapsed_time);
-
-    Contact contact;
-    // =================== Check collisions ==================//
-    // if collides, update velocity
-    if (contact = check_paddle_collision(ball, paddle_1);
-    contact.type != CollisionType::None)
-    {
-        ball.collide_with_paddle(contact);
-    }
-    else if (contact = check_paddle_collision(ball, paddle_2);
-        contact.type != CollisionType::None)
-    {
-        ball.collide_with_paddle(contact);
-    }
-    // wall collision
-    else if (contact = check_wall_collision(ball);
-        contact.type != CollisionType::None)
-    {
-        ball.collide_with_wall(contact);
-    }
-    // ================= Update the ball position ================//
-
-    ball.Update(elapsed_time);
 
     // ================= Update the player score ================//
+    // if already win, show win msg
+    if(pause){
+        if (player_1_win)
+        {
+            score_display.display_1->set_score("P1 wins!     press R");
+            score_display.display_2->set_score("to restart!");
+        }
+        else if (!player_1_win) {
+            score_display.display_1->set_score("P2 wins!     press R");
+            score_display.display_2->set_score("to restart!");
+        }
+        // reset the ball / paddle positions
+        ball.position.x = (SCREEN_WIDTH / 2.0f) - (BALL_WIDTH / 2.0f);
+        ball.position.y = (SCREEN_HEIGHT / 2.0f) - (BALL_WIDTH / 2.0f);
 
-    if (contact.type == CollisionType::Left)
-    {
-        ++player_2_score;
-        score_display.display_2->set_score(player_2_score);
+        paddle_1.position.x = 50.0f;
+        paddle_1.position.y = (SCREEN_HEIGHT / 2.0f) - (PADDLE_HEIGHT / 2.0f);
+
+        paddle_2.position.x = SCREEN_WIDTH - 50.0f;
+        paddle_2.position.y = (SCREEN_HEIGHT / 2.0f) - (PADDLE_HEIGHT / 2.0f);
+
+        // else keep the game run
+    } else {
+        // Update the paddle positions
+        paddle_1.Update(elapsed_time);
+        paddle_2.Update(elapsed_time);
+
+        Contact contact;
+        // =================== Check collisions ==================//
+        // if collides, update velocity
+        if (contact = check_paddle_collision(ball, paddle_1);
+        contact.type != CollisionType::None)
+        {
+            ball.collide_with_paddle(contact);
+        }
+        else if (contact = check_paddle_collision(ball, paddle_2);
+            contact.type != CollisionType::None)
+        {
+            ball.collide_with_paddle(contact);
+        }
+        // wall collision
+        else if (contact = check_wall_collision(ball);
+            contact.type != CollisionType::None)
+        {
+            ball.collide_with_wall(contact);
+        }
+        // ================= Update the ball position ================//
+
+        ball.Update(elapsed_time);
+
+        // ================= Update the score ================//
+
+        if (contact.type == CollisionType::Left) ++player_2_score;
+        else if (contact.type == CollisionType::Right) ++player_1_score;
+
+        score_display.display_1->set_score(std::to_string(player_1_score));
+        score_display.display_2->set_score(std::to_string(player_2_score));
     }
-    else if (contact.type == CollisionType::Right)
+
+    // =================== check win condition ==================//
+
+    if (player_1_score >= SCORE_TO_WIN || player_2_score >= SCORE_TO_WIN)
     {
-        ++player_1_score;
-        score_display.display_1->set_score(player_1_score);
+        player_1_win = player_1_score >= SCORE_TO_WIN;
+        restart_game();
     }
 }
 
@@ -138,17 +173,22 @@ void render() {
     }
 
     //==================== Draw the ball ==================//
-    //ball.x = ;
-    //ball.y = ;
+
     ball.Draw(g_renderer);
     
+    //=================== Draw the paddle =================//
+
     paddle_1.Draw(g_renderer);
     paddle_2.Draw(g_renderer);
+
+    //=================== Draw the score ==================//
+
 
     score_display.display_1->Draw();
     score_display.display_2->Draw();
 
     //================= Render all elements ================//
+
     SDL_RenderPresent(g_renderer);
 }
 
@@ -227,6 +267,7 @@ void handle_event(bool &quit) {
             quit = true;
         } else if (event.type == SDL_KEYDOWN) { // respond to various keyboard inputs
             if (event.key.keysym.sym == SDLK_ESCAPE)    quit = true;
+            if (event.key.keysym.sym == SDLK_r)         pause = false;
             else if (event.key.keysym.sym == SDLK_w)    buttons[Buttons::paddle_1_up]   = true;
             else if (event.key.keysym.sym == SDLK_s)    buttons[Buttons::paddle_1_down] = true;
             else if (event.key.keysym.sym == SDLK_UP)   buttons[Buttons::paddle_2_up]   = true;
@@ -257,6 +298,7 @@ void loop() {
     bool quit = false;
     // define microseconds per update
     double mcs_per_update = mcs_per_second / frame_rate;
+    double ms_per_update = mcs_per_update / 1000;
     // elapsed_time_total - measure total time elapsed
     // lag - accumulate elapsed time for determining when to update to ensure steady frame rate
     double lag = 0, elapsed_time_total = 0.0;

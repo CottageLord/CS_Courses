@@ -1,6 +1,6 @@
 #ifndef COLLISION_CLASS
 #define COLLISION_CLASS
-
+// check collision with Separating Axis Theorem
 #include "config.hpp"
 #include "Ball.hpp"
 #include "Paddle.hpp"
@@ -20,7 +20,7 @@ Contact check_paddle_collision(Ball const& ball, Paddle const& paddle)
 
 	Contact contact{};
 
-	// if collision occurs (a simple SAT system)
+	// if collision occurs (a simple Separating Axis Theorem system)
 	if (ball_left 	>= paddle_right) 	return contact;
 	if (ball_right 	<= paddle_left) 	return contact;
 	if (ball_top 	>= paddle_bottom) 	return contact;
@@ -61,8 +61,8 @@ Contact check_paddle_collision(Ball const& ball, Paddle const& paddle)
 }
 
 // check if the ball hit the wall
-Contact check_wall_collision(Ball const& ball)
-{
+Contact check_wall_collision(Ball const& ball) {
+
 	float ball_left 	= ball.position.x;
 	float ball_right 	= ball.position.x + ball.rect.w;
 	float ball_top 		= ball.position.y;

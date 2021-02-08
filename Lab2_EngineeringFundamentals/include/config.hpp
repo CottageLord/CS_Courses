@@ -36,6 +36,10 @@ const float BALL_SPEED = 1.0f;
 
 int player_1_score = 0;
 int player_2_score = 0;
+
+const int SCORE_TO_WIN = 3;
+
+bool player_1_win = false;
 //====================== data structure ===================//
 
 enum Buttons

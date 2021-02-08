@@ -69,5 +69,6 @@ Paddle paddle_2(Vec2(SCREEN_WIDTH - 50.0f,
 	(SCREEN_HEIGHT / 2.0f) - (PADDLE_HEIGHT / 2.0f)),
 	Vec2(0.0f, 0.0f));
 
+bool pause = false;
 // Create the player score text fields
 ScoreDisplay score_display(0,0);
