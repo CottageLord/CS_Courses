@@ -9,12 +9,17 @@
 ## Modify this section
 
 - How many hours did it take you to complete this lab?
+- Roughly 20 hours
 - Did you collaborate with any other students/TAs/Professors?
+- No
 - Did you use any external resources? (Cite them below)
-  - tbd
-  - tbd
+  - Some online cpp documentations
+  - StackOverflow
 - (Optional) What was your favorite part of the lab?
+  - It is a great start of learning physics and rendering systems.
 - (Optional) How would you improve the lab?
+  - the SDL_ttf set up for windows is a pain. It took over 70% of my overall time spending on this project. Hopefully this could be improved in the future.
+  - Also, maybe we should go over the build.py, and the compiler-related knowledge before this lab. I believe that will be a great help to rule out some confusions when debugging.
 
 ## Logistics
 
