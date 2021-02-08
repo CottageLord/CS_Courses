@@ -8,13 +8,17 @@
 class PlayerScore
 {
 public:
+
+	SDL_Renderer* renderer;
+	TTF_Font* font;
+	SDL_Surface* surface{};
+	SDL_Texture* texture{};
+	SDL_Rect rect{};
 	// specified initializer
 	PlayerScore(Vec2 position, SDL_Renderer* renderer, TTF_Font* font)
 		: renderer(renderer), font(font)
 	{
-		// the surfaces to be written
 		surface = TTF_RenderText_Solid(font, "0", {0xFF, 0xFF, 0xFF, 0xFF});
-		
 		texture = SDL_CreateTextureFromSurface(renderer, surface);
 
 		int width, height;
@@ -26,6 +30,21 @@ public:
 		rect.h = height;
 	}
 
+	void set_score(int score)
+	{
+		// free the former surface
+		SDL_FreeSurface(surface);
+		SDL_DestroyTexture(texture);
+
+		surface = TTF_RenderText_Solid(font, std::to_string(score).c_str(), {0xFF, 0xFF, 0xFF, 0xFF});
+		texture = SDL_CreateTextureFromSurface(renderer, surface);
+
+		int width, height;
+		SDL_QueryTexture(texture, nullptr, nullptr, &width, &height);
+		rect.w = width;
+		rect.h = height;
+	}
+
 	~PlayerScore()
 	{
 		SDL_FreeSurface(surface);
@@ -33,17 +52,9 @@ public:
 	}
 
 	void Draw()
-	{
+	{	
 		SDL_RenderCopy(renderer, texture, nullptr, &rect);
 	}
-
-	SDL_Renderer* renderer;
-	TTF_Font* font;
-	SDL_Surface* surface{};
-	SDL_Texture* texture{};
-	SDL_Rect rect{};
 };
-
-//extern PlayerScore player_1_score_text, player_2_score_text;
 
 #endif

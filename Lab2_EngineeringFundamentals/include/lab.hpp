@@ -1,7 +1,9 @@
 #include "config.hpp"
 #include "Ball.hpp"
 #include "Paddle.hpp"
+#include "collision.hpp"
 #include "PlayerScore.hpp"
+#include "ScoreDisplay.hpp"
 // ========================= Classes =======================
 
 //Starts up SDL, creates window, and initializes OpenGL
@@ -33,7 +35,7 @@ SDL_Window* g_window {NULL};
 SDL_Renderer* g_renderer {NULL};
 
 // Initialize the font
-TTF_Font* score_font = TTF_OpenFont("DejaVuSansMono.ttf", 40);
+TTF_Font* score_font;
 
 // ================== frame stablizer vars ================//
 
@@ -42,15 +44,21 @@ const int frame_rate {60};
 // using miliseconds (larger gap) would sometimes ignore time elapsed if
 // the last update/render loop runs too fast
 const int mcs_per_second {1000000};
+// as we use micro seconds, the time stamp of calculating update()
+// could be too large
+// this is for constraining the update loop time recorder to make sure
+// classes like paddle() could accept a more reasonable number
+const int time_cast {100};
 // switch between ideal frame rate and crazy frame rate
 const bool stable_frame {true};
+
 
 // ====================== game objects ====================//
 
 // Create the ball at the center of the screen
-// extern from Ball.hpp hence the only reference
 Ball ball(Vec2((SCREEN_WIDTH / 2.0f) - (BALL_WIDTH / 2.0f),
-	(SCREEN_HEIGHT / 2.0f) - (BALL_WIDTH / 2.0f)));
+	(SCREEN_HEIGHT / 2.0f) - (BALL_WIDTH / 2.0f)),
+	Vec2(BALL_SPEED, 0.0f));
 
 // Create the paddles
 Paddle paddle_1(Vec2(50.0f, 
@@ -62,25 +70,4 @@ Paddle paddle_2(Vec2(SCREEN_WIDTH - 50.0f,
 	Vec2(0.0f, 0.0f));
 
 // Create the player score text fields
-// player 1 at 1/4 width pos
-PlayerScore player_1_score_text(Vec2(SCREEN_WIDTH / 4, 20), g_renderer, score_font);
-// player 2 at 3/4 width pos
-PlayerScore player_2_score_text(Vec2(3 * SCREEN_WIDTH / 4, 20), g_renderer, score_font);
-
-//====================== Event handle ===================//
-
-enum Buttons
-{
-	paddle_1_up = 0,
-	paddle_1_down,
-	paddle_2_up,
-	paddle_2_down,
-};
-
-bool buttons[4] = {};
-
-// ======================== Game Rule== ===================//
-
-const float PADDLE_SPEED = 1.0f;
-
-
+ScoreDisplay score_display(0,0);

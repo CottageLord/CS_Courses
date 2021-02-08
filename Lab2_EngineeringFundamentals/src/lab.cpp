@@ -12,7 +12,6 @@
 // Please do not redistribute without asking permission.
 
 #include "lab.hpp"
-
 // Initialization function
 bool init_window() {
     // Initialization flag
@@ -63,18 +62,64 @@ bool init_window() {
 bool init_components() {
     SDL_Init(SDL_INIT_VIDEO);
     TTF_Init();
+    // load font
+    score_font = TTF_OpenFont("DejaVuSansMono.ttf", 40);
+    // load sound player
+    score_display.display_1 = new PlayerScore(Vec2(SCREEN_WIDTH / 4, 20), g_renderer, score_font);
+    // player 2 at 3/4 width pos
+    score_display.display_2 = new PlayerScore(Vec2(3 * SCREEN_WIDTH / 4, 20), g_renderer, score_font);
+    
+
     return true;
 }
 // This is where we do work in our graphics applications
 // that is constantly refreshed.
-void update() {
+void update(double elapsed_time) {
     // set the window to black
+    // Update the paddle positions
+    paddle_1.Update(elapsed_time);
+    paddle_2.Update(elapsed_time);
 
+    Contact contact;
+    // =================== Check collisions ==================//
+    // if collides, update velocity
+    if (contact = check_paddle_collision(ball, paddle_1);
+    contact.type != CollisionType::None)
+    {
+        ball.collide_with_paddle(contact);
+    }
+    else if (contact = check_paddle_collision(ball, paddle_2);
+        contact.type != CollisionType::None)
+    {
+        ball.collide_with_paddle(contact);
+    }
+    // wall collision
+    else if (contact = check_wall_collision(ball);
+        contact.type != CollisionType::None)
+    {
+        ball.collide_with_wall(contact);
+    }
+    // ================= Update the ball position ================//
+
+    ball.Update(elapsed_time);
+
+    // ================= Update the player score ================//
+
+    if (contact.type == CollisionType::Left)
+    {
+        ++player_2_score;
+        score_display.display_2->set_score(player_2_score);
+    }
+    else if (contact.type == CollisionType::Right)
+    {
+        ++player_1_score;
+        score_display.display_1->set_score(player_1_score);
+    }
 }
 
 // This function draws images.
 void render() {
-    //============= Clear the window to black ==============//
+    //============= Clear the window to dark red ==============//
     SDL_SetRenderDrawColor(g_renderer, 0x55, 0x0, 0x0, 0xFF);
     SDL_RenderClear(g_renderer);
 
@@ -96,11 +141,13 @@ void render() {
     //ball.x = ;
     //ball.y = ;
     ball.Draw(g_renderer);
+    
     paddle_1.Draw(g_renderer);
     paddle_2.Draw(g_renderer);
 
-    player_1_score_text.Draw();
-    player_2_score_text.Draw();
+    score_display.display_1->Draw();
+    score_display.display_2->Draw();
+
     //================= Render all elements ================//
     SDL_RenderPresent(g_renderer);
 }
@@ -112,6 +159,7 @@ void close() {
     //TTF_CloseFont(score_font);
     TTF_Quit();
 
+    delete &score_display;
     // Destroy Renderer
     SDL_DestroyRenderer(g_renderer);
     //Destroy window
@@ -129,10 +177,12 @@ void close() {
 // adapted from my lab 1
 void update_with_timer(std::chrono::steady_clock::time_point &previous_time, double &elapsed_time_total, int &frame_counter, double &lag, double mcs_per_update) {
     // time recorders
+    //std::cout << "prev time: " << std::chrono::duration_cast<std::chrono::minutes>(previous_time).count();
     std::chrono::steady_clock::time_point current_time;
-    double elapsed_time;
     // calculate how much time has elapsed since last record (usually 1 render loop earlier)
     current_time  = std::chrono::steady_clock::now();
+
+    double elapsed_time;
     elapsed_time  = (double)std::chrono::duration_cast<std::chrono::microseconds>
                       (current_time - previous_time).count();
     // renew time record
@@ -146,12 +196,13 @@ void update_with_timer(std::chrono::steady_clock::time_point &previous_time, dou
         lag += elapsed_time;
         while(lag >= mcs_per_update) {
             // Update our scene
-            update();
+            // cast the time down to make the number easy to calculate
+            update(elapsed_time / time_cast);
             lag -= mcs_per_update;
             frame_counter++;
         }
     } else {
-        update();
+        update(elapsed_time / time_cast);
         frame_counter++;
     }
     // for every 1 second, report frame rate and re-initialize counters
@@ -208,7 +259,7 @@ void loop() {
     double mcs_per_update = mcs_per_second / frame_rate;
     // elapsed_time_total - measure total time elapsed
     // lag - accumulate elapsed time for determining when to update to ensure steady frame rate
-    double lag, elapsed_time_total = 0.0;
+    double lag = 0, elapsed_time_total = 0.0;
     // frame_counter - measure the real frame rate
     int frame_counter = 0;
 
@@ -222,6 +273,7 @@ void loop() {
     // record the initial time
     previous_time = std::chrono::steady_clock::now();
     // While application is running
+
     while(!quit){
         handle_event(quit);
         // update with a frame stablizer

@@ -11,6 +11,9 @@ const int PADDLE_HEIGHT = 100;
 class Paddle
 {
 public:
+	Vec2 position;
+	Vec2 velocity;
+	SDL_Rect rect{};
 	// similar to Ball.hpp
 	Paddle(Vec2 position, Vec2 velocity)
 		: position(position), velocity(velocity)
@@ -44,10 +47,6 @@ public:
 
 		SDL_RenderFillRect(renderer, &rect);
 	}
-
-	Vec2 position;
-	Vec2 velocity;
-	SDL_Rect rect{};
 };
 // 2 paddles for external reference
 extern Paddle paddle_1, paddle_2;
