@@ -10,6 +10,7 @@ int main(int argc, char** argv){
 	SDLGraphicsProgram mySDLGraphicsProgram(1280,720);
 	// Run our program forever
 	mySDLGraphicsProgram.loop();
+	mySDLGraphicsProgram.destroy();
 	// When our program ends, it will exit scope, the
 	// destructor will then be called and clean up the program.
 	return 0;
