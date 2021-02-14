@@ -14,27 +14,15 @@
 
 #include "ResourceManager.hpp"
 
+// initialize the singleton pointer field
+ResourceManager* ResourceManager::instance = nullptr;
 
-ResourceManager *ResourceManager::instance = nullptr;
-
-ResourceManager::ResourceManager(){
-
-}
+ResourceManager::ResourceManager(){}
 
 
-ResourceManager::~ResourceManager(){
-// TODO:    Make sure spritesheet and texture are destroyed
-//          but is this the right place?
-//          Consider adding a 'destory' member function instead.
-	/*
-	SDL_FreeSurface(spriteSheet);
-	spriteSheet=NULL;
-	SDL_DestroyTexture(texture);
-	*/
-}
+ResourceManager::~ResourceManager(){}
 
 void ResourceManager::destroy() {
-	SDL_Log("1");
 	std::map<position, render_info>::iterator to_be_rendered_it = to_be_rendered.begin();
 	// free all objects
 	// Iterate over the map using Iterator till end.
@@ -57,15 +45,16 @@ void ResourceManager::destroy() {
 }
 
 ResourceManager *ResourceManager::get_instance() {
-	std::cout << instance << std::endl;
 	if (!instance) instance = new ResourceManager;
 	return instance;
 }
 
 void ResourceManager::init() {
+	// initialize the maps
 	std::map<std::string, render_obj> loaded_resources;
 	std::map<position, render_info> to_be_rendered;
 }
+
 void ResourceManager::load_resource(const char* resource_path, int x, int y, SDL_Renderer* ren) {
 	//std::string resource_path = "./sprite.bmp";
 	// if the resource is a new one, load it to a map
@@ -87,6 +76,7 @@ void ResourceManager::load_resource(const char* resource_path, int x, int y, SDL
 	}
 	// load the info into render obj
 	Render_Info new_sprite;
+	// record where to draw
 	new_sprite.Dest.x = x;
 	new_sprite.Dest.y = y;
 	new_sprite.sprite_sheet = loaded_resources[resource_path].first;

@@ -7,7 +7,7 @@
 #include <memory>
 #include <iterator>
 
-
+// ========== SWAP files here =========== //
 #define FILE_NAME "./sprite.bmp"
 // data for sprite.bmp
 #define BMP_ROW    6

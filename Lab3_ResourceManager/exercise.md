@@ -4,16 +4,22 @@ Read [Horde3D](http://www.horde3d.org/docs/html/_usageguide.html)'s section on R
 
 1. What are some pros and cons to having a single resource manager for all of your resources (i.e. game assets)?
 
-**Pro**: *Edit your answer here*
+**Pro**: 
+	1. Make it easier to manage a huge block of pre-allocated memory, also avoid the extra fragment (unused memory) if we are using multiple resource managers.
+	2. Make file load/unload easier to track, as there is no need to communicate across different resource managers.
+	3. Easilly avoid race conditions where multiple resource managers visiting or even editing the memory block.
 
-**Con**: *Edit your answer here*
+**Con**:
+	1. One resource manager might be inconvenient to manage concurrent resource management (when large amount of different types of resources need to be loaded).
+	2. One large resource manager makes optimization for specific types of resources hard. For example, specific audio resource manager could have better audio loading performance than a single one that handles all resources,
+	3. Could be challenging when estimating how much space we need for pre-allocating. If we have multiple resource managers, we could always launch another manager.
 
 
-2. What are some advantages of having a 'virtualized resource in Horde3D?
+2. What are some advantages of having a 'virtualized resource' in Horde3D?
 
-**Advantage 1**: *Edit your answer here*
+**Advantage 1**: Allows flexible data source - as long as the engine could get the appropriate data, it doesn't matter if the data was stored in file, compressed or even from a network package.
 
-**Advantage 2**: *Edit your answer here*
+**Advantage 2**: Allows procedural content - the data could be read segment by segment to reduce the loading overhead.
 
 
 

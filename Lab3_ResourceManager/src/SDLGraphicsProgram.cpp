@@ -4,10 +4,6 @@
 // Try toggling this number!
 #define CHARACTERS 50
 
-
-// Global variable to store character render info
-ResourceManager *characters;
-
 // Initialization function
 // Returns a true or false value based on successful completion of setup.
 // Takes in dimensions of window.
@@ -51,16 +47,16 @@ SDLGraphicsProgram::SDLGraphicsProgram(int w, int h):screenWidth(w),screenHeight
     // successfully initialized!
     // Here I am just building a little grid of characters
 
-    characters =  characters->get_instance();
+    //characters =  characters->get_instance();
     // initialize with the empty maps
-    characters->init();
+    ResourceManager::get_instance()->init();
 
     unsigned int xRow = 0;
     unsigned int yColumn = 0;
     constexpr int offset = 128;
 
     for(int i=0; i < CHARACTERS; ++i){
-        characters->load_resource(FILE_NAME, xRow, yColumn, getSDLRenderer());
+        ResourceManager::get_instance()->load_resource(FILE_NAME, xRow, yColumn, getSDLRenderer());
         xRow += offset;
         if (xRow > screenWidth){
             yColumn+=offset;
@@ -84,7 +80,7 @@ SDLGraphicsProgram::~SDLGraphicsProgram(){}
 // Proper shutdown and destroy initialized objects
 void SDLGraphicsProgram::destroy(){
     // Destroy Renderer
-    characters->destroy();
+    ResourceManager::get_instance()->destroy();
 
     SDL_DestroyRenderer(gRenderer);
     //Destroy window
@@ -119,7 +115,7 @@ void SDLGraphicsProgram::update()
       frame_y = 0;
     }
     // Nothing yet!
-    characters->update(frame_x,frame_y);
+    ResourceManager::get_instance()->update(frame_x,frame_y);
     frame_x++;
 }
 
@@ -170,7 +166,7 @@ void SDLGraphicsProgram::render(){
     SDL_SetRenderDrawColor(gRenderer, 0x22,0x22,0x22,0xFF);
     SDL_RenderClear(gRenderer);  
 
-    characters->render(getSDLRenderer());
+    ResourceManager::get_instance()->render(getSDLRenderer());
 
     SDL_RenderPresent(gRenderer);
 }
