@@ -25,7 +25,7 @@ void close();
 // the Update() helper function that provide a frame stablizer
 void update_with_timer(std::chrono::steady_clock::time_point &previous_time,
                     double &elapsed_time_total, int &frame_counter, 
-                    double &lag, double mcs_per_update);
+                    double &lag, double &mcs_per_update);
 
 // ======================SDL essentials ===================//
 
@@ -40,15 +40,8 @@ TTF_Font* score_font;
 // ================== frame stablizer vars ================//
 
 const int frame_rate {60};
-// I used microseconds instead of miliseconds for better precision
-// using miliseconds (larger gap) would sometimes ignore time elapsed if
-// the last update/render loop runs too fast
 const int mcs_per_second {1000000};
-// as we use micro seconds, the time stamp of calculating update()
-// could be too large
-// this is for constraining the update loop time recorder to make sure
-// classes like paddle() could accept a more reasonable number
-const int time_cast {1500};
+
 // switch between ideal frame rate and crazy frame rate
 const bool stable_frame {true};
 

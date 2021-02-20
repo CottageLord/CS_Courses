@@ -63,7 +63,7 @@ bool init_components() {
     SDL_Init(SDL_INIT_VIDEO);
     TTF_Init();
     // load font
-    score_font = TTF_OpenFont("DejaVuSansMono.ttf", 40);
+    score_font = TTF_OpenFont("media/DejaVuSansMono.ttf", 40);
     // load score display
     score_display.display_1 = new PlayerScore(Vec2(SCREEN_WIDTH / 4, 20), g_renderer, score_font);
     // player 2 at 3/4 width pos
@@ -99,12 +99,12 @@ void update(double elapsed_time) {
         ball.position.x = (SCREEN_WIDTH / 2.0f) - (BALL_WIDTH / 2.0f);
         ball.position.y = (SCREEN_HEIGHT / 2.0f) - (BALL_WIDTH / 2.0f);
 
-        paddle_1.position.x = 50.0f;
-        paddle_1.position.y = (SCREEN_HEIGHT / 2.0f) - (PADDLE_HEIGHT / 2.0f);
-
-        paddle_2.position.x = SCREEN_WIDTH - 50.0f;
-        paddle_2.position.y = (SCREEN_HEIGHT / 2.0f) - (PADDLE_HEIGHT / 2.0f);
-
+        paddle_1.position.y = 50.0f;
+        paddle_1.position.x = (SCREEN_WIDTH / 2.0f) - (PADDLE_WIDTH / 2.0f);
+        
+        paddle_2.position.y = SCREEN_HEIGHT - 50.0f;
+        paddle_2.position.x = (SCREEN_WIDTH / 2.0f) - (PADDLE_WIDTH / 2.0f);
+        
         // else keep the game run
     } else {
         // Update the paddle positions
@@ -114,12 +114,14 @@ void update(double elapsed_time) {
         Contact contact;
         // =================== Check collisions ==================//
         // if collides, update velocity
-        if (contact = check_paddle_collision(ball, paddle_1);
+        //Collision_obj *obj_1 = &paddle_1;
+        if (contact = check_obj_collision(ball, paddle_1);
         contact.type != CollisionType::None)
         {
             ball.collide_with_paddle(contact);
         }
-        else if (contact = check_paddle_collision(ball, paddle_2);
+        
+        else if (contact = check_obj_collision(ball, paddle_2);
             contact.type != CollisionType::None)
         {
             ball.collide_with_paddle(contact);
@@ -135,12 +137,12 @@ void update(double elapsed_time) {
         ball.Update(elapsed_time);
 
         // ================= Update the score ================//
-
+        /*
         if (contact.type == CollisionType::Left) ++player_2_score;
         else if (contact.type == CollisionType::Right) ++player_1_score;
 
         score_display.display_1->set_score(std::to_string(player_1_score));
-        score_display.display_2->set_score(std::to_string(player_2_score));
+        score_display.display_2->set_score(std::to_string(player_2_score));*/
     }
 
     // =================== check win condition ==================//
@@ -162,7 +164,7 @@ void render() {
 
     // Set the draw color to be white
     SDL_SetRenderDrawColor(g_renderer, 0xFF, 0xFF, 0xFF, 0xFF);
-
+    /*
     // Draw the net
     for (int y = 0; y < SCREEN_HEIGHT; ++y)
     {
@@ -170,7 +172,7 @@ void render() {
         {
             SDL_RenderDrawPoint(g_renderer, SCREEN_WIDTH / 2, y);
         }
-    }
+    }*/
 
     //==================== Draw the ball ==================//
 
@@ -184,8 +186,8 @@ void render() {
     //=================== Draw the score ==================//
 
 
-    score_display.display_1->Draw();
-    score_display.display_2->Draw();
+    //score_display.display_1->Draw();
+    //score_display.display_2->Draw();
 
     //================= Render all elements ================//
 
@@ -212,10 +214,10 @@ void close() {
     //Quit SDL subsystems
     SDL_Quit();
 }
-
 // the Update() helper function that provide a frame stablizer
 // adapted from my lab 1
-void update_with_timer(std::chrono::steady_clock::time_point &previous_time, double &elapsed_time_total, int &frame_counter, double &lag, double mcs_per_update) {
+void update_with_timer(std::chrono::steady_clock::time_point &previous_time, 
+    double &elapsed_time_total, int &frame_counter, double &lag, double &mcs_per_update) {
     // time recorders
     //std::cout << "prev time: " << std::chrono::duration_cast<std::chrono::minutes>(previous_time).count();
     std::chrono::steady_clock::time_point current_time;
@@ -229,6 +231,7 @@ void update_with_timer(std::chrono::steady_clock::time_point &previous_time, dou
     previous_time = current_time;
     // record overall time spend (in microseconds)
     elapsed_time_total += elapsed_time;
+    //std::cout << "+ " << elapsed_time << " = " << elapsed_time_total << std::endl;
     // stablizer switch
     if(stable_frame) {
         // if the last update/render loop spent more than fps limit (16.67ms for 60 fps)
@@ -236,13 +239,12 @@ void update_with_timer(std::chrono::steady_clock::time_point &previous_time, dou
         lag += elapsed_time;
         while(lag >= mcs_per_update) {
             // Update our scene
-            // cast the time down to make the number easy to calculate
-            update(lag / time_cast); // should be "lag" :(
+            update(lag);
             lag -= mcs_per_update;
             frame_counter++;
         }
     } else {
-        update(lag / time_cast);
+        update(lag);
         frame_counter++;
     }
     // for every 1 second, report frame rate and re-initialize counters
@@ -253,7 +255,6 @@ void update_with_timer(std::chrono::steady_clock::time_point &previous_time, dou
         elapsed_time_total = 0.0;
     }
 }
-
 // handle various keyboard event
 void handle_event(bool &quit) {
     // Event handler that handles various events in SDL
@@ -268,28 +269,31 @@ void handle_event(bool &quit) {
         } else if (event.type == SDL_KEYDOWN) { // respond to various keyboard inputs
             if (event.key.keysym.sym == SDLK_ESCAPE)    quit = true;
             if (event.key.keysym.sym == SDLK_r)         pause = false;
-            else if (event.key.keysym.sym == SDLK_w)    buttons[Buttons::paddle_1_up]   = true;
-            else if (event.key.keysym.sym == SDLK_s)    buttons[Buttons::paddle_1_down] = true;
-            else if (event.key.keysym.sym == SDLK_UP)   buttons[Buttons::paddle_2_up]   = true;
-            else if (event.key.keysym.sym == SDLK_DOWN) buttons[Buttons::paddle_2_down] = true;
+            else if (event.key.keysym.sym == SDLK_a)    buttons[Buttons::paddle_1_left]  = true;
+            else if (event.key.keysym.sym == SDLK_d)    buttons[Buttons::paddle_1_right] = true;
+            else if (event.key.keysym.sym == SDLK_w)    buttons[Buttons::paddle_1_up]    = true;
+            else if (event.key.keysym.sym == SDLK_s)    buttons[Buttons::paddle_1_down]  = true;
         }
         else if (event.type == SDL_KEYUP)
         {
-            if (event.key.keysym.sym == SDLK_w)         buttons[Buttons::paddle_1_up]   = false;
-            else if (event.key.keysym.sym == SDLK_s)    buttons[Buttons::paddle_1_down] = false;
-            else if (event.key.keysym.sym == SDLK_UP)   buttons[Buttons::paddle_2_up]   = false;
-            else if (event.key.keysym.sym == SDLK_DOWN) buttons[Buttons::paddle_2_down] = false;
+            if (event.key.keysym.sym == SDLK_a)         buttons[Buttons::paddle_1_left]  = false;
+            else if (event.key.keysym.sym == SDLK_d)    buttons[Buttons::paddle_1_right] = false;
+            else if (event.key.keysym.sym == SDLK_w)    buttons[Buttons::paddle_1_up]    = false;
+            else if (event.key.keysym.sym == SDLK_s)    buttons[Buttons::paddle_1_down]  = false;
         }
     }
 
     // adjust paddle's velocity accordingly
-    if (buttons[Buttons::paddle_1_up])        paddle_1.velocity.y = -PADDLE_SPEED;
-    else if (buttons[Buttons::paddle_1_down]) paddle_1.velocity.y = PADDLE_SPEED;
-    else                                      paddle_1.velocity.y = 0.0f;
+    if (buttons[Buttons::paddle_1_left])        paddle_1.velocity.x = -PADDLE_SPEED;
+    else if (buttons[Buttons::paddle_1_right])  paddle_1.velocity.x = PADDLE_SPEED;
+    else if (buttons[Buttons::paddle_1_up])     paddle_1.velocity.y = -PADDLE_SPEED;
+    else if (buttons[Buttons::paddle_1_down])   paddle_1.velocity.y = PADDLE_SPEED;
+    else
+    {                      
+        paddle_1.velocity.x = 0.0f;
+        paddle_1.velocity.y = 0.0f;
+    }
 
-    if (buttons[Buttons::paddle_2_up])        paddle_2.velocity.y = -PADDLE_SPEED;
-    else if (buttons[Buttons::paddle_2_down]) paddle_2.velocity.y = PADDLE_SPEED;
-    else                                      paddle_2.velocity.y = 0.0f;
 }
 
 // execute main game loop
@@ -298,7 +302,6 @@ void loop() {
     bool quit = false;
     // define microseconds per update
     double mcs_per_update = mcs_per_second / frame_rate;
-    double ms_per_update = mcs_per_update / 1000;
     // elapsed_time_total - measure total time elapsed
     // lag - accumulate elapsed time for determining when to update to ensure steady frame rate
     double lag = 0, elapsed_time_total = 0.0;
