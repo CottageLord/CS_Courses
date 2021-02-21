@@ -69,6 +69,7 @@ bool init_components() {
     TTF_Init();
     Resource_manager::get_instance()->load_resources(g_renderer);
     Resource_manager::get_instance()->load_level(LEVEL_FILE);
+    Mix_PlayMusic(Resource_manager::get_instance()->background_music, -1);
 
     return true;
 }

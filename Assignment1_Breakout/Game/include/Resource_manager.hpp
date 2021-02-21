@@ -13,8 +13,9 @@ const char REAL_BRICK  = '1';
 class Resource_manager {
 	
 private:
-	Resource_manager(PlayerScore *player_1, PlayerScore *player_2) {
-	}
+	Resource_manager(PlayerScore *player_1, PlayerScore *player_2) { }
+	Resource_manager(Resource_manager const&); // Avoid copy constructor
+    void operator=(Resource_manager const&); // Don't allow assignment.
 	// initialize the singleton pointer field
 	static Resource_manager* instance;
 
@@ -26,6 +27,7 @@ public:
 	// Initialize sound effects
 	Mix_Chunk* wall_hit_sound;
 	Mix_Chunk* paddle_hit_sound;	
+	Mix_Music* background_music;
 	// Initialize the font
 	TTF_Font* score_font;
 
@@ -39,6 +41,7 @@ public:
 		// load sound resources
 	    wall_hit_sound   = Mix_LoadWAV("media/wall_hit.wav");
 	    paddle_hit_sound = Mix_LoadWAV("media/paddle_hit.wav");
+	    background_music = Mix_LoadMUS("media/PaketPhoenixIndiHome.mp3");
 	    // load font
 	    score_font = TTF_OpenFont("media/DejaVuSansMono.ttf", 40);
 	    // score display
@@ -120,6 +123,7 @@ public:
 		TTF_CloseFont(score_font);
 	    Mix_FreeChunk(wall_hit_sound);
 	    Mix_FreeChunk(paddle_hit_sound);
+	    Mix_FreeMusic(background_music);
 		level_bricks.clear();
 	}
 };
