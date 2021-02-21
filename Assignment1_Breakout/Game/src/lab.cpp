@@ -53,7 +53,7 @@ bool init_window() {
         errorStream << "Failed to initialize!\n";
         std::string errors=errorStream.str();
         std::cout << errors << "\n";
-    }else{
+    } else {
         std::cout << "No SDL, or OpenGL, errors Detected\n\n";
     }
     return success;
@@ -64,11 +64,12 @@ bool init_components() {
     TTF_Init();
     // load font
     score_font = TTF_OpenFont("media/DejaVuSansMono.ttf", 40);
-    // load score display
-    score_display.display_1 = new PlayerScore(Vec2(SCREEN_WIDTH / 4, 20), g_renderer, score_font);
-    // player 2 at 3/4 width pos
-    score_display.display_2 = new PlayerScore(Vec2(3 * SCREEN_WIDTH / 4, 20), g_renderer, score_font);
     
+    // load score display
+    level_manager.display_1 = new PlayerScore(Vec2(SCREEN_WIDTH / 4, 20), g_renderer, score_font);
+    // player 2 at 3/4 width pos
+    level_manager.display_2 = new PlayerScore(Vec2(3 * SCREEN_WIDTH / 4, 20), g_renderer, score_font);
+    level_manager.load_level(LEVEL_FILE);
 
     return true;
 }
@@ -85,15 +86,16 @@ void update(double elapsed_time) {
 
     // ================= Update the player score ================//
     // if already win, show win msg
+    /*
     if(pause){
         if (player_1_win)
         {
-            score_display.display_1->set_score("P1 wins!     press R");
-            score_display.display_2->set_score("to restart!");
+            level_manager.display_1->set_score("P1 wins!     press R");
+            level_manager.display_2->set_score("to restart!");
         }
         else if (!player_1_win) {
-            score_display.display_1->set_score("P2 wins!     press R");
-            score_display.display_2->set_score("to restart!");
+            level_manager.display_1->set_score("P2 wins!     press R");
+            level_manager.display_2->set_score("to restart!");
         }
         // reset the ball / paddle positions
         ball.position.x = (SCREEN_WIDTH / 2.0f) - (BALL_WIDTH / 2.0f);
@@ -102,47 +104,68 @@ void update(double elapsed_time) {
         paddle_1.position.y = 50.0f;
         paddle_1.position.x = (SCREEN_WIDTH / 2.0f) - (PADDLE_WIDTH / 2.0f);
         
-        paddle_2.position.y = SCREEN_HEIGHT - 50.0f;
-        paddle_2.position.x = (SCREEN_WIDTH / 2.0f) - (PADDLE_WIDTH / 2.0f);
+        //paddle_2.position.y = SCREEN_HEIGHT - 50.0f;
+        //paddle_2.position.x = (SCREEN_WIDTH / 2.0f) - (PADDLE_WIDTH / 2.0f);
         
         // else keep the game run
-    } else {
-        // Update the paddle positions
-        paddle_1.Update(elapsed_time);
-        paddle_2.Update(elapsed_time);
+    } else */{
+        // Update the paddle 
 
+        paddle_1.Update(elapsed_time);
         Contact contact;
-        // =================== Check collisions ==================//
-        // if collides, update velocity
-        //Collision_obj *obj_1 = &paddle_1;
-        if (contact = check_obj_collision(ball, paddle_1);
-        contact.type != CollisionType::None)
-        {
-            ball.collide_with_paddle(contact);
-        }
+
+
         
-        else if (contact = check_obj_collision(ball, paddle_2);
-            contact.type != CollisionType::None)
-        {
-            ball.collide_with_paddle(contact);
-        }
-        // wall collision
-        else if (contact = check_wall_collision(ball);
-            contact.type != CollisionType::None)
-        {
-            ball.collide_with_wall(contact);
-        }
+
         // ================= Update the ball position ================//
 
-        ball.Update(elapsed_time);
+        if (ball_with_paddle)
+        {
+            ball.position.x = paddle_1.position.x + paddle_1.rect.w / 2 - ball.rect.w / 2;
+            ball.position.y = paddle_1.position.y - ball.rect.h;
+            //ball.velocity = Vec2(0.0f, BALL_SPEED);
+        } else {
+            // =================== Check collisions ==================//
+            // if collides, update velocity
+            if (contact = check_obj_collision(ball, paddle_1);
+            contact.type != Collision_type::None)
+            {
+                //std::cout<< (int)contact.type << " " << (int)contact.side << std::endl;
+                ball.collide_with_paddle(contact);
+            }
+            // wall collision
+            else if (contact = check_wall_collision(ball);
+                contact.type != Collision_type::None)
+            {
+                ball.collide_with_wall(contact);
+            }
+
+            // draw all bricks
+            for (int i = level_manager.level_bricks.size() - 1; i >= 0; i--)
+            {
+                for (int j = 0; j < level_manager.level_bricks[0].size(); j++)
+                {
+                    if (level_manager.level_bricks[i][j].status != Brick_type::None)
+                    {
+                        if (contact = check_obj_collision(ball, level_manager.level_bricks[i][j]);
+                        contact.type != Collision_type::None)
+                        {
+                            ball.collide_with_brick(contact);
+                            level_manager.level_bricks[i][j].status = Brick_type::None;
+                        }
+                    }
+                }
+            }
+            ball.Update(elapsed_time);
+        }
 
         // ================= Update the score ================//
-        /*
-        if (contact.type == CollisionType::Left) ++player_2_score;
-        else if (contact.type == CollisionType::Right) ++player_1_score;
+        
+        if (contact.type == Collision_type::Left) ++player_2_score;
+        else if (contact.type == Collision_type::Right) ++player_1_score;
 
-        score_display.display_1->set_score(std::to_string(player_1_score));
-        score_display.display_2->set_score(std::to_string(player_2_score));*/
+        level_manager.display_1->set_score(std::to_string(player_1_score));
+        level_manager.display_2->set_score(std::to_string(player_2_score));
     }
 
     // =================== check win condition ==================//
@@ -160,20 +183,23 @@ void render() {
     SDL_SetRenderDrawColor(g_renderer, 0x55, 0x0, 0x0, 0xFF);
     SDL_RenderClear(g_renderer);
 
-    //==================== Draw the net ====================//
+    //==================== Draw the bricks ====================//
 
     // Set the draw color to be white
     SDL_SetRenderDrawColor(g_renderer, 0xFF, 0xFF, 0xFF, 0xFF);
-    /*
-    // Draw the net
-    for (int y = 0; y < SCREEN_HEIGHT; ++y)
+    // draw all bricks
+    for (int i = level_manager.level_bricks.size() - 1; i >= 0; i--)
     {
-        if (y % 5)
+        for (int j = 0; j < level_manager.level_bricks[0].size(); j++)
         {
-            SDL_RenderDrawPoint(g_renderer, SCREEN_WIDTH / 2, y);
+            //std::cout << (int)((level_bricks[i][j]).status);
+            if (level_manager.level_bricks[i][j].status != Brick_type::None)
+            {
+                level_manager.level_bricks[i][j].Draw(g_renderer);
+            }
         }
-    }*/
-
+    }
+    
     //==================== Draw the ball ==================//
 
     ball.Draw(g_renderer);
@@ -181,13 +207,13 @@ void render() {
     //=================== Draw the paddle =================//
 
     paddle_1.Draw(g_renderer);
-    paddle_2.Draw(g_renderer);
+    //paddle_2.Draw(g_renderer);
 
     //=================== Draw the score ==================//
 
 
-    //score_display.display_1->Draw();
-    //score_display.display_2->Draw();
+    level_manager.display_1->Draw();
+    level_manager.display_2->Draw();
 
     //================= Render all elements ================//
 
@@ -201,7 +227,7 @@ void close() {
     //TTF_CloseFont(score_font);
     TTF_Quit();
 
-    delete &score_display;
+    //delete &level_manager;
     // Destroy Renderer
     SDL_DestroyRenderer(g_renderer);
     //Destroy window
@@ -273,6 +299,7 @@ void handle_event(bool &quit) {
             else if (event.key.keysym.sym == SDLK_d)    buttons[Buttons::paddle_1_right] = true;
             else if (event.key.keysym.sym == SDLK_w)    buttons[Buttons::paddle_1_up]    = true;
             else if (event.key.keysym.sym == SDLK_s)    buttons[Buttons::paddle_1_down]  = true;
+            else if (event.key.keysym.sym == SDLK_l)    ball_with_paddle = false;
         }
         else if (event.type == SDL_KEYUP)
         {
@@ -293,7 +320,6 @@ void handle_event(bool &quit) {
         paddle_1.velocity.x = 0.0f;
         paddle_1.velocity.y = 0.0f;
     }
-
 }
 
 // execute main game loop

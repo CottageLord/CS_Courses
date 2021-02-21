@@ -24,15 +24,22 @@
 #include <sstream>
 #include <string>
 #include <chrono>
+#include <vector>
 #include <cmath>
 //Screen dimension constants
 const int SCREEN_WIDTH = 1080;
 const int SCREEN_HEIGHT = 720;
 
-// ======================== Game Rule== ===================//
+const float BRICK_SIDE_PADDING = 50;
+const float BRICK_TOP_PADDING  = 50;
+const float BRICK_AREA = 240;
+const float BRICK_GAP = 1;
 
-const float PADDLE_SPEED = 0.01f;
-const float BALL_SPEED = 0.01f;
+// ======================== Game Rule== ===================//
+// as I am using microseconds, the time step number will be large
+// so I used slow speed as compensate
+const float PADDLE_SPEED = 0.001f;
+const float BALL_SPEED = 0.0005f;
 
 int player_1_score = 0;
 int player_2_score = 0;
@@ -40,7 +47,11 @@ int player_2_score = 0;
 const int SCORE_TO_WIN = 3;
 
 bool player_1_win = false;
+bool player_1_lose = false;
+bool ball_with_paddle = true;
 //====================== data structure ===================//
+
+const std::string LEVEL_FILE = "media/level_1";
 
 enum Buttons
 {
@@ -52,7 +63,7 @@ enum Buttons
 
 bool buttons[4] = {};
 
-enum class CollisionType
+enum class Collision_type
 {
 	None,
 	Top,
@@ -62,7 +73,7 @@ enum class CollisionType
 	Right
 };
 
-enum class CollisionSide
+enum class Collision_side
 {
 	None,
 	Top,
@@ -71,12 +82,25 @@ enum class CollisionSide
 	Right
 };
 
+enum class Brick_type
+{
+	None,
+	Exist
+};
+
 struct Contact
 {
-	CollisionType type;
-	CollisionSide side;
+	Collision_type type;
+	Collision_side side;
 	float penetration;
 };
 
+// ================== frame stablizer vars ================//
+
+const int frame_rate {60};
+const int mcs_per_second {1000000};
+
+// switch between ideal frame rate and crazy frame rate
+const bool stable_frame {true};
 
 #endif

@@ -1,7 +1,9 @@
 #include "config.hpp"
 #include "Ball.hpp"
 #include "Paddle.hpp"
+#include "Brick.hpp"
 #include "collision.hpp"
+#include "Level_manager.hpp"
 #include "PlayerScore.hpp"
 #include "ScoreDisplay.hpp"
 // ========================= Classes =======================
@@ -37,31 +39,23 @@ SDL_Renderer* g_renderer {NULL};
 // Initialize the font
 TTF_Font* score_font;
 
-// ================== frame stablizer vars ================//
-
-const int frame_rate {60};
-const int mcs_per_second {1000000};
-
-// switch between ideal frame rate and crazy frame rate
-const bool stable_frame {true};
-
 
 // ====================== game objects ====================//
 
 // Create the ball at the center of the screen
 Ball ball(Vec2((SCREEN_WIDTH / 2.0f) - (BALL_WIDTH / 2.0f),
 	(SCREEN_HEIGHT / 2.0f) - (BALL_WIDTH / 2.0f)),
-	Vec2(BALL_SPEED, 0.0f));
+	Vec2(0.0f, BALL_SPEED));//BALL_SPEED));
 
 // Create the paddles
 Paddle paddle_1(Vec2(50.0f, 
 	(SCREEN_HEIGHT / 2.0f) - (PADDLE_HEIGHT / 2.0f)),
 	Vec2(0.0f, 0.0f));
-
+/*
 Paddle paddle_2(Vec2(SCREEN_WIDTH - 50.0f, 
 	(SCREEN_HEIGHT / 2.0f) - (PADDLE_HEIGHT / 2.0f)),
 	Vec2(0.0f, 0.0f));
-
+*/
 bool pause = false;
 // Create the player score text fields
-ScoreDisplay score_display(0,0);
+Level_manager level_manager(0,0);

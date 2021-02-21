@@ -3,6 +3,7 @@
 
 #include "config.hpp"
 #include "Vec2.hpp"
+#include "level_manager.hpp"
 
 const int BALL_WIDTH  = 15;
 const int BALL_HEIGHT = 15;
@@ -33,56 +34,62 @@ public:
 
 	void collide_with_paddle(Contact const& contact)
 	{
-		if (contact.side == CollisionSide::Top ||
-			contact.side == CollisionSide::Bottom)
-		{
+		// if collide up/bottom
+		if (contact.side == Collision_side::Top ||
+			contact.side == Collision_side::Bottom) {
 			position.y += contact.penetration;
 			velocity.y = -velocity.y;
-			if (contact.type == CollisionType::Top) velocity.y = -.75f * BALL_SPEED;
-			else if (contact.type == CollisionType::Bottom) velocity.y = .75f * BALL_SPEED;
-		} else {
+			if (contact.type == Collision_type::Left) 
+				velocity.x = -.75f * BALL_SPEED;
+			else if (contact.type == Collision_type::Right) 
+				velocity.x = .75f * BALL_SPEED;
+		// if collide left/right
+		} else if (contact.side == Collision_side::Left ||
+			contact.side == Collision_side::Right) {
 			position.x += contact.penetration;
 			velocity.x = -velocity.x;
-			if (contact.type == CollisionType::Top) velocity.y = -.75f * BALL_SPEED;
-			else if (contact.type == CollisionType::Bottom) velocity.y = .75f * BALL_SPEED;
+			// for this game only, only reflect upwards
+			velocity.y = -.75f * BALL_SPEED;
+			/*
+			if (contact.type == Collision_type::Top) 
+				velocity.y = -.75f * BALL_SPEED;
+			else if (contact.type == Collision_type::Bottom) 
+				velocity.y = .75f * BALL_SPEED;*/
 		}
-		
-
-		/*
-		else if (contact.type == CollisionType::Left)
-		{
-			velocity.x = -.75f * BALL_SPEED;
-		}
-		else if (contact.type == CollisionType::Right)
-		{
-			velocity.x = 0.75f * BALL_SPEED;
-		}*/
-		
 	}
 
+	void collide_with_brick(Contact const& contact) {
+		// reflect the ball
+		if (contact.side == Collision_side::Top ||
+			contact.side == Collision_side::Bottom) {
+			position.y += contact.penetration;
+			velocity.y = -velocity.y;
+		} else if (contact.side == Collision_side::Left ||
+			contact.side == Collision_side::Right) {
+			position.x += contact.penetration;
+			velocity.x = -velocity.x;
+		}
+	}
 	void collide_with_wall(Contact const& contact)
 	{
-		if (contact.type == CollisionType::Right
-		    || contact.type == CollisionType::Left)
+		if (contact.type == Collision_type::Right
+		    || contact.type == Collision_type::Left)
 		{
 			position.x += contact.penetration;
 			velocity.x = -velocity.x;
 		}
-		else if (contact.type == CollisionType::Top
-			|| contact.type == CollisionType::Bottom)
+		else if (contact.type == Collision_type::Top)
 		{
 			position.y += contact.penetration;
 			velocity.y = -velocity.y;
 		}
-		// if the ball falls, reset the ball pos
-		/*
-		else if (contact.type == CollisionType::Bottom)
+		// if the ball falls
+		else if (contact.type == Collision_type::Bottom)
 		{
-			position.x = SCREEN_WIDTH / 2.0f;
-			position.y = SCREEN_HEIGHT / 2.0f;
-			velocity.x = BALL_SPEED;
-			velocity.y = 0.f;//0.75f * BALL_SPEED;
-		}*/
+			ball_with_paddle = true;
+			velocity.x = 0.0f;
+			velocity.y = BALL_SPEED;//0.75f * BALL_SPEED;
+		}
 	}
 	// send the draw command to renderer
 	void Draw(SDL_Renderer* renderer)

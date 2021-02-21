@@ -8,7 +8,7 @@
 class Collision_obj;
 
 const int PADDLE_WIDTH  = 100;
-const int PADDLE_HEIGHT = 100;
+const int PADDLE_HEIGHT = 30;
 // class for playable paddles
 
 class Paddle : public Collision_obj {
