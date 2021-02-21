@@ -65,19 +65,24 @@ bool init_components() {
     // load font
     score_font = TTF_OpenFont("media/DejaVuSansMono.ttf", 40);
     
-    // load score display
-    level_manager.display_1 = new PlayerScore(Vec2(SCREEN_WIDTH / 4, 20), g_renderer, score_font);
-    // player 2 at 3/4 width pos
-    level_manager.display_2 = new PlayerScore(Vec2(3 * SCREEN_WIDTH / 4, 20), g_renderer, score_font);
+    // score display
+    level_manager.display_1 = new PlayerScore(Vec2(SCREEN_WIDTH / 4, 0), g_renderer, score_font);
+    // notification text display
+    level_manager.display_2 = new PlayerScore(Vec2( SCREEN_WIDTH / 4, SCREEN_HEIGHT / 2), g_renderer, score_font);
     level_manager.load_level(LEVEL_FILE);
 
     return true;
 }
 
 void restart_game() {
-    pause = true;
+    // reload level
+    level_manager.level_bricks.clear();
+    level_manager.load_level(LEVEL_FILE);
+    // restore lives
+    player_life = PLAYER_LIFE;
+    /*
     player_1_score = 0;
-    player_2_score = 0;
+    player_2_score = 0;*/
 }
 
 // This is where we do work in our graphics applications
@@ -86,6 +91,7 @@ void update(double elapsed_time) {
 
     // ================= Update the player score ================//
     // if already win, show win msg
+    
     /*
     if(pause){
         if (player_1_win)
@@ -113,10 +119,6 @@ void update(double elapsed_time) {
 
         paddle_1.Update(elapsed_time);
         Contact contact;
-
-
-        
-
         // ================= Update the ball position ================//
 
         if (ball_with_paddle)
@@ -152,6 +154,7 @@ void update(double elapsed_time) {
                         {
                             ball.collide_with_brick(contact);
                             level_manager.level_bricks[i][j].status = Brick_type::None;
+                            bricks_remained--;
                         }
                     }
                 }
@@ -160,21 +163,39 @@ void update(double elapsed_time) {
         }
 
         // ================= Update the score ================//
-        
+        /*
         if (contact.type == Collision_type::Left) ++player_2_score;
         else if (contact.type == Collision_type::Right) ++player_1_score;
 
         level_manager.display_1->set_score(std::to_string(player_1_score));
         level_manager.display_2->set_score(std::to_string(player_2_score));
+        */
     }
 
-    // =================== check win condition ==================//
+    std::string game_stat = "LIFE: " + std::to_string(player_life) + 
+    "       Bricks: " + std::to_string(bricks_remained);
 
+    level_manager.display_1->set_score(game_stat);
+    // =================== check win condition ==================//
+    if (bricks_remained <= 0){
+        level_manager.display_2->set_score(" You win! R to restart");
+        ball_with_paddle = true;
+        pause = true;
+
+    } else if (player_life <= 0) {
+        level_manager.display_2->set_score("You lose! R to restart");
+        ball_with_paddle = true;
+        pause = true;
+
+    } else if(ball_with_paddle) {
+        level_manager.display_2->set_score("Press L to launch ball");
+    } else level_manager.display_2->set_score("");
+    /*
     if (player_1_score >= SCORE_TO_WIN || player_2_score >= SCORE_TO_WIN)
     {
         player_1_win = player_1_score >= SCORE_TO_WIN;
         restart_game();
-    }
+    }*/
 }
 
 // This function draws images.
@@ -294,27 +315,31 @@ void handle_event(bool &quit) {
             quit = true;
         } else if (event.type == SDL_KEYDOWN) { // respond to various keyboard inputs
             if (event.key.keysym.sym == SDLK_ESCAPE)    quit = true;
-            if (event.key.keysym.sym == SDLK_r)         pause = false;
+            // restart game available when win/lose last one
+            if (event.key.keysym.sym == SDLK_r && pause == true){
+                pause = false;
+                restart_game();
+            }         
             else if (event.key.keysym.sym == SDLK_a)    buttons[Buttons::paddle_1_left]  = true;
             else if (event.key.keysym.sym == SDLK_d)    buttons[Buttons::paddle_1_right] = true;
-            else if (event.key.keysym.sym == SDLK_w)    buttons[Buttons::paddle_1_up]    = true;
-            else if (event.key.keysym.sym == SDLK_s)    buttons[Buttons::paddle_1_down]  = true;
+            //else if (event.key.keysym.sym == SDLK_w)    buttons[Buttons::paddle_1_up]    = true;
+            //else if (event.key.keysym.sym == SDLK_s)    buttons[Buttons::paddle_1_down]  = true;
             else if (event.key.keysym.sym == SDLK_l)    ball_with_paddle = false;
         }
         else if (event.type == SDL_KEYUP)
         {
             if (event.key.keysym.sym == SDLK_a)         buttons[Buttons::paddle_1_left]  = false;
             else if (event.key.keysym.sym == SDLK_d)    buttons[Buttons::paddle_1_right] = false;
-            else if (event.key.keysym.sym == SDLK_w)    buttons[Buttons::paddle_1_up]    = false;
-            else if (event.key.keysym.sym == SDLK_s)    buttons[Buttons::paddle_1_down]  = false;
+            //else if (event.key.keysym.sym == SDLK_w)    buttons[Buttons::paddle_1_up]    = false;
+            //else if (event.key.keysym.sym == SDLK_s)    buttons[Buttons::paddle_1_down]  = false;
         }
     }
 
     // adjust paddle's velocity accordingly
     if (buttons[Buttons::paddle_1_left])        paddle_1.velocity.x = -PADDLE_SPEED;
     else if (buttons[Buttons::paddle_1_right])  paddle_1.velocity.x = PADDLE_SPEED;
-    else if (buttons[Buttons::paddle_1_up])     paddle_1.velocity.y = -PADDLE_SPEED;
-    else if (buttons[Buttons::paddle_1_down])   paddle_1.velocity.y = PADDLE_SPEED;
+    //else if (buttons[Buttons::paddle_1_up])     paddle_1.velocity.y = -PADDLE_SPEED;
+    //else if (buttons[Buttons::paddle_1_down])   paddle_1.velocity.y = PADDLE_SPEED;
     else
     {                      
         paddle_1.velocity.x = 0.0f;

@@ -49,7 +49,7 @@ Ball ball(Vec2((SCREEN_WIDTH / 2.0f) - (BALL_WIDTH / 2.0f),
 
 // Create the paddles
 Paddle paddle_1(Vec2(50.0f, 
-	(SCREEN_HEIGHT / 2.0f) - (PADDLE_HEIGHT / 2.0f)),
+	SCREEN_HEIGHT - PADDLE_HEIGHT * 2.0f),
 	Vec2(0.0f, 0.0f));
 /*
 Paddle paddle_2(Vec2(SCREEN_WIDTH - 50.0f, 

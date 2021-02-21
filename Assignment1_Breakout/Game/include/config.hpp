@@ -34,15 +34,18 @@ const float BRICK_SIDE_PADDING = 50;
 const float BRICK_TOP_PADDING  = 50;
 const float BRICK_AREA = 240;
 const float BRICK_GAP = 1;
-
+const int   PLAYER_LIFE = 3;
 // ======================== Game Rule== ===================//
 // as I am using microseconds, the time step number will be large
 // so I used slow speed as compensate
 const float PADDLE_SPEED = 0.001f;
 const float BALL_SPEED = 0.0005f;
-
+/*
 int player_1_score = 0;
-int player_2_score = 0;
+int player_2_score = 0;*/
+
+int player_life = PLAYER_LIFE;
+int bricks_remained = 0;
 
 const int SCORE_TO_WIN = 3;
 

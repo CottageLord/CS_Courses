@@ -55,6 +55,7 @@ public:
 	    float curr_brick_pos_x = BRICK_SIDE_PADDING;
 	    float curr_brick_pos_y = BRICK_TOP_PADDING;
 	    // iterate through all bricks
+	    bricks_remained = 0;
 	    for (int i = level_bricks.size() - 1; i >= 0; i--)
 	    {
 	        for (int j = 0; j < level_bricks[0].size(); j++)
@@ -68,8 +69,9 @@ public:
 		            level_bricks[i][j].rect.y 	  = curr_brick_pos_y;
 		            level_bricks[i][j].rect.w 	  = brick_width;
 		            level_bricks[i][j].rect.h 	  = brick_height;
-		            std::cout << curr_brick_pos_x << ", " << curr_brick_pos_y << std::endl;
-	            }
+		            // record brick number
+		            bricks_remained++;
+		        }
 	            curr_brick_pos_x = curr_brick_pos_x + brick_width + BRICK_GAP;
 	        }
 	        // draw next row

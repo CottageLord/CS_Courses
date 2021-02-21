@@ -89,6 +89,8 @@ public:
 			ball_with_paddle = true;
 			velocity.x = 0.0f;
 			velocity.y = BALL_SPEED;//0.75f * BALL_SPEED;
+			// reduce player life
+			player_life--;
 		}
 	}
 	// send the draw command to renderer
