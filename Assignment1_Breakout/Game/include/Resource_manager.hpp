@@ -1,5 +1,5 @@
-#ifndef LEVEL_MANAGER_CLASS
-#define LEVEL_MANAGER_CLASS
+#ifndef RESOURCE_MANAGER_CLASS
+#define RESOURCE_MANAGER_CLASS
 
 #include <fstream>
 #include "config.hpp"
@@ -9,15 +9,44 @@
 // This is for holding score display pointers
 const char EMPTY_BRICK = '0';
 const char REAL_BRICK  = '1';
-class Level_manager {
+
+class Resource_manager {
+	
+private:
+	Resource_manager(PlayerScore *player_1, PlayerScore *player_2) {
+	}
+	// initialize the singleton pointer field
+	static Resource_manager* instance;
+
 public:
 	// data structure to store all bricks
 	std::vector<std::vector<Brick>> level_bricks;
 	PlayerScore *display_1;
 	PlayerScore *display_2;
-	Level_manager(PlayerScore *player_1, PlayerScore *player_2) {
+	// Initialize sound effects
+	Mix_Chunk* wall_hit_sound;
+	Mix_Chunk* paddle_hit_sound;	
+	// Initialize the font
+	TTF_Font* score_font;
+
+
+	static Resource_manager *get_instance() {
+		if (!instance) instance = new Resource_manager(0,0);
+		return instance;
 	}
 
+	void load_resources(SDL_Renderer* renderer) {
+		// load sound resources
+	    wall_hit_sound   = Mix_LoadWAV("media/wall_hit.wav");
+	    paddle_hit_sound = Mix_LoadWAV("media/paddle_hit.wav");
+	    // load font
+	    score_font = TTF_OpenFont("media/DejaVuSansMono.ttf", 40);
+	    // score display
+    	display_1 = new PlayerScore(Vec2(SCREEN_WIDTH / 4, 0), renderer, score_font);
+    	// notification text display
+    	display_2 = new PlayerScore(Vec2( SCREEN_WIDTH / 4, SCREEN_HEIGHT / 2), renderer, score_font);
+    
+	}
 	void load_level(const std::string& filename) {
 		// open the file
 		//std::vector<std::vector<Brick>> bricks;
@@ -81,9 +110,16 @@ public:
 	    }
 	}
 
-	~Level_manager(){
+	~Resource_manager(){
+		
+	}
+
+	void destroy() {
 		delete display_1;
 		delete display_2;
+		TTF_CloseFont(score_font);
+	    Mix_FreeChunk(wall_hit_sound);
+	    Mix_FreeChunk(paddle_hit_sound);
 		level_bricks.clear();
 	}
 };

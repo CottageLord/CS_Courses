@@ -12,11 +12,13 @@
 #if defined(LINUX) || defined(MINGW)
 	#include <SDL2/SDL.h>
 	#include <SDL2/SDL_ttf.h>
+	#include <SDL2/SDL_mixer.h>
 #else
 	// Windows and Mac use a different path
 	// If you have compilation errors, change this as needed.
 	#include <SDL.h>
 	#include <SDL_ttf.h>
+	#include <SDL_mixer.h>
 #endif
 // ==================== C and C++ Libraries ==================
 #include <stdio.h>
@@ -55,6 +57,8 @@ bool ball_with_paddle = true;
 //====================== data structure ===================//
 
 const std::string LEVEL_FILE = "media/level_1";
+
+
 
 enum Buttons
 {

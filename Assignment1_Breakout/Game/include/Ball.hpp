@@ -3,7 +3,7 @@
 
 #include "config.hpp"
 #include "Vec2.hpp"
-#include "level_manager.hpp"
+#include "Resource_manager.hpp"
 
 const int BALL_WIDTH  = 15;
 const int BALL_HEIGHT = 15;

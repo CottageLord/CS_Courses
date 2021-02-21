@@ -12,6 +12,9 @@
 // Please do not redistribute without asking permission.
 
 #include "lab.hpp"
+
+Resource_manager* Resource_manager::instance = nullptr;
+
 // Initialization function
 bool init_window() {
     // Initialization flag
@@ -60,24 +63,20 @@ bool init_window() {
 }
 
 bool init_components() {
-    SDL_Init(SDL_INIT_VIDEO);
+    SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
+    Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048);
+
     TTF_Init();
-    // load font
-    score_font = TTF_OpenFont("media/DejaVuSansMono.ttf", 40);
-    
-    // score display
-    level_manager.display_1 = new PlayerScore(Vec2(SCREEN_WIDTH / 4, 0), g_renderer, score_font);
-    // notification text display
-    level_manager.display_2 = new PlayerScore(Vec2( SCREEN_WIDTH / 4, SCREEN_HEIGHT / 2), g_renderer, score_font);
-    level_manager.load_level(LEVEL_FILE);
+    Resource_manager::get_instance()->load_resources(g_renderer);
+    Resource_manager::get_instance()->load_level(LEVEL_FILE);
 
     return true;
 }
 
 void restart_game() {
     // reload level
-    level_manager.level_bricks.clear();
-    level_manager.load_level(LEVEL_FILE);
+    Resource_manager::get_instance()->level_bricks.clear();
+    Resource_manager::get_instance()->load_level(LEVEL_FILE);
     // restore lives
     player_life = PLAYER_LIFE;
     /*
@@ -88,108 +87,81 @@ void restart_game() {
 // This is where we do work in our graphics applications
 // that is constantly refreshed.
 void update(double elapsed_time) {
+    // ================= Update the paddle ================//
 
-    // ================= Update the player score ================//
-    // if already win, show win msg
+    paddle_1.Update(elapsed_time);
     
-    /*
-    if(pause){
-        if (player_1_win)
+    // ================= Update the ball position ================//
+    Contact contact;
+
+    if (ball_with_paddle)
+    {
+        ball.position.x = paddle_1.position.x + paddle_1.rect.w / 2 - ball.rect.w / 2;
+        ball.position.y = paddle_1.position.y - ball.rect.h;
+        //ball.velocity = Vec2(0.0f, BALL_SPEED);
+    } else {
+        // =================== Check collisions ==================//
+        // if collides, update velocity
+        if (contact = check_obj_collision(ball, paddle_1);
+        contact.type != Collision_type::None)
         {
-            level_manager.display_1->set_score("P1 wins!     press R");
-            level_manager.display_2->set_score("to restart!");
+            //std::cout<< (int)contact.type << " " << (int)contact.side << std::endl;
+            ball.collide_with_paddle(contact);
+            Mix_PlayChannel(-1, Resource_manager::get_instance()->paddle_hit_sound, 0);
         }
-        else if (!player_1_win) {
-            level_manager.display_1->set_score("P2 wins!     press R");
-            level_manager.display_2->set_score("to restart!");
-        }
-        // reset the ball / paddle positions
-        ball.position.x = (SCREEN_WIDTH / 2.0f) - (BALL_WIDTH / 2.0f);
-        ball.position.y = (SCREEN_HEIGHT / 2.0f) - (BALL_WIDTH / 2.0f);
-
-        paddle_1.position.y = 50.0f;
-        paddle_1.position.x = (SCREEN_WIDTH / 2.0f) - (PADDLE_WIDTH / 2.0f);
-        
-        //paddle_2.position.y = SCREEN_HEIGHT - 50.0f;
-        //paddle_2.position.x = (SCREEN_WIDTH / 2.0f) - (PADDLE_WIDTH / 2.0f);
-        
-        // else keep the game run
-    } else */{
-        // Update the paddle 
-
-        paddle_1.Update(elapsed_time);
-        Contact contact;
-        // ================= Update the ball position ================//
-
-        if (ball_with_paddle)
-        {
-            ball.position.x = paddle_1.position.x + paddle_1.rect.w / 2 - ball.rect.w / 2;
-            ball.position.y = paddle_1.position.y - ball.rect.h;
-            //ball.velocity = Vec2(0.0f, BALL_SPEED);
-        } else {
-            // =================== Check collisions ==================//
-            // if collides, update velocity
-            if (contact = check_obj_collision(ball, paddle_1);
+        // wall collision
+        else if (contact = check_wall_collision(ball);
             contact.type != Collision_type::None)
-            {
-                //std::cout<< (int)contact.type << " " << (int)contact.side << std::endl;
-                ball.collide_with_paddle(contact);
-            }
-            // wall collision
-            else if (contact = check_wall_collision(ball);
-                contact.type != Collision_type::None)
-            {
-                ball.collide_with_wall(contact);
-            }
+        {
+            ball.collide_with_wall(contact);
+            Mix_PlayChannel(-1, Resource_manager::get_instance()->wall_hit_sound, 0);
+        }
 
-            // draw all bricks
-            for (int i = level_manager.level_bricks.size() - 1; i >= 0; i--)
+        // draw all bricks
+        for (int i = Resource_manager::get_instance()->level_bricks.size() - 1; i >= 0; i--)
+        {
+            for (int j = 0; j < Resource_manager::get_instance()->level_bricks[0].size(); j++)
             {
-                for (int j = 0; j < level_manager.level_bricks[0].size(); j++)
+                if (Resource_manager::get_instance()->level_bricks[i][j].status != Brick_type::None)
                 {
-                    if (level_manager.level_bricks[i][j].status != Brick_type::None)
+                    if (contact = check_obj_collision(ball, Resource_manager::get_instance()->level_bricks[i][j]);
+                    contact.type != Collision_type::None)
                     {
-                        if (contact = check_obj_collision(ball, level_manager.level_bricks[i][j]);
-                        contact.type != Collision_type::None)
-                        {
-                            ball.collide_with_brick(contact);
-                            level_manager.level_bricks[i][j].status = Brick_type::None;
-                            bricks_remained--;
-                        }
+                        // perform collision
+                        ball.collide_with_brick(contact);
+                        // update brick manager
+                        Resource_manager::get_instance()->level_bricks[i][j].status = Brick_type::None;
+                        bricks_remained--;
+                        // play sound
+                        Mix_PlayChannel(-1, Resource_manager::get_instance()->paddle_hit_sound, 0);
                     }
                 }
             }
-            ball.Update(elapsed_time);
         }
-
-        // ================= Update the score ================//
-        /*
-        if (contact.type == Collision_type::Left) ++player_2_score;
-        else if (contact.type == Collision_type::Right) ++player_1_score;
-
-        level_manager.display_1->set_score(std::to_string(player_1_score));
-        level_manager.display_2->set_score(std::to_string(player_2_score));
-        */
+        ball.Update(elapsed_time);
     }
 
+    // ================= Update the game message ================//
+    
+    // the score/life txt that will be constantly updated on screen
     std::string game_stat = "LIFE: " + std::to_string(player_life) + 
     "       Bricks: " + std::to_string(bricks_remained);
 
-    level_manager.display_1->set_score(game_stat);
+    Resource_manager::get_instance()->display_1->set_score(game_stat);
     // =================== check win condition ==================//
     if (bricks_remained <= 0){
-        level_manager.display_2->set_score(" You win! R to restart");
+        Resource_manager::get_instance()->display_2->set_score(" You win! R to restart");
         ball_with_paddle = true;
         pause = true;
 
     } else if (player_life <= 0) {
-        level_manager.display_2->set_score("You lose! R to restart");
+        Resource_manager::get_instance()->display_2->set_score("You lose! R to restart");
         ball_with_paddle = true;
         pause = true;
 
     } else if(ball_with_paddle) {
-        level_manager.display_2->set_score("Press L to launch ball");
-    } else level_manager.display_2->set_score("");
+        Resource_manager::get_instance()->display_2->set_score("Press L to launch ball");
+    } else Resource_manager::get_instance()->display_2->set_score("");
     /*
     if (player_1_score >= SCORE_TO_WIN || player_2_score >= SCORE_TO_WIN)
     {
@@ -209,14 +181,14 @@ void render() {
     // Set the draw color to be white
     SDL_SetRenderDrawColor(g_renderer, 0xFF, 0xFF, 0xFF, 0xFF);
     // draw all bricks
-    for (int i = level_manager.level_bricks.size() - 1; i >= 0; i--)
+    for (int i = Resource_manager::get_instance()->level_bricks.size() - 1; i >= 0; i--)
     {
-        for (int j = 0; j < level_manager.level_bricks[0].size(); j++)
+        for (int j = 0; j < Resource_manager::get_instance()->level_bricks[0].size(); j++)
         {
             //std::cout << (int)((level_bricks[i][j]).status);
-            if (level_manager.level_bricks[i][j].status != Brick_type::None)
+            if (Resource_manager::get_instance()->level_bricks[i][j].status != Brick_type::None)
             {
-                level_manager.level_bricks[i][j].Draw(g_renderer);
+                Resource_manager::get_instance()->level_bricks[i][j].Draw(g_renderer);
             }
         }
     }
@@ -233,8 +205,8 @@ void render() {
     //=================== Draw the score ==================//
 
 
-    level_manager.display_1->Draw();
-    level_manager.display_2->Draw();
+    Resource_manager::get_instance()->display_1->Draw();
+    Resource_manager::get_instance()->display_2->Draw();
 
     //================= Render all elements ================//
 
@@ -246,9 +218,12 @@ void close() {
 
     // close the font
     //TTF_CloseFont(score_font);
+    Resource_manager::get_instance()->destroy();
+
+    Mix_Quit();
     TTF_Quit();
 
-    //delete &level_manager;
+    //delete &resource_manager;
     // Destroy Renderer
     SDL_DestroyRenderer(g_renderer);
     //Destroy window

@@ -3,7 +3,7 @@
 #include "Paddle.hpp"
 #include "Brick.hpp"
 #include "collision.hpp"
-#include "Level_manager.hpp"
+#include "Resource_manager.hpp"
 #include "PlayerScore.hpp"
 #include "ScoreDisplay.hpp"
 // ========================= Classes =======================
@@ -36,9 +36,6 @@ SDL_Window* g_window {NULL};
 //SDL renderer
 SDL_Renderer* g_renderer {NULL};
 
-// Initialize the font
-TTF_Font* score_font;
-
 
 // ====================== game objects ====================//
 
@@ -58,4 +55,4 @@ Paddle paddle_2(Vec2(SCREEN_WIDTH - 50.0f,
 */
 bool pause = false;
 // Create the player score text fields
-Level_manager level_manager(0,0);
+//Level_manager level_manager(0,0);
