@@ -1,3 +1,10 @@
+/** @file Ball.hpp
+@author yang hu
+@version 1.0
+@brief Define the ball movement, collision behaviour and draw
+@date Monday, Feburuary 22, 2021
+*/
+
 #ifndef BALL_CLASS
 #define BALL_CLASS
 
@@ -5,33 +12,34 @@
 #include "Vec2.hpp"
 #include "Resource_manager.hpp"
 
-const int BALL_WIDTH  = 15;
-const int BALL_HEIGHT = 15;
-
-class Ball
-{
+/**@class Ball
+ *@brief A collidable, moveable box object
+ *@details Defines various movement behaviour when colliding with other objects
+*/
+class Ball : public Collision_obj {
 public:
-	Vec2 position;
-	Vec2 velocity;
-	SDL_Rect rect{};
-	// A structure that contains the definition of a rectangle, 
-	// with the origin at the upper left (x,y).
 
-	// initialize ball with given position
+	/// @brief initialize ball with given position
 	Ball(Vec2 position, Vec2 velocity)
-		: position(position), velocity(velocity)
+		: Collision_obj(position, velocity) 
 	{
-		rect.x = static_cast<int>(position.x);
-		rect.y = static_cast<int>(position.y);
 		rect.w = BALL_WIDTH;
 		rect.h = BALL_HEIGHT;
 	}
 
+	/// @brief update the ball movement with given delta time
 	void Update(float dt)
 	{
 		position += velocity * dt;
 	}
 
+	/**
+	 * @brief define ball behaviour when colliding with a paddle
+	 * @details bouncing to left and right according to which part 
+	 * of the paddle the ball collide on
+	 * @param contact stores contact info like which side, which part of that
+	 * side does the collision happens
+	 */
 	void collide_with_paddle(Contact const& contact)
 	{
 		// if collide up/bottom
@@ -58,6 +66,12 @@ public:
 		}
 	}
 
+	/**
+	 * @brief define ball behaviour when colliding with a brick
+	 * @details reverse x or y velocity according to which side collide on
+	 * @param contact stores contact info like which side, which part of that
+	 * side does the collision happens
+	 */
 	void collide_with_brick(Contact const& contact) {
 		// reflect the ball
 		if (contact.side == Collision_side::Top ||
@@ -70,6 +84,13 @@ public:
 			velocity.x = -velocity.x;
 		}
 	}
+
+	/**
+	 * @brief define ball behaviour when colliding with a wall
+	 * @details reverse x or y velocity according to which side collide on
+	 * @param contact stores contact info like which side, which part of that
+	 * side does the collision happens
+	 */
 	void collide_with_wall(Contact const& contact)
 	{
 		if (contact.type == Collision_type::Right
@@ -93,7 +114,7 @@ public:
 			player_life--;
 		}
 	}
-	// send the draw command to renderer
+	/// @brief send the draw command to renderer
 	void Draw(SDL_Renderer* renderer)
 	{
 		rect.x = static_cast<int>(position.x);
@@ -103,6 +124,6 @@ public:
 	}
 };
 
-extern Ball ball;
+extern Ball ball; ///< for outside object reference
 
 #endif

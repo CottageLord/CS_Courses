@@ -1,43 +1,51 @@
+/** @file Resource_manager.hpp
+@author yang hu
+@version 1.0
+@brief A singleton resource manager that manages game resources
+@details resource includes: font, brick objects, sound and textures
+@date Monday, Feburuary 22, 2021
+*/
 #ifndef RESOURCE_MANAGER_CLASS
 #define RESOURCE_MANAGER_CLASS
 
 #include <fstream>
 #include "config.hpp"
 #include "Brick.hpp"
-#include "PlayerScore.hpp"
+#include "Text_display.hpp"
 
-// This is for holding score display pointers
-const char EMPTY_BRICK = '0';
-const char REAL_BRICK  = '1';
-
+/**@class Resource_manager
+ *@brief defines resource loading, managig and offloading
+*/
 class Resource_manager {
 	
 private:
-	Resource_manager(PlayerScore *player_1, PlayerScore *player_2) { }
-	Resource_manager(Resource_manager const&); // Avoid copy constructor
-    void operator=(Resource_manager const&); // Don't allow assignment.
-	// initialize the singleton pointer field
-	static Resource_manager* instance;
+	/// @brief avoid public initialization - Singleton
+	Resource_manager(Text_display *player_1, Text_display *player_2) { }
+	/// @brief Avoid copy constructor
+	Resource_manager(Resource_manager const&);
+	/// @brief Don't allow assignment.
+    void operator=(Resource_manager const&); 
+	static Resource_manager* instance; ///< initialize the singleton pointer field
 
 public:
-	// data structure to store all bricks
-	std::vector<std::vector<Brick>> level_bricks;
-	std::vector<std::string> text_display;
-	PlayerScore *display_1;
-	PlayerScore *display_2;
+	std::vector<std::vector<Brick>> level_bricks; ///< data structure to store all bricks
+	std::vector<std::string> text_display; ///< stores referece to all text displayer
+	Text_display *display_1; ///< text display for score, lives
+	Text_display *display_2; ///< text display for messages like win/lose
 	// Initialize sound effects
-	Mix_Chunk* wall_hit_sound;
-	Mix_Chunk* paddle_hit_sound;	
-	Mix_Music* background_music;
+	Mix_Chunk* wall_hit_sound; ///< sound resource for wall hit sound
+	Mix_Chunk* paddle_hit_sound; ///< sound resource for paddle hit sound
+	Mix_Music* background_music; ///< sound resource for bgm
 	// Initialize the font
-	TTF_Font* score_font;
+	TTF_Font* score_font; ///< font resource for display text
 
-
+	/// @brief get the instance of the resource manager, create one if not instanciated
 	static Resource_manager *get_instance() {
 		if (!instance) instance = new Resource_manager(0,0);
 		return instance;
 	}
 
+	/// @brief load all resources, happens only once at the beginning of the game
 	void load_resources(SDL_Renderer* renderer) {
 		// load sound resources
 	    wall_hit_sound   = Mix_LoadWAV(WALL_SOUND_FILE);
@@ -46,11 +54,12 @@ public:
 	    // load font
 	    score_font = TTF_OpenFont(FONT_FILE, 40);
 	    // score display
-    	display_1 = new PlayerScore(Vec2(SCREEN_WIDTH / 4, 0), renderer, score_font);
+    	display_1 = new Text_display(Vec2(SCREEN_WIDTH / 4, 0), renderer, score_font);
     	// notification text display
-    	display_2 = new PlayerScore(Vec2( 100, SCREEN_HEIGHT / 2), renderer, score_font);
+    	display_2 = new Text_display(Vec2( 100, SCREEN_HEIGHT / 2), renderer, score_font);
     
 	}
+	/// @brief load localization text after the player has chose language
 	void load_text(const std::string& filename) {
 		// open the file
 		std::ifstream localization_text(filename);
@@ -67,10 +76,9 @@ public:
 	    	text_display.insert(text_display.end(), input);
 	    }
 	}
-
+	/// @brief load all levels from files, store in 2d vector
 	void load_level(const std::string& filename) {
 		// open the file
-		//std::vector<std::vector<Brick>> bricks;
 		std::ifstream level_data(filename);
 
 		if (!level_data) {
@@ -129,11 +137,10 @@ public:
 	        curr_brick_pos_y = curr_brick_pos_y + brick_height + BRICK_GAP;
 	    }
 	}
+	/// @brief empty deconstructor
+	~Resource_manager(){ }
 
-	~Resource_manager(){
-		
-	}
-
+	/// @brief offload all loaded resources
 	void destroy() {
 		delete display_1;
 		delete display_2;

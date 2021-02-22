@@ -1,12 +1,23 @@
+/** @file tiny_math.hpp
+@author yang hu
+@version 1.0
+@brief Define the collision cauculations between ball, paddle, brick and wall with Separating Axis Theorem
+@date Monday, Feburuary 22, 2021
+*/
+
 #ifndef COLLISION_CLASS
 #define COLLISION_CLASS
-// check collision with Separating Axis Theorem
 #include "config.hpp"
 #include "Ball.hpp"
 #include "Paddle.hpp"
 
-// check if the ball hit the obj
-Contact check_obj_collision(Ball const& ball, Collision_obj const& obj)
+/**
+ * @brief generate collision info when collision happens
+ * @details detect which side does the movinng object hit on the target
+ * @param ball the moving ball object that contains position info
+ * @param obj the being collided object with position/size info
+ */
+Contact check_obj_collision(Collision_obj const& ball, Collision_obj const& obj)
 {
 	float ball_left 	= ball.position.x;
 	float ball_right 	= ball.position.x + ball.rect.w;
@@ -89,7 +100,10 @@ Contact check_obj_collision(Ball const& ball, Collision_obj const& obj)
 	return contact;
 }
 
-// check if the ball hit the wall
+/**
+ * @brief checks if the ball hit the wall
+ * @param ball the moving ball object that contains position info
+ */
 Contact check_wall_collision(Ball const& ball) {
 
 	float ball_left 	= ball.position.x;

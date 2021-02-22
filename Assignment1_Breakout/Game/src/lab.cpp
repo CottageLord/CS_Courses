@@ -1,15 +1,30 @@
-// Support Code written by Michael D. Shah
-// This is modified from a tutorial from: http://lazyfoo.net/tutorials/SDL/51_SDL_and_modern_opengl/index.php
-//
-// You can modify this could however you like in order to implement your 'pong'
-// By default this code just outputs a simple 'red' screen.
-//
-// If this code does NOT work, try the source from this online example: http://lazyfoo.net/tutorials/SDL/50_SDL_and_opengl_2/index.php
-// (Please alert the instructor if this is the case)
-//
-//
-// Last Updated: 2/1/21
-// Please do not redistribute without asking permission.
+/**@mainpage  Breakout
+* <table>
+* <tr><th>Project  <td>Breakout
+* <tr><th>Author   <td>Yang Hu
+* </table>
+* @section   Project description
+* -# A simple SDL breakout game built on Windows 10.
+* -# SDL2, SDL_image, SDL_ttf and SDL_mixer are required for running this game.
+*
+* @section   Naming convention
+* Files with first letter capitalized are class files.
+*
+* @section   Play Instructions
+* -# Use A/D on the key board to control your paddle.
+* -# Use L to launch the ball when the ball stays on the paddle
+* -# Use R to start the game when the game end.
+* -# Use Q to quit the game.
+*
+**********************************************************************************
+*/
+
+/** @file lab.cpp
+@author yang hu
+@version 1.0
+@brief implements lab.hpp
+@date Monday, Feburuary 22, 2021
+*/
 
 #include "lab.hpp"
 
@@ -80,7 +95,8 @@ bool game_running() {
 }
 
 void language_selection() {
-    Resource_manager::get_instance()->display_2->set_score("    English[E]     Français[F]");
+    Resource_manager::get_instance()->display_2->set_text(
+        "    English[E]     Français[F]");
     Resource_manager::get_instance()->display_2->Draw();
     SDL_RenderPresent(g_renderer);
 
@@ -162,19 +178,19 @@ void update(double elapsed_time) {
         Resource_manager::get_instance()->text_display[(int)Text_order::Bricks] + 
         std::to_string(bricks_remained);
 
-    Resource_manager::get_instance()->display_1->set_score(game_stat);
+    Resource_manager::get_instance()->display_1->set_text(game_stat);
     // =================== check win condition ==================//
     if (bricks_remained <= 0){
         // if level remaining
         if (current_level < LEVEL_NUM)
         {
             if(!pause) current_level++;
-            Resource_manager::get_instance()->display_2->set_score(
+            Resource_manager::get_instance()->display_2->set_text(
                 Resource_manager::get_instance()->text_display[(int)Text_order::Win_next]);
             ball_with_paddle = true;
             pause = true;
         } else {
-            Resource_manager::get_instance()->display_2->set_score(
+            Resource_manager::get_instance()->display_2->set_text(
                 Resource_manager::get_instance()->text_display[(int)Text_order::Win_end]);
             ball_with_paddle = true;
             pause = true;
@@ -182,15 +198,15 @@ void update(double elapsed_time) {
         
 
     } else if (player_life <= 0) {
-        Resource_manager::get_instance()->display_2->set_score(
+        Resource_manager::get_instance()->display_2->set_text(
             Resource_manager::get_instance()->text_display[(int)Text_order::Lose_end]);
         ball_with_paddle = true;
         pause = true;
 
     } else if(ball_with_paddle) {
-        Resource_manager::get_instance()->display_2->set_score(
+        Resource_manager::get_instance()->display_2->set_text(
             Resource_manager::get_instance()->text_display[(int)Text_order::Launch_ball]);
-    } else Resource_manager::get_instance()->display_2->set_score("");
+    } else Resource_manager::get_instance()->display_2->set_text("");
     /*
     if (player_1_score >= SCORE_TO_WIN || player_2_score >= SCORE_TO_WIN)
     {
@@ -329,8 +345,8 @@ void handle_event(bool &quit) {
                     Resource_manager::get_instance()->load_level(LEVEL_FILES[current_level]);
                 } else restart_game();
             }       
-            else if (event.key.keysym.sym == SDLK_a)    buttons[Buttons::paddle_1_left]  = true;
-            else if (event.key.keysym.sym == SDLK_d)    buttons[Buttons::paddle_1_right] = true;
+            else if (event.key.keysym.sym == SDLK_a)    buttons[(int)Buttons::paddle_1_left]  = true;
+            else if (event.key.keysym.sym == SDLK_d)    buttons[(int)Buttons::paddle_1_right] = true;
             // if language not selected
             else if (event.key.keysym.sym == SDLK_e && !language_selected) {
                 language_file = ENGLISH_FILE; 
@@ -342,24 +358,24 @@ void handle_event(bool &quit) {
                 Resource_manager::get_instance()->load_text(language_file);
                 language_selected = true;
             }
-            //else if (event.key.keysym.sym == SDLK_w)    buttons[Buttons::paddle_1_up]    = true;
-            //else if (event.key.keysym.sym == SDLK_s)    buttons[Buttons::paddle_1_down]  = true;
+            //else if (event.key.keysym.sym == SDLK_w)    buttons[(int)Buttons::paddle_1_up]    = true;
+            //else if (event.key.keysym.sym == SDLK_s)    buttons[(int)Buttons::paddle_1_down]  = true;
             else if (event.key.keysym.sym == SDLK_l)    ball_with_paddle = false;
         }
         else if (event.type == SDL_KEYUP)
         {
-            if (event.key.keysym.sym == SDLK_a)         buttons[Buttons::paddle_1_left]  = false;
-            else if (event.key.keysym.sym == SDLK_d)    buttons[Buttons::paddle_1_right] = false;
-            //else if (event.key.keysym.sym == SDLK_w)    buttons[Buttons::paddle_1_up]    = false;
-            //else if (event.key.keysym.sym == SDLK_s)    buttons[Buttons::paddle_1_down]  = false;
+            if (event.key.keysym.sym == SDLK_a)         buttons[(int)Buttons::paddle_1_left]  = false;
+            else if (event.key.keysym.sym == SDLK_d)    buttons[(int)Buttons::paddle_1_right] = false;
+            //else if (event.key.keysym.sym == SDLK_w)    buttons[(int)Buttons::paddle_1_up]    = false;
+            //else if (event.key.keysym.sym == SDLK_s)    buttons[(int)Buttons::paddle_1_down]  = false;
         }
     }
 
     // adjust paddle's velocity accordingly
-    if (buttons[Buttons::paddle_1_left])        paddle_1.velocity.x = -PADDLE_SPEED;
-    else if (buttons[Buttons::paddle_1_right])  paddle_1.velocity.x = PADDLE_SPEED;
-    //else if (buttons[Buttons::paddle_1_up])     paddle_1.velocity.y = -PADDLE_SPEED;
-    //else if (buttons[Buttons::paddle_1_down])   paddle_1.velocity.y = PADDLE_SPEED;
+    if (buttons[(int)Buttons::paddle_1_left])        paddle_1.velocity.x = -PADDLE_SPEED;
+    else if (buttons[(int)Buttons::paddle_1_right])  paddle_1.velocity.x = PADDLE_SPEED;
+    //else if (buttons[(int)Buttons::paddle_1_up])     paddle_1.velocity.y = -PADDLE_SPEED;
+    //else if (buttons[(int)Buttons::paddle_1_down])   paddle_1.velocity.y = PADDLE_SPEED;
     else
     {                      
         paddle_1.velocity.x = 0.0f;

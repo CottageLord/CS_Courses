@@ -1,0 +1,94 @@
+\hypertarget{class_ball}{}\doxysection{Ball Class Reference}
+\label{class_ball}\index{Ball@{Ball}}
+
+
+A collidable, moveable box object.  
+
+
+
+
+{\ttfamily \#include $<$Ball.\+hpp$>$}
+
+Inheritance diagram for Ball\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_ball}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_ball_a6d5f8111a0aca9f5afb835664b50066f}\label{class_ball_a6d5f8111a0aca9f5afb835664b50066f}} 
+\mbox{\hyperlink{class_ball_a6d5f8111a0aca9f5afb835664b50066f}{Ball}} (\mbox{\hyperlink{class_vec2}{Vec2}} \mbox{\hyperlink{class_collision__obj_a145c69c33ab3a5347ad87b12827d4b29}{position}}, \mbox{\hyperlink{class_vec2}{Vec2}} \mbox{\hyperlink{class_collision__obj_a85548235e769c7a77268e4d12f0e84e6}{velocity}})
+\begin{DoxyCompactList}\small\item\em initialize ball with given position \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_ball_a791a8547e5a882d05c1acc4cbfcee86b}\label{class_ball_a791a8547e5a882d05c1acc4cbfcee86b}} 
+void \mbox{\hyperlink{class_ball_a791a8547e5a882d05c1acc4cbfcee86b}{Update}} (float dt)
+\begin{DoxyCompactList}\small\item\em update the ball movement with given delta time \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_ball_af887b9170e57e16ff6cc6ab70aa3594a}{collide\+\_\+with\+\_\+paddle}} (\mbox{\hyperlink{struct_contact}{Contact}} const \&contact)
+\begin{DoxyCompactList}\small\item\em define ball behaviour when colliding with a paddle \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_ball_a488eea6eb9f5dee23f903588a2f090e5}{collide\+\_\+with\+\_\+brick}} (\mbox{\hyperlink{struct_contact}{Contact}} const \&contact)
+\begin{DoxyCompactList}\small\item\em define ball behaviour when colliding with a brick \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_ball_ad517064f93f944a1b15e40d480181f38}{collide\+\_\+with\+\_\+wall}} (\mbox{\hyperlink{struct_contact}{Contact}} const \&contact)
+\begin{DoxyCompactList}\small\item\em define ball behaviour when colliding with a wall \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_ball_a9ed7455edf94a25227ba6b4db451770f}\label{class_ball_a9ed7455edf94a25227ba6b4db451770f}} 
+void \mbox{\hyperlink{class_ball_a9ed7455edf94a25227ba6b4db451770f}{Draw}} (SDL\+\_\+\+Renderer $\ast$renderer)
+\begin{DoxyCompactList}\small\item\em send the draw command to renderer \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+A collidable, moveable box object. 
+
+Defines various movement behaviour when colliding with other objects 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_ball_a488eea6eb9f5dee23f903588a2f090e5}\label{class_ball_a488eea6eb9f5dee23f903588a2f090e5}} 
+\index{Ball@{Ball}!collide\_with\_brick@{collide\_with\_brick}}
+\index{collide\_with\_brick@{collide\_with\_brick}!Ball@{Ball}}
+\doxysubsubsection{\texorpdfstring{collide\_with\_brick()}{collide\_with\_brick()}}
+{\footnotesize\ttfamily void Ball\+::collide\+\_\+with\+\_\+brick (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_contact}{Contact}} const \&}]{contact }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+define ball behaviour when colliding with a brick 
+
+reverse x or y velocity according to which side collide on 
+\begin{DoxyParams}{Parameters}
+{\em contact} & stores contact info like which side, which part of that side does the collision happens \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_ball_af887b9170e57e16ff6cc6ab70aa3594a}\label{class_ball_af887b9170e57e16ff6cc6ab70aa3594a}} 
+\index{Ball@{Ball}!collide\_with\_paddle@{collide\_with\_paddle}}
+\index{collide\_with\_paddle@{collide\_with\_paddle}!Ball@{Ball}}
+\doxysubsubsection{\texorpdfstring{collide\_with\_paddle()}{collide\_with\_paddle()}}
+{\footnotesize\ttfamily void Ball\+::collide\+\_\+with\+\_\+paddle (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_contact}{Contact}} const \&}]{contact }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+define ball behaviour when colliding with a paddle 
+
+bouncing to left and right according to which part of the paddle the ball collide on 
+\begin{DoxyParams}{Parameters}
+{\em contact} & stores contact info like which side, which part of that side does the collision happens \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_ball_ad517064f93f944a1b15e40d480181f38}\label{class_ball_ad517064f93f944a1b15e40d480181f38}} 
+\index{Ball@{Ball}!collide\_with\_wall@{collide\_with\_wall}}
+\index{collide\_with\_wall@{collide\_with\_wall}!Ball@{Ball}}
+\doxysubsubsection{\texorpdfstring{collide\_with\_wall()}{collide\_with\_wall()}}
+{\footnotesize\ttfamily void Ball\+::collide\+\_\+with\+\_\+wall (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_contact}{Contact}} const \&}]{contact }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+define ball behaviour when colliding with a wall 
+
+reverse x or y velocity according to which side collide on 
+\begin{DoxyParams}{Parameters}
+{\em contact} & stores contact info like which side, which part of that side does the collision happens \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/\mbox{\hyperlink{_ball_8hpp}{Ball.\+hpp}}\end{DoxyCompactItemize}

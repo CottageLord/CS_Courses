@@ -1,0 +1,66 @@
+\hypertarget{tiny__math_8hpp}{}\doxysection{include/tiny\+\_\+math.hpp File Reference}
+\label{tiny__math_8hpp}\index{include/tiny\_math.hpp@{include/tiny\_math.hpp}}
+
+
+Define the collision cauculations between ball, paddle, brick and wall with Separating Axis Theorem.  
+
+
+{\ttfamily \#include \char`\"{}config.\+hpp\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Ball.\+hpp\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Paddle.\+hpp\char`\"{}}\newline
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{struct_contact}{Contact}} \mbox{\hyperlink{tiny__math_8hpp_a62524c58869b5d749cc2ea047583ae50}{check\+\_\+obj\+\_\+collision}} (\mbox{\hyperlink{class_collision__obj}{Collision\+\_\+obj}} const \&\mbox{\hyperlink{lab_8hpp_a77b4c23a81efc800de63e930b68b046f}{ball}}, \mbox{\hyperlink{class_collision__obj}{Collision\+\_\+obj}} const \&obj)
+\begin{DoxyCompactList}\small\item\em generate collision info when collision happens \end{DoxyCompactList}\item 
+\mbox{\hyperlink{struct_contact}{Contact}} \mbox{\hyperlink{tiny__math_8hpp_a6b7b6154e14f8a84ba8f4df760432134}{check\+\_\+wall\+\_\+collision}} (\mbox{\hyperlink{class_ball}{Ball}} const \&\mbox{\hyperlink{lab_8hpp_a77b4c23a81efc800de63e930b68b046f}{ball}})
+\begin{DoxyCompactList}\small\item\em checks if the ball hit the wall \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Define the collision cauculations between ball, paddle, brick and wall with Separating Axis Theorem. 
+
+\begin{DoxyAuthor}{Author}
+yang hu 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+1.\+0 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+Monday, Feburuary 22, 2021 
+\end{DoxyDate}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{tiny__math_8hpp_a62524c58869b5d749cc2ea047583ae50}\label{tiny__math_8hpp_a62524c58869b5d749cc2ea047583ae50}} 
+\index{tiny\_math.hpp@{tiny\_math.hpp}!check\_obj\_collision@{check\_obj\_collision}}
+\index{check\_obj\_collision@{check\_obj\_collision}!tiny\_math.hpp@{tiny\_math.hpp}}
+\doxysubsubsection{\texorpdfstring{check\_obj\_collision()}{check\_obj\_collision()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_contact}{Contact}} check\+\_\+obj\+\_\+collision (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_collision__obj}{Collision\+\_\+obj}} const \&}]{ball,  }\item[{\mbox{\hyperlink{class_collision__obj}{Collision\+\_\+obj}} const \&}]{obj }\end{DoxyParamCaption})}
+
+
+
+generate collision info when collision happens 
+
+detect which side does the movinng object hit on the target 
+\begin{DoxyParams}{Parameters}
+{\em ball} & the moving ball object that contains position info \\
+\hline
+{\em obj} & the being collided object with position/size info \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{tiny__math_8hpp_a6b7b6154e14f8a84ba8f4df760432134}\label{tiny__math_8hpp_a6b7b6154e14f8a84ba8f4df760432134}} 
+\index{tiny\_math.hpp@{tiny\_math.hpp}!check\_wall\_collision@{check\_wall\_collision}}
+\index{check\_wall\_collision@{check\_wall\_collision}!tiny\_math.hpp@{tiny\_math.hpp}}
+\doxysubsubsection{\texorpdfstring{check\_wall\_collision()}{check\_wall\_collision()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_contact}{Contact}} check\+\_\+wall\+\_\+collision (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_ball}{Ball}} const \&}]{ball }\end{DoxyParamCaption})}
+
+
+
+checks if the ball hit the wall 
+
+
+\begin{DoxyParams}{Parameters}
+{\em ball} & the moving ball object that contains position info \\
+\hline
+\end{DoxyParams}

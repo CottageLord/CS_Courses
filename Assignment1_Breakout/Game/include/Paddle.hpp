@@ -1,3 +1,9 @@
+/** @file Paddle.hpp
+@author yang hu
+@version 1.0
+@brief Define the paddle movement and draw
+@date Monday, Feburuary 22, 2021
+*/
 #ifndef PADDLE_CLASS
 #define PADDLE_CLASS
 
@@ -5,15 +11,13 @@
 #include "Vec2.hpp"
 #include "Collision_obj.hpp"
 
-class Collision_obj;
-
-const int PADDLE_WIDTH  = 100;
-const int PADDLE_HEIGHT = 30;
-// class for playable paddles
-
+/**@class Paddle
+ *@brief A collidable, moveable box object
+ *@details Defines the movement and draw of a paddle
+*/
 class Paddle : public Collision_obj {
 public:
-	// similar to Ball.hpp
+	/// @brief initialize paddle with given sizes
 	Paddle(Vec2 position, Vec2 velocity)
 		: Collision_obj(position, velocity)
 	{
@@ -21,7 +25,7 @@ public:
 		rect.h = PADDLE_HEIGHT;
 	}
 
-	// move the paddle by position = dt * v
+	/// @brief move the paddle by position = dt * v, bound paddle within window area
 	void Update(float dt)
 	{
 		position += velocity * dt;
@@ -49,6 +53,7 @@ public:
 		}
 	}
 
+	/// @brief Draw the paddle 
 	void Draw(SDL_Renderer* renderer)
 	{
 		rect.y = static_cast<int>(position.y);
@@ -56,7 +61,7 @@ public:
 		SDL_RenderFillRect(renderer, &rect);
 	}
 };
-// paddles for external reference
-extern Paddle paddle_1, paddle_2;
+
+extern Paddle paddle_1; ///< paddles for external reference
 
 #endif
