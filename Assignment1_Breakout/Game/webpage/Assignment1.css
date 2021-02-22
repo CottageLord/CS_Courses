@@ -1,0 +1,232 @@
+html, body {
+    height: 100%;
+    width: 80%;
+    padding: 0;
+    background-color: white;
+    font: 12pt sans-serif;
+    margin: auto;
+}
+
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+li.tab:hover {
+    background-color: #111;
+    cursor: pointer; 
+}
+
+
+h2, h4, p {
+    -webkit-margin-before: 0;
+    -webkit-margin-after: 0;
+}
+
+h2, h4 {
+    margin-bottom: 15px;
+    margin-top: 15px;
+    clear: left;
+}
+
+p{
+    padding: 0px 15px 15px 15px;
+    line-height: 1.5;
+}
+
+li{
+    line-height: 1.5;
+}
+
+fieldset{
+    width: 80%;
+    margin: auto;
+}
+
+#update {
+    list-style: square;
+}
+.float {
+    float: left;
+    margin-right: 10px;
+    margin-left: 0px;
+    margin-bottom: 10px;
+}
+.answer {
+    color: blue;
+}
+.suggestion {
+    color: red;
+}
+.accordion {
+    background-color: #eee;
+    color: #444;
+    cursor: pointer;
+    width: 100%;
+    border: none;
+    list-style-type: none;
+    text-align: left;
+    outline: none;
+    transition: 0.4s;
+}
+
+.active, .accordion:hover {
+    background-color: #ccc; 
+}
+
+.accorcontent {
+    padding: 0 18px;
+    display: none;
+    background-color: white;
+    overflow: hidden;
+}
+
+#navigation {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+}
+
+.tab{
+    float: left;
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    background-color: #333;
+}
+
+.tabcontent {
+    background-color: #e6e6e6;
+    padding: 1px 15px;
+}
+
+.team{
+    margin-bottom: 5px;
+}
+
+.teamName{
+    font-weight: bold;
+}
+
+#menu{
+    position: fixed;
+    float:left;
+    width: 200px;
+    margin-top: 20px;
+}
+
+#content{
+    margin-left: 190px;
+    float:left;
+    width: 640px;
+}
+
+#artifact{
+    padding-left: 10px;
+}
+.selected {
+    display: block;
+}
+
+.unselected {
+    display: none;
+}
+
+.atomic {
+    font-style: italic;
+}
+
+.user {
+    color: #A00;
+}
+
+.system {
+    color: #00A;
+}
+
+
+.overlookmenu{
+    font-weight: bold;
+}
+
+.choosemenuitem{
+    font-weight: bold;
+    color: blue;
+}
+
+.checkprogress{
+    font-weight: bold;
+    color: #ff3399;
+}
+
+.choosefollowupoptions{
+    font-weight: bold;
+    color: red;
+}
+
+.placeorder{
+    font-weight: bold;
+    color: green;
+}
+
+.needforservice{
+    font-weight: bold;
+    color: orange;
+}
+
+.askforconfirmation{
+    font-weight: bold;
+    color: #ffcc00;
+}
+
+.cancelitem{
+    font-weight: bold;
+    color: #660066;
+}
+
+#conclusion > h5{
+	font-size: 12.5pt;
+	margin-bottom: 5px;
+}
+
+#conclusion > h4{
+	font-size: 13.5pt;
+}
+
+#c1 {
+	color: red;
+}
+
+#c2 {
+	color: green;
+}
+
+#c3 {
+	color: purple;
+}
+
+#c4 {
+	color: blue;
+}
+
+#c5 {
+	color: grey;
+}
+
+#c6 {
+	color: brown;
+}
+
+#c7 {
+	color: orange;
+}
+
+#c8 {
+	color: yellow;
+
+}

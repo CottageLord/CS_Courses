@@ -48,6 +48,17 @@ A post mortem in games is a look back at what could be improved. Write a brief (
 
 *Edit here a draft of your post mortem here if you like--the final copy goes in your 1-page .html website. Think of this section as a good 'reflection' for what you can improve on your next project you complete.*
 
+My post mortem:
+Things could be improved if I extra 8 weeks
+- Better graphics with backgroup image, brick/paddle/ball texture. (1 day)
+- Smooth mouse paddle control (1 day)
+- Special bricks that generate items when broken, which takes effect when falls on the paddle (1 day)
+- Various special item mechanics, for example, stretch or shorten the paddle, slow down or speed up the ball, make the paddle absorbing the ball and allow players do launch all the time, generate multiple balls, etc. (depends on the mechanic's implementation difficulty, could take up tp 2 weeks for rewriting the game's logic)
+- add more levels, even chapters, make a new game process manager and UI for all level displays (1 to 2 week)
+- add narratives (1 week)
+- add particle effect and animations (like the fire effect on ball when the ball could penetrate through bricks, animations like the brick breaks :D)
+- make a title screen and pause menu with clickable buttons (1 week)
+
 ## Step 4 - Website
 
 Your documentation, a link to your binary, and your brief post mortem should be put together on a 1-page .html page. 

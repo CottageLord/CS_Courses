@@ -90,7 +90,7 @@ std::string language_file = ENGLISH_FILE; ///< initialize the game language to E
 
 const char* WALL_SOUND_FILE = "../Assets/wall_hit.wav"; ///< sound file path, played when the ball hit the wall
 const char* PADDLE_SOUND_FILE = "../Assets/paddle_hit.wav"; ///< sound file path, played when the ball hit the paddle/bricks
-const char* BGM_FILE = "../Assets/PaketPhoenixIndiHome.mp3"; ///< sound file path, play background music
+const char* BGM_FILE = "../Assets/Frontier.mp3"; ///< sound file path, play background music
 const char* FONT_FILE = "../Assets/DejaVuSansMono.ttf"; ///< font file path, used for displaying all texts
 
 const std::vector<std::string> LEVEL_FILES = 
