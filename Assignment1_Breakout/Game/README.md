@@ -4,7 +4,7 @@
 
 ## Game Publicity
 
-**Project Website**: *please edit the project website with a link here* (See part 3)
+**Project Website**: https://cottagelord.github.io/Breakout_SDL_build/webpage/index.html
 
 ## Compilation Instructions
 

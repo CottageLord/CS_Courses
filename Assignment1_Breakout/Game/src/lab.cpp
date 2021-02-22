@@ -1,16 +1,16 @@
-/**@mainpage  Breakout
+/*!\mainpage  Breakout
 * <table>
 * <tr><th>Project  <td>Breakout
 * <tr><th>Author   <td>Yang Hu
 * </table>
-* @section   Project description
+* \section Project description
 * -# A simple SDL breakout game built on Windows 10.
 * -# SDL2, SDL_image, SDL_ttf and SDL_mixer are required for running this game.
 *
-* @section   Naming convention
+* \section Naming convention
 * Files with first letter capitalized are class files.
 *
-* @section   Play Instructions
+* \section Play Instructions
 * -# Use A/D on the key board to control your paddle.
 * -# Use L to launch the ball when the ball stays on the paddle
 * -# Use R to start the game when the game end.
