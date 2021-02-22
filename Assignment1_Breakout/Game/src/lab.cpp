@@ -68,16 +68,28 @@ bool init_components() {
 
     TTF_Init();
     Resource_manager::get_instance()->load_resources(g_renderer);
-    Resource_manager::get_instance()->load_level(LEVEL_FILE);
+    Resource_manager::get_instance()->load_level(LEVEL_FILES[current_level]);
     Mix_PlayMusic(Resource_manager::get_instance()->background_music, -1);
 
+    //Resource_manager::get_instance()->load_text(language_file);
     return true;
 }
 
+bool game_running() {
+    return language_selected;
+}
+
+void language_selection() {
+    Resource_manager::get_instance()->display_2->set_score("    English[E]     Français[F]");
+    Resource_manager::get_instance()->display_2->Draw();
+    SDL_RenderPresent(g_renderer);
+
+}
 void restart_game() {
     // reload level
+    current_level = 0;
     Resource_manager::get_instance()->level_bricks.clear();
-    Resource_manager::get_instance()->load_level(LEVEL_FILE);
+    Resource_manager::get_instance()->load_level(LEVEL_FILES[current_level]);
     // restore lives
     player_life = PLAYER_LIFE;
     /*
@@ -145,23 +157,39 @@ void update(double elapsed_time) {
     // ================= Update the game message ================//
     
     // the score/life txt that will be constantly updated on screen
-    std::string game_stat = "LIFE: " + std::to_string(player_life) + 
-    "       Bricks: " + std::to_string(bricks_remained);
+    std::string game_stat = Resource_manager::get_instance()->text_display[(int)Text_order::Lifes] + 
+        std::to_string(player_life) + 
+        Resource_manager::get_instance()->text_display[(int)Text_order::Bricks] + 
+        std::to_string(bricks_remained);
 
     Resource_manager::get_instance()->display_1->set_score(game_stat);
     // =================== check win condition ==================//
     if (bricks_remained <= 0){
-        Resource_manager::get_instance()->display_2->set_score(" You win! R to restart");
-        ball_with_paddle = true;
-        pause = true;
+        // if level remaining
+        if (current_level < LEVEL_NUM)
+        {
+            if(!pause) current_level++;
+            Resource_manager::get_instance()->display_2->set_score(
+                Resource_manager::get_instance()->text_display[(int)Text_order::Win_next]);
+            ball_with_paddle = true;
+            pause = true;
+        } else {
+            Resource_manager::get_instance()->display_2->set_score(
+                Resource_manager::get_instance()->text_display[(int)Text_order::Win_end]);
+            ball_with_paddle = true;
+            pause = true;
+        }
+        
 
     } else if (player_life <= 0) {
-        Resource_manager::get_instance()->display_2->set_score("You lose! R to restart");
+        Resource_manager::get_instance()->display_2->set_score(
+            Resource_manager::get_instance()->text_display[(int)Text_order::Lose_end]);
         ball_with_paddle = true;
         pause = true;
 
     } else if(ball_with_paddle) {
-        Resource_manager::get_instance()->display_2->set_score("Press L to launch ball");
+        Resource_manager::get_instance()->display_2->set_score(
+            Resource_manager::get_instance()->text_display[(int)Text_order::Launch_ball]);
     } else Resource_manager::get_instance()->display_2->set_score("");
     /*
     if (player_1_score >= SCORE_TO_WIN || player_2_score >= SCORE_TO_WIN)
@@ -181,18 +209,6 @@ void render() {
 
     // Set the draw color to be white
     SDL_SetRenderDrawColor(g_renderer, 0xFF, 0xFF, 0xFF, 0xFF);
-    // draw all bricks
-    for (int i = Resource_manager::get_instance()->level_bricks.size() - 1; i >= 0; i--)
-    {
-        for (int j = 0; j < Resource_manager::get_instance()->level_bricks[0].size(); j++)
-        {
-            //std::cout << (int)((level_bricks[i][j]).status);
-            if (Resource_manager::get_instance()->level_bricks[i][j].status != Brick_type::None)
-            {
-                Resource_manager::get_instance()->level_bricks[i][j].Draw(g_renderer);
-            }
-        }
-    }
     
     //==================== Draw the ball ==================//
 
@@ -210,6 +226,20 @@ void render() {
     Resource_manager::get_instance()->display_2->Draw();
 
     //================= Render all elements ================//
+    // Set the draw color to be blue
+    SDL_SetRenderDrawColor(g_renderer, 0x00, 0x00, 0x3F, 0xFF);
+    // draw all bricks
+    for (int i = Resource_manager::get_instance()->level_bricks.size() - 1; i >= 0; i--)
+    {
+        for (int j = 0; j < Resource_manager::get_instance()->level_bricks[0].size(); j++)
+        {
+            //std::cout << (int)((level_bricks[i][j]).status);
+            if (Resource_manager::get_instance()->level_bricks[i][j].status != Brick_type::None)
+            {
+                Resource_manager::get_instance()->level_bricks[i][j].Draw(g_renderer);
+            }
+        }
+    }
 
     SDL_RenderPresent(g_renderer);
 }
@@ -294,10 +324,24 @@ void handle_event(bool &quit) {
             // restart game available when win/lose last one
             if (event.key.keysym.sym == SDLK_r && pause == true){
                 pause = false;
-                restart_game();
-            }         
+                if(player_life > 0) {
+                    Resource_manager::get_instance()->level_bricks.clear();
+                    Resource_manager::get_instance()->load_level(LEVEL_FILES[current_level]);
+                } else restart_game();
+            }       
             else if (event.key.keysym.sym == SDLK_a)    buttons[Buttons::paddle_1_left]  = true;
             else if (event.key.keysym.sym == SDLK_d)    buttons[Buttons::paddle_1_right] = true;
+            // if language not selected
+            else if (event.key.keysym.sym == SDLK_e && !language_selected) {
+                language_file = ENGLISH_FILE; 
+                Resource_manager::get_instance()->load_text(language_file);
+                language_selected = true;
+            }
+            else if (event.key.keysym.sym == SDLK_f && !language_selected) {
+                language_file = FRENCH_FILE;
+                Resource_manager::get_instance()->load_text(language_file);
+                language_selected = true;
+            }
             //else if (event.key.keysym.sym == SDLK_w)    buttons[Buttons::paddle_1_up]    = true;
             //else if (event.key.keysym.sym == SDLK_s)    buttons[Buttons::paddle_1_down]  = true;
             else if (event.key.keysym.sym == SDLK_l)    ball_with_paddle = false;
@@ -348,10 +392,14 @@ void loop() {
 
     while(!quit){
         handle_event(quit);
-        // update with a frame stablizer
-        update_with_timer(previous_time, elapsed_time_total, frame_counter, lag, mcs_per_update);
-        // Render using SDL
-        render();
+        if (game_running())
+        {
+            // update with a frame stablizer
+            update_with_timer(previous_time, elapsed_time_total, frame_counter, lag, mcs_per_update);
+            // Render using SDL
+            render();
+        } else language_selection();
+        
     } 
 
     //Disable text input

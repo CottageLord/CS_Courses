@@ -4,7 +4,7 @@ import platform
 # (1)==================== COMMON CONFIGURATION OPTIONS ======================= #
 COMPILER="clang++ -std=c++17"   # The compiler we want to use 
                                 #(You may try g++ if you have trouble)
-SOURCE="./src/*.cpp"    # Where the source code lives
+SOURCE="../src/*.cpp"    # Where the source code lives
 EXECUTABLE="lab"        # Name of the final executable
 # ======================= COMMON CONFIGURATION OPTIONS ======================= #
 
@@ -16,23 +16,23 @@ LIBRARIES=""            # What libraries do we want to include
 
 if platform.system()=="Linux":
     ARGUMENTS="-D LINUX" # -D is a #define sent to preprocessor
-    INCLUDE_DIR="-I ./include/"
+    INCLUDE_DIR="-I ../include/"
     LIBRARIES="-lSDL2 -ldl"
 elif platform.system()=="Darwin":
     ARGUMENTS="-D MAC" # -D is a #define sent to the preprocessor.
-    INCLUDE_DIR="-I ./include/ -I/Library/Frameworks/SDL2.framework/Headers"
+    INCLUDE_DIR="-I ../include/ -I/Library/Frameworks/SDL2.framework/Headers"
     LIBRARIES="-F/Library/Frameworks -framework SDL2"
 elif platform.system()=="Windows":
     COMPILER="g++ -std=c++17" # Note we use g++ here as it is more likely what you have
     ARGUMENTS="-D MINGW -std=c++17 -static-libgcc -static-libstdc++" 
-    INCLUDE_DIR="-L./lib -I./include/"
-    EXECUTABLE="./lib/lab.exe"
+    INCLUDE_DIR="-L../lib -I../include/"
+    EXECUTABLE="../lib/lab.exe"
     LIBRARIES="-lmingw32 -lSDL2main -lSDL2 -lSDL2_ttf -lSDL2_mixer -mwindows"
 # (2)=================== Platform specific configuration ===================== #
 
 # (3)====================== Building the Executable ========================== #
 # Build a string of our compile commands that we run in the terminal
-compileString=COMPILER+" -g "+ARGUMENTS+" -o "+EXECUTABLE+" "+" "+INCLUDE_DIR+" "+SOURCE+" "+LIBRARIES
+compileString=COMPILER+" "+ARGUMENTS+" -o "+EXECUTABLE+" "+" "+INCLUDE_DIR+" "+SOURCE+" "+LIBRARIES
 # Print out the compile string
 # This is the command you can type
 print("============v (Command running on terminal) v===========================")

@@ -1,0 +1,6 @@
+ Tu gagnes ! R au niveau suivant
+ Tu gagnes ! R pour redémarrer
+ Tu as perdu! R pour redémarrer
+ Appuyez sur L pour lancer la balle
+Vie: 
+       Briques: 

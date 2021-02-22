@@ -1,0 +1,6 @@
+        You win! R to next level
+        You win! R to restart
+        You lose! R to restart
+        Press L to launch ball
+Life: 
+       Bricks: 

@@ -22,6 +22,7 @@ private:
 public:
 	// data structure to store all bricks
 	std::vector<std::vector<Brick>> level_bricks;
+	std::vector<std::string> text_display;
 	PlayerScore *display_1;
 	PlayerScore *display_2;
 	// Initialize sound effects
@@ -39,17 +40,34 @@ public:
 
 	void load_resources(SDL_Renderer* renderer) {
 		// load sound resources
-	    wall_hit_sound   = Mix_LoadWAV("media/wall_hit.wav");
-	    paddle_hit_sound = Mix_LoadWAV("media/paddle_hit.wav");
-	    background_music = Mix_LoadMUS("media/PaketPhoenixIndiHome.mp3");
+	    wall_hit_sound   = Mix_LoadWAV(WALL_SOUND_FILE);
+	    paddle_hit_sound = Mix_LoadWAV(PADDLE_SOUND_FILE);
+	    background_music = Mix_LoadMUS(BGM_FILE);
 	    // load font
-	    score_font = TTF_OpenFont("media/DejaVuSansMono.ttf", 40);
+	    score_font = TTF_OpenFont(FONT_FILE, 40);
 	    // score display
     	display_1 = new PlayerScore(Vec2(SCREEN_WIDTH / 4, 0), renderer, score_font);
     	// notification text display
-    	display_2 = new PlayerScore(Vec2( SCREEN_WIDTH / 4, SCREEN_HEIGHT / 2), renderer, score_font);
+    	display_2 = new PlayerScore(Vec2( 100, SCREEN_HEIGHT / 2), renderer, score_font);
     
 	}
+	void load_text(const std::string& filename) {
+		// open the file
+		std::ifstream localization_text(filename);
+
+		if (!localization_text) {
+	        // Print an error and exit
+	        std::cerr << "Cannot open the level data" << std::endl;
+	        return;
+	    }
+		// vector of bricks
+	    std::string input;
+	    // store all bricks
+	    while (std::getline(localization_text, input)) {
+	    	text_display.insert(text_display.end(), input);
+	    }
+	}
+
 	void load_level(const std::string& filename) {
 		// open the file
 		//std::vector<std::vector<Brick>> bricks;
@@ -109,7 +127,6 @@ public:
 	        // draw next row
 	        curr_brick_pos_x = BRICK_SIDE_PADDING;
 	        curr_brick_pos_y = curr_brick_pos_y + brick_height + BRICK_GAP;
-	        std::cout << std::endl;
 	    }
 	}
 

@@ -12,6 +12,10 @@
 bool init_window();
 
 bool init_components();
+
+bool game_running();
+// display a language selection text
+void language_selection();
 //Per frame update
 void update();
 
@@ -54,5 +58,7 @@ Paddle paddle_2(Vec2(SCREEN_WIDTH - 50.0f,
 	Vec2(0.0f, 0.0f));
 */
 bool pause = false;
+// pause game for language selection, etc.
+bool pre_game = true;
 // Create the player score text fields
 //Level_manager level_manager(0,0);

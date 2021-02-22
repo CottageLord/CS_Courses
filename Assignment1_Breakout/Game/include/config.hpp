@@ -56,16 +56,38 @@ bool player_1_lose = false;
 bool ball_with_paddle = true;
 //====================== data structure ===================//
 
-const std::string LEVEL_FILE = "media/level_1";
+const char* ENGLISH_FILE ="../Assets/English.txt";
+const char* FRENCH_FILE ="../Assets/French.txt";
+bool language_selected = false;
+std::string language_file = ENGLISH_FILE;
+//const std::string LEVEL_FILE = "Assets/level_1";
+const char* WALL_SOUND_FILE = "../Assets/wall_hit.wav";
+const char* PADDLE_SOUND_FILE = "../Assets/paddle_hit.wav";
+const char* BGM_FILE = "../Assets/PaketPhoenixIndiHome.mp3";
+const char* FONT_FILE = "../Assets/DejaVuSansMono.ttf";
 
+const std::vector<std::string> LEVEL_FILES = 
+	{"../Assets/level_0", "../Assets/level_1", "../Assets/level_2"};
+const int LEVEL_NUM = 3;
+int current_level = 0;
 
+// multi-language support
+enum class Text_order
+{
+	Win_next = 0,
+	Win_end,
+	Lose_end,
+	Launch_ball,
+	Lifes,
+	Bricks
+};
 
 enum Buttons
 {
 	paddle_1_left = 0,
 	paddle_1_right,
 	paddle_1_up,
-	paddle_1_down,
+	paddle_1_down
 };
 
 bool buttons[4] = {};
