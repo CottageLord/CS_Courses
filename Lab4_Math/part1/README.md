@@ -148,8 +148,8 @@ Templates can be quite powerful, and you will occasionally run into [template sp
 
 Answer here:
 
-1. *answer to number 1*
-2. *answer to number 2*
-3. *answer to number 3*
+1. To make a veriable immutable or regulate a class function (prototype) that no instructions within that function will change any class member variable.
+2. To hint the compiler to convert the function call instruction to actual function content, which could prevent loading parameters to or returning copied values from a function call.
+3. Because the TinyMath.h implements templates. The templates becomes different classes during compilation. If they are in normal cpp files, the compiler cannot guaratee that a specific template-derived class (i.e the <int> version of a template) is compiled by the time that compiler encounters a command that uses <int> version of that template, hence the code won't compile.
 -->
 

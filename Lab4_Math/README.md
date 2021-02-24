@@ -7,10 +7,11 @@
 ## Modify this section
 
 - How many hours did it take you to complete this lab?
+- 2 hrs
 - Did you collaborate with any other students/TAs/Professors?
+- I discussed test cases with others
 - Did you use any external resources? (Cite them below)
-  - tbd
-  - tbd
+  - No
 - (Optional) What was your favorite part of the lab?
 - (Optional) How would you improve the lab?
 
