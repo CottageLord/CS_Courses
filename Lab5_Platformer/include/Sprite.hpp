@@ -28,7 +28,7 @@ public:
     /**
      * Update the sprites position and frame
      */
-    void Update(int x, int y, int frame);
+    void Update(int frame_x, int frame_y);
     /**
      * Render the sprite 
      */
@@ -37,6 +37,7 @@ public:
      * Load a sprite
      */
     void LoadImage(std::string filePath,SDL_Renderer* ren);
+    
 
 private:
 	int m_xPos;

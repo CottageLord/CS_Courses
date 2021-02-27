@@ -32,7 +32,7 @@ Many of you may have played or seen the classic game Super Mario Bros (shown on 
 
 **Complete**: Check out some of the 'Helpful Resources' articles on building a 2D tile engine.
 
-The tile engine is  the core component of a 2D platformer, so I have provided some resources to help with this lab at the end.
+The tile engine is the core component of a 2D platformer, so I have provided some resources to help with this lab at the end.
 
 ## Part 2 - TileMap.hpp
 

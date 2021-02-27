@@ -10,7 +10,7 @@ int main(int argc, char** argv){
 	// Create an instance of an object for our engine
 	Engine engine;
 	// Initialize the Engine Subsystems
-	engine.InitializeGraphicsSubSystem();	 
+	engine.InitializeGraphicsSubSystem();
     // Once all subsystems have been initialized
     // Start the engine
     engine.Start();

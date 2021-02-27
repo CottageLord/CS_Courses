@@ -18,6 +18,7 @@
     #include <SDL.h>
 #endif
 
+#include "config.hpp"
 /**
  * This class serves as an interface to
  * the main graphics renderer for our engine.

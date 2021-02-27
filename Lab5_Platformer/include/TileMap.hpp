@@ -37,6 +37,10 @@ public:
      */
     int GetTileType(int x, int y);
     /**
+     * A simple camera manipulator
+     */
+    void SetCameraOffset(int x, int y);
+    /**
      * Draw all of the tiles in the tilemap
      */
     void Render(SDL_Renderer* ren);
@@ -49,6 +53,9 @@ private:
     // How big each tile is.
     int m_TileWidth;
     int m_TileHeight;
+
+    int m_CameraXOffset;
+    int m_CameraYOffset;
     // size of our tilemap
     int m_MapX;
     int m_MapY; 

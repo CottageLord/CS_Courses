@@ -1,6 +1,6 @@
 #include <iostream>
 #include <iomanip>
-
+#include <fstream>
 #include "TileMap.hpp"
 
 // Creates a new tile map.
@@ -25,6 +25,8 @@ TileMap::TileMap(std::string tileSheetFileName, int rows, int cols, int _TileWid
     m_TileHeight = _TileHeight;
     m_MapX = _mapX;
     m_MapY = _mapY;
+    m_CameraXOffset = 0;
+    m_CameraYOffset = 0;
     // Load the TileMap Image
     // This is the image that will get
     // sliced into smaller subsections of individual tiles.
@@ -54,16 +56,25 @@ TileMap::~TileMap(){
     delete[] m_Tiles;
 }
 
-// Helper function to gegenerate a simlpe map
+// Helper function to gegenerate a simlpe map from a file
 void TileMap::GenerateSimpleMap(){
+    
+    // open the file
+    std::ifstream level_data(LEVEL_FILE);
+
+    if (!level_data.is_open()) {
+        // Print an error and exit
+        std::cerr << "Cannot open the level data" << std::endl;
+        return;
+    }
+    int tile_index;
     for(int y= 0; y < m_MapY; y++){
         for(int x= 0; x < m_MapX; x++){
-           if(y==0){ 
-                SetTile(x,y,12);
-           }
-           if(y==m_MapY-1){ 
-                SetTile(x,y,0);
-           }
+            if (level_data >> tile_index)
+            {
+                //std::cout << tile_index << std::endl;
+                SetTile(x,y,tile_index);
+            }
        }
     }
 }
@@ -90,6 +101,19 @@ int TileMap::GetTileType(int x, int y){
     return m_Tiles[y * m_MapX + x];
 }
 
+void TileMap::SetCameraOffset(int x, int y) {
+    m_CameraXOffset += x;
+    m_CameraYOffset += y;
+    // prevent out of bound
+    if (m_CameraXOffset >= TILEMAP_COL - TILE_ON_WINDOW_W) 
+        m_CameraXOffset = TILEMAP_COL - TILE_ON_WINDOW_W;
+
+    if (m_CameraYOffset >= TILEMAP_ROW - TILE_ON_WINDOW_H) 
+        m_CameraYOffset = TILEMAP_ROW - TILE_ON_WINDOW_H;
+
+    if (m_CameraXOffset <= 0) m_CameraXOffset = 0;
+    if (m_CameraYOffset <= 0) m_CameraYOffset = 0;
+}
 // render TileMap
 void TileMap::Render(SDL_Renderer* ren){
     if(nullptr==ren){
@@ -97,8 +121,8 @@ void TileMap::Render(SDL_Renderer* ren){
     }
     
     SDL_Rect Src, Dest;
-    for(int y= 0; y < m_MapY; y++){
-        for(int x= 0; x < m_MapX; x++){
+    for(int y = m_CameraYOffset; y < TILEMAP_ROW; y++){
+        for(int x = m_CameraXOffset; x < TILEMAP_COL; x++){
             // Select our Tile
             int currentTile = GetTileType(x,y);
             if(currentTile > -1 ){
@@ -110,8 +134,8 @@ void TileMap::Render(SDL_Renderer* ren){
                 Src.w = m_TileWidth; 
                 Src.h = m_TileHeight; 
                 // Render our Tile at this location
-                Dest.x = x*m_TileWidth;
-                Dest.y = y*m_TileHeight;
+                Dest.x = (x - m_CameraXOffset) * m_TileWidth;
+                Dest.y = (y - m_CameraYOffset)* m_TileHeight;
                 Dest.w = m_TileWidth;
                 Dest.h = m_TileHeight;
                 SDL_RenderCopy(ren, m_Texture, &Src, &Dest);

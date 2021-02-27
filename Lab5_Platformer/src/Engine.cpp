@@ -31,35 +31,51 @@ Engine::~Engine(){
 void Engine::Input(bool *quit){
     // Event handler that handles various events in SDL
     // that are related to input and output
-    SDL_Event e;
+    SDL_Event event;
     // Enable text input
     SDL_StartTextInput();
-      //Handle events on queue
-      while(SDL_PollEvent( &e ) != 0){
-        // User posts an event to quit
-        // An example is hitting the "x" in the corner of the window.
-        if(e.type == SDL_QUIT){
-          *quit = true;
-        }
+    //Handle events on queue
+    while(SDL_PollEvent( &event ) != 0){
+      // User posts an event to quit
+      // An example is hitting the "x" in the corner of the window.
+      if(event.type == SDL_QUIT){
+        *quit = true;
+      } else if (event.type == SDL_KEYDOWN) { // respond to various keyboard inputs
+        if (event.key.keysym.sym == SDLK_LEFT)      myTileMap->SetCameraOffset(-1, 0);
+        else if (event.key.keysym.sym == SDLK_RIGHT)myTileMap->SetCameraOffset(1, 0);
+        else if (event.key.keysym.sym == SDLK_UP)   myTileMap->SetCameraOffset(0, -1);
+        else if (event.key.keysym.sym == SDLK_DOWN) myTileMap->SetCameraOffset(0, 1);
       }
+       
+    }
 }
 
 // Update SDL
 void Engine::Update()
 {
-    static int frame =0 ;
-    
-    // Increment the frame that
-    // the sprite is playing
-    frame++;
-    if(frame>6){
-        frame=0;
+    static int frame_x = 0;
+    static int frame_y = 0;
+    // proceed to next image
+    if(frame_x > BMP_ROW){
+      frame_x = 0;
+      frame_y++;
     }
-    
+    if (frame_y > BMP_COLOMN)
+    {
+      frame_y = 0;
+    }
+    // if reach the black, restart from beginning
+    if (frame_y == BMP_BLK_Y && frame_x == BMP_BLK_X)
+    {
+      frame_x = 0;
+      frame_y = 0;
+    }
+    // Nothing yet!
     // iterate through each of our characters
     for(int i =0; i < CHARACTERS; i++){
-        characters[i].Update(20,20, frame);
+        characters[i].Update(frame_x,frame_y);
     }
+    frame_x++;
 }
 
 
@@ -97,7 +113,7 @@ void Engine::MainGameLoop(){
       Input(&quit);
       // If you have time, implement your frame capping code here
       // Otherwise, this is a cheap hack for this lab.
-      SDL_Delay(250);
+      SDL_Delay(100);
       // Update our scene
       Update();
       // Render using OpenGL
@@ -119,13 +135,17 @@ void Engine::Start(){
     // Move Sprite to initial position
     characters[0].SetPosition(128,508);
     // Load an image for our character
-    characters[0].LoadImage("./images/sprite.bmp",m_renderer->GetRenderer());
+    characters[0].LoadImage(SPRITE_FILE, m_renderer->GetRenderer());
 
     // Setup our TileMap
     // This tile map is 20x11 in our game
     // It is using a 'reference' tilemap with 8x8 tiles
     // that are each 64x64 pixels.
-    myTileMap = new TileMap("./images/Tiles1.bmp",8,8,64,64,20,11,m_renderer->GetRenderer());
+    //int tile_width = WINDOW_WIDTH / TILEMAP_WIDTH;
+    //int tile_height = WINDOW_HEIGHT / TILEMAP_HEIGHT;
+
+    myTileMap = new TileMap(TILE_FILE, TILE_FILE_ROW, TILE_FILE_COL, 
+      TILE_WIDTH, TILE_HEIGHT, TILEMAP_COL, TILEMAP_ROW, m_renderer->GetRenderer());
     // Generate a a simple tilemap
     myTileMap->GenerateSimpleMap();
     // Print out the map to the console
@@ -148,7 +168,7 @@ void Engine::Shutdown(){
 
 void Engine::InitializeGraphicsSubSystem(){
     // Setup our Renderer
-    m_renderer = new GraphicsEngineRenderer(1280,720);
+    m_renderer = new GraphicsEngineRenderer(WINDOW_WIDTH,WINDOW_HEIGHT);
     if(nullptr == m_renderer){
         exit(1); // Terminate program if renderer 
                  // cannot be created.

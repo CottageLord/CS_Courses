@@ -17,27 +17,21 @@ void Sprite::SetPosition(int x, int y){
     m_yPos = y;
 }
 
-void Sprite::Update(int x, int y, int frame){
-    // The part of the image that we want to render
-    m_currentFrame = frame;
-    if(m_currentFrame>6){
-        m_currentFrame=0;
-    }
-
+void Sprite::Update(int frame_x, int frame_y){
     // Here I am selecting which frame I want to draw
     // from our sprite sheet. Think of this as just
     // using a mouse to draw a rectangle around the
     // sprite that we want to draw.
-    m_src.x = m_currentFrame*75;
-    m_src.y = 0;
-    m_src.w = 75;
-    m_src.h = 87;
+    m_src.x = frame_x * BMP_IMG_W;
+    m_src.y = frame_y * BMP_IMG_H;
+    m_src.w = BMP_IMG_W;
+    m_src.h = BMP_IMG_H;
 
     // Where we want the rectangle to be rendered at.
     // This is an actual 'quad' that will draw our
-    // source image on top of.	
-    m_dest.x = m_xPos;
-    m_dest.y = m_yPos;
+    // source image on top of.  
+    m_dest.x = 128;
+    m_dest.y = 508;
     m_dest.w = 128;
     m_dest.h = 128;
 }
