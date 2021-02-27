@@ -9,7 +9,7 @@
 
 using namespace std;
 
-void static readMap(const std::string& filename, std::vector<std::vector<char>> &PathMap)
+void static readMap(const std::string& filename, std::vector<std::vector<char>>& PathMap)
 {
 
     std::ifstream file(filename);
@@ -35,32 +35,34 @@ void static readMap(const std::string& filename, std::vector<std::vector<char>> 
 }
 
 void static PrintMap(std::vector<std::vector<char>> PathMap) {
-    for (std::vector<char> name : PathMap)
+    for (int i = PathMap.size() - 1; i >= 0; i--)
     {
-        for (char c : name)
+        for (int j = 0; j < PathMap[0].size(); j++)
         {
-            std::cout << c;
+            std::cout << PathMap[i][j];
         }
         std::cout << endl;
 
     }
 }
 
-enum mode { Standard, Expanded, All };
-enum heuristic { StraightLine, Manhattan };
+
+
+enum class mode { Standard, Expanded, All };
+enum class heuristic { StraightLine, Manhattan };
 
 mode convertMode(const std::string str)
 {
     if (str == "Standard")
     {
-        return Standard;
+        return mode::Standard;
     }
     else if (str == "Expanded") {
-        return Expanded;
+        return mode::Expanded;
     }
 
     else if (str == "All") {
-        return All;
+        return mode::All;
     }
     else throw("illegal value of mode");
 }
@@ -68,11 +70,11 @@ heuristic convertHeuristic(const std::string str)
 {
     if (str == "StraightLine")
     {
-        return StraightLine;
+        return heuristic::StraightLine;
     }
     else if (str == "Manhattan")
     {
-        return Manhattan;
+        return heuristic::Manhattan;
     }
 
     else throw("Illegal value of heuristic");
