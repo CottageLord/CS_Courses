@@ -75,5 +75,11 @@ const float MAX_ELIXIR = 10.01f; // a little bit more than 10, to avoid float er
 // Increase/decrease damage globally
 const float DAMAGE_MULTIPLIER = 1.f;
 
+// contact behaviours
+const float GET_AROUND_MOVE = 1.5f;
+const float DIAGONAL_ANGLE = 1.f; // this is the angle for determining collision direction. 1 for square
 
 
+// for drawing health bar
+const float HEALTH_BAR_HEIGHT = .3f;
+const float HEALTH_BAR_FLOAT = .3f; // how much higher is the bar on top of the entity

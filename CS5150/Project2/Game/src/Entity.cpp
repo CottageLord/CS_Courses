@@ -111,6 +111,11 @@ void Entity::pickTarget()
     }
 }
 
+void Entity::bePushedAway(float horizontalShift, float verticalShift) {
+    this->m_Pos.x += horizontalShift;
+    this->m_Pos.y += verticalShift;
+}
+
 bool Entity::targetInRange()
 {
     if (!!m_pTarget)

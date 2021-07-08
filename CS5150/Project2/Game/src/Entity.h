@@ -38,13 +38,17 @@ public:
     virtual void tick(float deltaTSec);
 
     virtual bool isNorth() const { return m_bNorth; }
+    virtual bool isHittingWall() const { return m_bHitWall; }
+    virtual bool isInRiver() const { return m_bInRiver; }
 
     virtual bool isDead() const { return m_Health <= 0; }
     virtual int getHealth() const { return m_Health; }
     void takeDamage(int dmg) { m_Health -= dmg; }
 
     virtual const Vec2& getPosition() const { return m_Pos; }
-
+    virtual const Vec2& getWallPosition() const { return m_WallPos; }
+    virtual const Vec2& getMoveVec() const { return m_MoveVec; }
+    void bePushedAway(float horizontalShift, float verticalShift);
     iPlayer::EntityData getData() const { return iPlayer::EntityData(m_Stats, m_Health, m_Pos); }
 
 protected:
@@ -55,7 +59,11 @@ protected:
     const iEntityStats& m_Stats;
     bool m_bNorth;
     int m_Health;
+    bool m_bHitWall;
+    bool m_bInRiver;
+    Vec2 m_WallPos;
     Vec2 m_Pos;
+    Vec2 m_MoveVec;
 
     // Our target will be the closest target (may change every tick) until
     //  we attack it.  Once we attack a target, we stay locked on it until

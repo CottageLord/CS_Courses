@@ -51,6 +51,7 @@ public:
     virtual unsigned int getNumBuildings() const { return m_Buildings.size(); }
     virtual EntityData getBuilding(unsigned int i) const;
 
+
     virtual unsigned int getNumMobs() const { return m_Mobs.size(); }
     virtual EntityData getMob(unsigned int i) const;
 

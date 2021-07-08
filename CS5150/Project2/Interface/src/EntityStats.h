@@ -102,10 +102,11 @@ public:
 class iEntityStats_Building : public iEntityStats
 {
 public:
+    // for dealing with collision 
+    virtual float getMass() const { return FLT_MAX; }
     // These should not be called
     virtual MobType getMobType() const { assert(false); return InvalidMobType; }
     virtual float getElixirCost() const { assert(false); return FLT_MAX; }
     virtual float getSpeed() const { assert(false); return FLT_MAX; }
-    virtual float getMass() const { assert(false); return FLT_MAX; }
     virtual DamageType getDamageType() const { return Ranged; }
 };

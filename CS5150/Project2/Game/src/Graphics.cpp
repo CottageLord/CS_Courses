@@ -52,7 +52,7 @@ void Graphics::resetFrame() {
     drawBG();
     drawUI();
 }
-
+// YH: added health bar display
 void Graphics::drawMob(Entity* m) {
 	int alpha = healthToAlpha(m);
 
@@ -75,8 +75,39 @@ void Graphics::drawMob(Entity* m) {
 	};
 	SDL_Color stringColor = { 0, 0, 0, 255 };
 	drawText(m->getStats().getDisplayLetter(), stringRect, stringColor);
+
+    drawHealthBar(m);
 }
 
+void Graphics::drawHealthBar(Entity *e) {
+    float fullHealth = (float)e->getStats().getMaxHealth();
+    float currHealth = (float)e->getHealth();
+    float healthBarLength = (float)e->getStats().getSize() * 1.5f;
+    //HEALTH_BAR_HEIGHT
+    float redX = e->getPosition().x - healthBarLength / 2.f;
+    float redY = e->getPosition().y - e->getStats().getSize() / 2.f - HEALTH_BAR_HEIGHT - HEALTH_BAR_FLOAT;
+    float redLength = currHealth * healthBarLength / fullHealth;
+    float blkX = redX + redLength;
+    float blkLength = healthBarLength - redLength;
+    // draw full red bar
+    SDL_SetRenderDrawColor(gRenderer, 0xFF, 0x00, 0x00, 100);
+    SDL_Rect rect = {
+        (int)(redX * PIXELS_PER_METER),
+        (int)(redY * PIXELS_PER_METER),
+        (int)(redLength * PIXELS_PER_METER),
+        (int)(HEALTH_BAR_HEIGHT * PIXELS_PER_METER)
+    };
+    SDL_RenderFillRect(gRenderer, &rect);
+    // draw empty lack bar
+    SDL_SetRenderDrawColor(gRenderer, 0x00, 0x00, 0x00, 100);
+    rect = {
+        (int)(blkX * PIXELS_PER_METER),
+        (int)(redY * PIXELS_PER_METER),
+        (int)(blkLength * PIXELS_PER_METER),
+        (int)(HEALTH_BAR_HEIGHT * PIXELS_PER_METER)
+    };
+    SDL_RenderFillRect(gRenderer, &rect);
+}
 
 void Graphics::drawSquare(float centerX, float centerY, float size) {
     // Draws a square at the given pixel coordinate
@@ -109,6 +140,8 @@ void Graphics::drawBuilding(Entity* b) {
     drawSquare(b->getPosition().x * PIXELS_PER_METER,
         b->getPosition().y * PIXELS_PER_METER,
         b->getStats().getSize() * PIXELS_PER_METER);
+
+    if(!b->isDead()) drawHealthBar(b); // draw health bar only when building not dead
 }
 
 void Graphics::drawText(const char* textToDraw, SDL_Rect messageRect, SDL_Color color) {

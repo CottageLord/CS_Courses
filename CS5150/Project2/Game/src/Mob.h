@@ -34,9 +34,9 @@ public:
 protected:
     void move(float deltaTSec);
     const Vec2* pickWaypoint();
-    Mob* checkCollision();
-    void processCollision(Mob* otherMob, float deltaTSec);
-
+    bool collideWith(const Entity* self, const Entity* other);
+    std::vector<Entity*> checkCollision();
+    void processCollision(std::vector<Entity*> otherMob, float deltaTSec);
 
 private:
     const Vec2* m_pWaypoint;

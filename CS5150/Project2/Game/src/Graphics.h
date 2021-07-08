@@ -21,7 +21,7 @@ public:
 	void drawBuilding(Entity* b);
 
 	void resetFrame();
-
+	void drawHealthBar(Entity* e);
 	void drawWinScreen(int winningSide);
 
 	void render();
