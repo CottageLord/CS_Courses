@@ -1,0 +1,8 @@
+digraph
+{
+node_10 [label="10\nten\ncount=2"];
+node_10 -> node_10_L [style=invis];
+node_10_L [style=invis];
+node_10 -> node_15 [label=R taildir=se];
+node_15 [label="15\nfifteen\ncount=1"];
+}

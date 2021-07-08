@@ -1,0 +1,19 @@
+
+is set 10 oops_actually_ten
+  is dotFile
+
+is set 10 ten
+  is dotFile
+
+is set 15 fifteen
+  is dotFile
+
+is set 5 five
+  is dotFile
+
+is set 20 twenty
+  is dotFile
+
+is set 30 thirty
+  is dotFile
+

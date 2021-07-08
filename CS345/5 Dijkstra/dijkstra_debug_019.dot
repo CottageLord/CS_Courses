@@ -1,0 +1,44 @@
+graph {
+  A [label="A\n0" penwidth=4];
+  B [label="B\n4" penwidth=4];
+  C [label="C\n6" penwidth=4];
+  D [label="D\n6" penwidth=4];
+  E [label="E\n5" penwidth=4];
+  F [label="F\n7" penwidth=4];
+  G [label="G\n17" penwidth=4];
+  H [label="H\n9" penwidth=4];
+  I [label="I\n9" penwidth=4];
+  J [label="J\n13" penwidth=4];
+  K [label="K\n1" penwidth=4];
+  L [label="L\n12" penwidth=4];
+
+  A -- C [label=11 style=dotted]
+  A -- L [label=12 penwidth=4 color=red]
+  A -- K [label=1 penwidth=4 color=red]
+  A -- B [label=4 penwidth=4 color=red]
+  A -- H [label=12 style=dotted]
+  B -- C [label=2 penwidth=4 color=red]
+  B -- F [label=21 style=dotted]
+  B -- K [label=12 style=dotted]
+  B -- E [label=1 penwidth=4 color=red]
+  C -- F [label=1 penwidth=4 color=red]
+  D -- F [label=7 style=dotted]
+  D -- G [label=11 penwidth=4 color=red]
+  D -- J [label=14 style=dotted]
+  D -- E [label=1 penwidth=4 color=red]
+  E -- L [label=12 style=dotted]
+  E -- H [label=13 style=dotted]
+  E -- J [label=13 style=dotted]
+  F -- L [label=11 style=dotted]
+  F -- I [label=2 penwidth=4 color=red]
+  F -- H [label=2 penwidth=4 color=red]
+  F -- J [label=12 style=dotted]
+  G -- L [label=13 style=dotted]
+  G -- I [label=14 style=dotted]
+  G -- H [label=13 style=dotted]
+  H -- L [label=4 style=dotted]
+  H -- I [label=14 style=dotted]
+  H -- K [label=13 style=dotted]
+  I -- L [label=5 style=dotted]
+  I -- J [label=4 penwidth=4 color=red]
+}

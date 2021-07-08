@@ -1,0 +1,13 @@
+digraph {
+  node_1442407170 [label="10
+ten
+count=3"];
+  node_1442407170 -> node_1118140819 [label=L taildir=sw];
+  node_1442407170 -> node_1028566121 [label=R taildir=se];
+  node_1118140819 [label="5
+five
+count=1"];
+  node_1028566121 [label="15
+fifteen
+count=1"];
+}

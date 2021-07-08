@@ -1,0 +1,4 @@
+digraph
+{
+root [label="tree is empty" shape=rect]
+}

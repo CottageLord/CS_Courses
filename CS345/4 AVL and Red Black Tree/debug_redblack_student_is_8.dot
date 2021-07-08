@@ -1,0 +1,20 @@
+digraph
+{
+node_11 [style=filled fillcolor=black fontcolor=white label="11\neleven"];
+node_11 -> node_5 [label=L taildir=sw];
+node_11 -> node_13 [label=R taildir=se];
+node_5 [style=filled fillcolor=black fontcolor=white label="5\nfive"];
+node_5 -> node_3 [label=L taildir=sw];
+node_5 -> node_10 [label=R taildir=se];
+node_3 [style=filled fillcolor=black fontcolor=white label="3\nthree"];
+node_3 -> node_2 [label=L taildir=sw];
+node_3 -> node_4 [label=R taildir=se];
+node_2 [style=filled fillcolor=red fontcolor=black label="2\ntwo"];
+node_4 [style=filled fillcolor=red fontcolor=black label="4\nfour"];
+node_10 [style=filled fillcolor=black fontcolor=white label="10\nten"];
+node_13 [style=filled fillcolor=black fontcolor=white label="13\nthirteen"];
+node_13 -> node_12 [label=L taildir=sw];
+node_13 -> node_14 [label=R taildir=se];
+node_12 [style=filled fillcolor=black fontcolor=white label="12\ntwelve"];
+node_14 [style=filled fillcolor=black fontcolor=white label="14\nforteen"];
+}

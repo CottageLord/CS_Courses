@@ -1,0 +1,11 @@
+digraph {
+  node_1442407170 [label="10\nten\ncount=4\nheight=2"];
+  node_1442407170 -> node_1118140819 [label=L taildir=sw];
+  node_1442407170 -> node_1975012498 [label=R taildir=se];
+  node_1118140819 [label="5\nfive\ncount=1\nheight=0"];
+  node_1975012498 [label="15\nfifteen\ncount=2\nheight=1"];
+  node_1975012498 -> node_1975012498_L [style=invis];
+node_1975012498_L [style=invis];
+  node_1975012498 -> node_1808253012 [label=R taildir=se];
+  node_1808253012 [label="30\nthirty\ncount=1\nheight=0"];
+}

@@ -1,0 +1,45 @@
+graph {
+  A;
+  B;
+  C;
+  D;
+  E;
+  F;
+  G;
+  H;
+  I;
+  J;
+  K;
+  L;
+
+  A -- B [label=4];
+  A -- C [label=11];
+  A -- H [label=12];
+  A -- K [label=1];
+  A -- L [label=12];
+  C -- F [label=1];
+  B -- C [label=2];
+  B -- E [label=1];
+  B -- F [label=21];
+  B -- K [label=12];
+  D -- E [label=1];
+  D -- F [label=7];
+  D -- G [label=11];
+  D -- J [label=14];
+  E -- H [label=13];
+  E -- J [label=13];
+  E -- L [label=12];
+  F -- H [label=2];
+  F -- I [label=2];
+  F -- J [label=12];
+  F -- L [label=11];
+  G -- H [label=13];
+  G -- I [label=14];
+  G -- L [label=13];
+  H -- I [label=14];
+  H -- L [label=4];
+  H -- K [label=13];
+  I -- J [label=4];
+  I -- L [label=5];
+}
+

@@ -1,0 +1,25 @@
+digraph {
+  node_1118140819 [label="5
+five
+count=5"];
+  node_1118140819 -> node_1118140819_L [style=invis];
+node_1118140819_L [style=invis];
+  node_1118140819 -> node_1442407170 [label=R taildir=se];
+  node_1442407170 [label="10
+ten
+count=4"];
+  node_1442407170 -> node_1442407170_L [style=invis];
+node_1442407170_L [style=invis];
+  node_1442407170 -> node_1975012498 [label=R taildir=se];
+  node_1975012498 [label="20
+twenty
+count=3"];
+  node_1975012498 -> node_1028566121 [label=L taildir=sw];
+  node_1975012498 -> node_1808253012 [label=R taildir=se];
+  node_1028566121 [label="15
+fifteen
+count=1"];
+  node_1808253012 [label="30
+thirty
+count=1"];
+}

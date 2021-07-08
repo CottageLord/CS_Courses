@@ -1,0 +1,29 @@
+digraph {
+  start;
+  done [peripheries=2];
+
+  searchingForMatchingOne;
+  searchingForMatchingZero;
+
+  rewinding;
+
+  start -> done [label=".,.,R"];
+
+  start -> start [label="i,x,R"];
+  start -> searchingForMatchingOne [label="0,x,R"];
+  start -> searchingForMatchingZero [label="1,x,R"];
+
+  searchingForMatchingOne -> searchingForMatchingOne [label="0,0,R"];
+  searchingForMatchingOne -> searchingForMatchingOne [label="i,i,R"];
+  searchingForMatchingOne -> rewinding [label="1,i,L"];
+
+  searchingForMatchingZero -> searchingForMatchingZero [label="1,1,R"];
+  searchingForMatchingZero -> searchingForMatchingZero [label="i,i,R"];
+  searchingForMatchingZero -> rewinding [label="0,i,L"];
+
+  rewinding -> rewinding [label="0,0,L"];
+  rewinding -> rewinding [label="1,1,L"];
+  rewinding -> rewinding [label="i,i,L"];
+  rewinding -> start [label="x,x,R"];
+}
+

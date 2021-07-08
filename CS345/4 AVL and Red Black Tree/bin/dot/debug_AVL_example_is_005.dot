@@ -1,0 +1,7 @@
+digraph {
+  node_1442407170 [label="10\nten\ncount=3\nheight=1"];
+  node_1442407170 -> node_1118140819 [label=L taildir=sw];
+  node_1442407170 -> node_1028566121 [label=R taildir=se];
+  node_1118140819 [label="5\nfive\ncount=1\nheight=0"];
+  node_1028566121 [label="15\nfifteen\ncount=1\nheight=0"];
+}

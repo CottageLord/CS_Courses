@@ -1,0 +1,29 @@
+inOrder traversal of the tree 'is':
+postOrder traversal of the tree 'is':
+inOrder traversal of the tree 'is': 10->oops_actually_ten (count 1)
+postOrder traversal of the tree 'is': 10->oops_actually_ten (count 1)
+inOrder traversal of the tree 'is': 10->ten (count 1)
+postOrder traversal of the tree 'is': 10->ten (count 1)
+tree is: get(15) returned null
+inOrder traversal of the tree 'is': 10->ten (count 2) 15->fifteen (count 1)
+postOrder traversal of the tree 'is': 15->fifteen (count 1) 10->ten (count 2)
+tree is: get(15) returned fifteen
+tree is: get(5) returned null
+inOrder traversal of the tree 'is': 5->five (count 1) 10->ten (count 3) 15->fifteen (count 1)
+postOrder traversal of the tree 'is': 5->five (count 1) 15->fifteen (count 1) 10->ten (count 3)
+tree is: get(15) returned fifteen
+tree is: get(5) returned five
+inOrder traversal of the tree 'is': 5->five (count 1) 10->ten (count 4) 15->fifteen (count 2) 20->twenty (count 1)
+postOrder traversal of the tree 'is': 5->five (count 1) 20->twenty (count 1) 15->fifteen (count 2) 10->ten (count 4)
+inOrder traversal of the tree 'is': 5->five (count 1) 10->ten (count 5) 15->fifteen (count 3) 20->twenty (count 2) 30->thirty (count 1)
+postOrder traversal of the tree 'is': 5->five (count 1) 30->thirty (count 1) 20->twenty (count 2) 15->fifteen (count 3) 10->ten (count 5)
+inOrder traversal of the tree 'is': 5->five (count 1) 10->ten (count 5) 15->fifteen (count 1) 20->twenty (count 3) 30->thirty (count 1)
+postOrder traversal of the tree 'is': 5->five (count 1) 15->fifteen (count 1) 30->thirty (count 1) 20->twenty (count 3) 10->ten (count 5)
+inOrder traversal of the tree 'is': 5->five (count 5) 10->ten (count 4) 15->fifteen (count 1) 20->twenty (count 3) 30->thirty (count 1)
+postOrder traversal of the tree 'is': 15->fifteen (count 1) 30->thirty (count 1) 20->twenty (count 3) 10->ten (count 4) 5->five (count 5)
+tree is: get(15) returned fifteen
+tree is: get(10) returned ten
+tree is: get(20) returned twenty
+inOrder traversal of the tree 'is': 5->five (count 4) 10->ten (count 3) 15->fifteen (count 2) 30->thirty (count 1)
+postOrder traversal of the tree 'is': 30->thirty (count 1) 15->fifteen (count 2) 10->ten (count 3) 5->five (count 4)
+tree is: get(15) returned fifteen

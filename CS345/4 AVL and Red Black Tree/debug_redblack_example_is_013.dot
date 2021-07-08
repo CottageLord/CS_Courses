@@ -1,0 +1,54 @@
+digraph {
+  node_rb_1975012498 [style=filled fillcolor=black fontcolor=white label="11\neleven"];
+  node_rb_1975012498 -> node_rb_589431969 [label=L taildir=sw];
+  node_rb_1975012498 -> node_rb_1028566121 [label=R taildir=se];
+  node_rb_589431969 [style=filled fillcolor=red label="5\nfive"];
+  node_rb_589431969 -> node_rb_2101973421 [label=L taildir=sw];
+  node_rb_589431969 -> node_rb_1163157884 [label=R taildir=se];
+  node_rb_2101973421 [style=filled fillcolor=black fontcolor=white label="3\nthree"];
+  node_rb_2101973421 -> node_rb_685325104 [label=L taildir=sw];
+  node_rb_2101973421 -> node_rb_1252169911 [label=R taildir=se];
+  node_rb_685325104 [style=filled fillcolor=black fontcolor=white label="2\ntwo"];
+  node_rb_685325104 -> node_rb_460141958 [label=L taildir=sw];
+  node_rb_685325104 -> node_rb_685325104_R [style=invis];
+node_rb_685325104_R [style=invis];
+  node_rb_460141958 [style=filled fillcolor=red label="1\none"];
+  node_rb_1252169911 [style=filled fillcolor=black fontcolor=white label="4\nfour"];
+  node_rb_1163157884 [style=filled fillcolor=black fontcolor=white label="9\nnine"];
+  node_rb_1163157884 -> node_rb_356573597 [label=L taildir=sw];
+  node_rb_1163157884 -> node_rb_1808253012 [label=R taildir=se];
+  node_rb_356573597 [style=filled fillcolor=black fontcolor=white label="7\nseven"];
+  node_rb_356573597 -> node_rb_1735600054 [label=L taildir=sw];
+  node_rb_356573597 -> node_rb_1956725890 [label=R taildir=se];
+  node_rb_1735600054 [style=filled fillcolor=red label="6\nsix"];
+  node_rb_1956725890 [style=filled fillcolor=red label="8\neight"];
+  node_rb_1808253012 [style=filled fillcolor=black fontcolor=white label="10\nten"];
+  node_rb_1028566121 [style=filled fillcolor=black fontcolor=white label="13\nthirteen"];
+  node_rb_1028566121 -> node_rb_1118140819 [label=L taildir=sw];
+  node_rb_1028566121 -> node_rb_1442407170 [label=R taildir=se];
+  node_rb_1118140819 [style=filled fillcolor=black fontcolor=white label="12\ntwelve"];
+  node_rb_1442407170 [style=filled fillcolor=black fontcolor=white label="14\nforteen"];
+  node_234_1975012498 [label="5,(11)"];
+  node_234_1975012498 -> node_234_2101973421 [label=1];
+  node_234_1975012498 -> node_234_1163157884 [label=2];
+  node_234_1975012498 -> node_234_1028566121 [label=3];
+
+  node_234_2101973421 [label="3"];
+  node_234_2101973421 -> node_234_685325104 [label=1];
+  node_234_2101973421 -> node_234_1252169911 [label=2];
+
+  node_234_685325104 [label="1,(2)"];
+  node_234_1252169911 [label="4"];
+  node_234_1163157884 [label="9"];
+  node_234_1163157884 -> node_234_356573597 [label=1];
+  node_234_1163157884 -> node_234_1808253012 [label=2];
+
+  node_234_356573597 [label="6,(7),8"];
+  node_234_1808253012 [label="10"];
+  node_234_1028566121 [label="13"];
+  node_234_1028566121 -> node_234_1118140819 [label=1];
+  node_234_1028566121 -> node_234_1442407170 [label=2];
+
+  node_234_1118140819 [label="12"];
+  node_234_1442407170 [label="14"];
+}

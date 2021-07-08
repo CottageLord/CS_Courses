@@ -1,0 +1,17 @@
+digraph {
+  node_rb_1028566121 [style=filled fillcolor=black fontcolor=white label="13\nthirteen"];
+  node_rb_1028566121 -> node_rb_1118140819 [label=L taildir=sw];
+  node_rb_1028566121 -> node_rb_1442407170 [label=R taildir=se];
+  node_rb_1118140819 [style=filled fillcolor=black fontcolor=white label="12\ntwelve"];
+  node_rb_1118140819 -> node_rb_1975012498 [label=L taildir=sw];
+  node_rb_1118140819 -> node_rb_1118140819_R [style=invis];
+node_rb_1118140819_R [style=invis];
+  node_rb_1975012498 [style=filled fillcolor=red label="11\neleven"];
+  node_rb_1442407170 [style=filled fillcolor=black fontcolor=white label="14\nforteen"];
+  node_234_1028566121 [label="13"];
+  node_234_1028566121 -> node_234_1118140819 [label=1];
+  node_234_1028566121 -> node_234_1442407170 [label=2];
+
+  node_234_1118140819 [label="11,(12)"];
+  node_234_1442407170 [label="14"];
+}

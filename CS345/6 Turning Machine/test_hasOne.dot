@@ -1,0 +1,8 @@
+digraph {
+	start;
+	found [peripheries=2];
+
+	start -> start [label="0,0,R"];
+	start -> found [label="1,1,R"];
+}
+

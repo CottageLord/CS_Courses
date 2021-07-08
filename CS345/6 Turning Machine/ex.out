@@ -1,0 +1,23 @@
+--------------------
+Running the first time, without debug.
+--------------------
+aa
+^   state: init
+aa..
+   ^   state: done
+
+MACHINE ACCEPTS!
+
+--------------------
+Running again, with debug turned on.
+--------------------
+aa
+^   state: init
+aa
+ ^   state: scanA
+aa.
+  ^   state: scanA
+aa..
+   ^   state: done
+
+MACHINE ACCEPTS!

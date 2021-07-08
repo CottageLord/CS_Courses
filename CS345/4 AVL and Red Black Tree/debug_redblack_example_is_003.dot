@@ -1,0 +1,8 @@
+digraph {
+  node_rb_1028566121 [style=filled fillcolor=black fontcolor=white label="13\nthirteen"];
+  node_rb_1028566121 -> node_rb_1118140819 [label=L taildir=sw];
+  node_rb_1028566121 -> node_rb_1442407170 [label=R taildir=se];
+  node_rb_1118140819 [style=filled fillcolor=red label="12\ntwelve"];
+  node_rb_1442407170 [style=filled fillcolor=red label="14\nforteen"];
+  node_234_1028566121 [label="12,(13),14"];
+}

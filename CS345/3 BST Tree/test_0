@@ -1,0 +1,14 @@
+
+is set 10 five
+is set 8 one
+is set 6 seven
+is set 9 two
+is set 4 four
+is set 7 three
+is set 3 zero
+is set 1 six
+is set 2 nine
+is set 11 eight
+
+is remove 8
+  is   inOrder

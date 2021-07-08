@@ -1,0 +1,12 @@
+digraph
+{
+node_13 [style=filled fillcolor=black fontcolor=white label="13\nthirteen"];
+node_13 -> node_12 [label=L taildir=sw];
+node_13 -> node_14 [label=R taildir=se];
+node_12 [style=filled fillcolor=black fontcolor=white label="12\ntwelve"];
+node_12 -> node_12_R [style=invis];
+node_12_R [style=invis];
+node_12 -> node_11 [label=L taildir=sw];
+node_11 [style=filled fillcolor=red fontcolor=black label="11\neleven"];
+node_14 [style=filled fillcolor=black fontcolor=white label="14\nforteen"];
+}

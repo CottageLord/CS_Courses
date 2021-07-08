@@ -1,0 +1,16 @@
+digraph
+{
+node_5 [label="5\nfive\ncount=4"];
+node_5 -> node_5_L [style=invis];
+node_5_L [style=invis];
+node_5 -> node_10 [label=R taildir=se];
+node_10 [label="10\nten\ncount=3"];
+node_10 -> node_10_L [style=invis];
+node_10_L [style=invis];
+node_10 -> node_15 [label=R taildir=se];
+node_15 [label="15\nfifteen\ncount=2"];
+node_15 -> node_15_L [style=invis];
+node_15_L [style=invis];
+node_15 -> node_30 [label=R taildir=se];
+node_30 [label="30\nthirty\ncount=1"];
+}

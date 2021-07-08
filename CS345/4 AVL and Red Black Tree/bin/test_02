@@ -1,0 +1,32 @@
+is set 14 forteen
+  is dotFile
+  is set 13 thirteen
+  is dotFile
+  is set 12 twelve
+  is dotFile
+  is set 11 eleven
+  is dotFile
+is set 10 ten
+  is dotFile
+
+is set 5 five
+  is dotFile
+is set 4 four
+  is dotFile
+is set 3 three
+  is dotFile
+is set 2 two
+  is dotFile
+is set 1 one
+
+is set 9 nine
+  is dotFile
+is set 8 eight
+  is dotFile
+is set 7 seven
+  is dotFile
+is set 6 six
+  is dotFile
+  is   inOrder
+  is postOrder
+  is dotFile

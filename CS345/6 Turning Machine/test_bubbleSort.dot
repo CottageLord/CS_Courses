@@ -1,0 +1,95 @@
+digraph {
+  init;
+  done [peripheries=2];
+
+  scanA;
+  scanB;
+  scanC;
+  scanD;
+
+  writeA;
+  writeB;
+  writeC;
+
+  scanA_r;
+  scanB_r;
+  scanC_r;
+  scanD_r;
+
+  rewinding;
+
+  init -> done [label=".,.,R"];
+
+  init -> scanA [label="a,a,R"];
+  init -> scanB [label="b,b,R"];
+  init -> scanC [label="c,c,R"];
+  init -> scanD [label="d,d,R"];
+
+  scanA -> scanA [label="a,a,R"];
+  scanA -> scanB [label="b,b,R"];
+  scanA -> scanC [label="c,c,R"];
+  scanA -> scanD [label="d,d,R"];
+  scanA -> done [label=".,.,R"];
+
+  scanB -> scanB [label="b,b,R"];
+  scanB -> scanC [label="c,c,R"];
+  scanB -> scanD [label="d,d,R"];
+  scanB -> done [label=".,.,R"];
+
+  scanC -> scanC [label="c,c,R"];
+  scanC -> scanD [label="d,d,R"];
+  scanC -> done [label=".,.,R"];
+
+  scanD -> scanD [label="d,d,R"];
+  scanD -> done [label=".,.,R"];
+
+  scanB -> writeA [label="a,b,L"];
+  scanB_r -> writeA [label="a,b,L"];
+
+  scanC -> writeA [label="a,c,L"];
+  scanC_r -> writeA [label="a,c,L"];
+  scanC -> writeB [label="b,c,L"];
+  scanC_r -> writeB [label="b,c,L"];
+
+  scanD -> writeA [label="a,d,L"];
+  scanD_r -> writeA [label="a,d,L"];
+  scanD -> writeB [label="b,d,L"];
+  scanD_r -> writeB [label="b,d,L"];
+  scanD -> writeC [label="c,d,L"];
+  scanD_r -> writeC [label="c,d,L"];
+
+  writeA -> scanA_r [label="b,a,R"];
+  writeA -> scanA_r [label="c,a,R"];
+  writeA -> scanA_r [label="d,a,R"];
+
+  writeB -> scanB_r [label="c,b,R"];
+  writeB -> scanB_r [label="d,b,R"];
+
+  writeC -> scanC_r [label="d,c,R"];
+
+  scanA_r -> scanA_r [label="a,a,R"];
+  scanA_r -> scanB_r [label="b,b,R"];
+  scanA_r -> scanC_r [label="c,c,R"];
+  scanA_r -> scanD_r [label="d,d,R"];
+
+  scanB_r -> scanB_r [label="b,b,R"];
+  scanB_r -> scanC_r [label="c,c,R"];
+  scanB_r -> scanD_r [label="d,d,R"];
+
+  scanC_r -> scanC_r [label="c,c,R"];
+  scanC_r -> scanD_r [label="d,d,R"];
+
+  scanD_r -> scanD_r [label="d,d,R"];
+
+  scanA_r -> rewinding [label=".,.,L"];
+  scanB_r -> rewinding [label=".,.,L"];
+  scanC_r -> rewinding [label=".,.,L"];
+  scanD_r -> rewinding [label=".,.,L"];
+
+  rewinding -> rewinding [label="a,a,L"];
+  rewinding -> rewinding [label="b,b,L"];
+  rewinding -> rewinding [label="c,c,L"];
+  rewinding -> rewinding [label="d,d,L"];
+  rewinding -> scanA [label=".,.,R"];
+}
+
