@@ -1,0 +1,52 @@
+\hypertarget{class_text__display}{}\doxysection{Text\+\_\+display Class Reference}
+\label{class_text__display}\index{Text\_display@{Text\_display}}
+
+
+Class for object to display text at fixed position.  
+
+
+
+
+{\ttfamily \#include $<$Text\+\_\+display.\+hpp$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_text__display_ace6b4b48c189e6ad9b827d0823058930}\label{class_text__display_ace6b4b48c189e6ad9b827d0823058930}} 
+\mbox{\hyperlink{class_text__display_ace6b4b48c189e6ad9b827d0823058930}{Text\+\_\+display}} (\mbox{\hyperlink{class_vec2}{Vec2}} position, SDL\+\_\+\+Renderer $\ast$\mbox{\hyperlink{class_text__display_a8310a229efcdb8ecde4e924505ac2e67}{renderer}}, TTF\+\_\+\+Font $\ast$\mbox{\hyperlink{class_text__display_aede6a8f2540a9713441c320f2483d6f9}{font}})
+\begin{DoxyCompactList}\small\item\em Initialize a new text display at a given position. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_text__display_a34f4f98e5d73e739295170325f3d3d3f}\label{class_text__display_a34f4f98e5d73e739295170325f3d3d3f}} 
+void \mbox{\hyperlink{class_text__display_a34f4f98e5d73e739295170325f3d3d3f}{set\+\_\+text}} (std\+::string const \&text\+\_\+to\+\_\+display)
+\begin{DoxyCompactList}\small\item\em update the text that will be displayed \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_text__display_af3064e463012f784c1a76492babe7401}\label{class_text__display_af3064e463012f784c1a76492babe7401}} 
+\mbox{\hyperlink{class_text__display_af3064e463012f784c1a76492babe7401}{$\sim$\+Text\+\_\+display}} ()
+\begin{DoxyCompactList}\small\item\em Offload the text resources, surfaces, textures. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_text__display_a3e52f56a6911a1407b9bf0935f044422}\label{class_text__display_a3e52f56a6911a1407b9bf0935f044422}} 
+void \mbox{\hyperlink{class_text__display_a3e52f56a6911a1407b9bf0935f044422}{Draw}} ()
+\begin{DoxyCompactList}\small\item\em Generate draw information to renderer. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_text__display_a8310a229efcdb8ecde4e924505ac2e67}\label{class_text__display_a8310a229efcdb8ecde4e924505ac2e67}} 
+SDL\+\_\+\+Renderer $\ast$ \mbox{\hyperlink{class_text__display_a8310a229efcdb8ecde4e924505ac2e67}{renderer}}
+\begin{DoxyCompactList}\small\item\em Reference to SDL renderer. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_text__display_aede6a8f2540a9713441c320f2483d6f9}\label{class_text__display_aede6a8f2540a9713441c320f2483d6f9}} 
+TTF\+\_\+\+Font $\ast$ \mbox{\hyperlink{class_text__display_aede6a8f2540a9713441c320f2483d6f9}{font}}
+\begin{DoxyCompactList}\small\item\em Reference to the font object we loaded. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_text__display_a02bc63fee94f94f8e1c2be5f44b130f1}\label{class_text__display_a02bc63fee94f94f8e1c2be5f44b130f1}} 
+SDL\+\_\+\+Surface $\ast$ \mbox{\hyperlink{class_text__display_a02bc63fee94f94f8e1c2be5f44b130f1}{surface}} \{\}
+\begin{DoxyCompactList}\small\item\em Reference to SDL text surface. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_text__display_ae8b26b0a08871e472346db2ce9efb5dc}\label{class_text__display_ae8b26b0a08871e472346db2ce9efb5dc}} 
+SDL\+\_\+\+Texture $\ast$ \mbox{\hyperlink{class_text__display_ae8b26b0a08871e472346db2ce9efb5dc}{texture}} \{\}
+\begin{DoxyCompactList}\small\item\em Reference to SDL text texture. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_text__display_aa6e2ecc781cef52b51a4f8e018782837}\label{class_text__display_aa6e2ecc781cef52b51a4f8e018782837}} 
+SDL\+\_\+\+Rect \mbox{\hyperlink{class_text__display_aa6e2ecc781cef52b51a4f8e018782837}{rect}} \{\}
+\begin{DoxyCompactList}\small\item\em The box area that will contain the generated text area. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Class for object to display text at fixed position. 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/\mbox{\hyperlink{_text__display_8hpp}{Text\+\_\+display.\+hpp}}\end{DoxyCompactItemize}

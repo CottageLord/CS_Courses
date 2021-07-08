@@ -1,0 +1,112 @@
+<!DOCTYPE html>	
+
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<link rel="stylesheet" href="Assignment1.css" />
+		<script src="Assignment1.js" type="text/javascript"></script>
+		<title>Breakout by Yang Hu</title>
+	</head>
+	<body>
+		<!-- Navigation -->
+		<ul id="navigation">
+		  <li class="tab" id="conid" associated-content="context">Overview</li>
+		  <li class="tab" id="taskid" associated-content="demo">Demonstration</li>		
+		  <li class="tab" id="proid" associated-content="math">Math Explaination</li>
+		  <li class="tab" id="docid" associated-content="doc">Documentation</li>	
+		  <li class="tab" id="artid" associated-content="post">Post mortem</li>
+		  <li class="tab" id="desid" associated-content="play">Play</li>
+		  <li class="tab" id="conclusionid" associated-content="contact">Contact me</li>
+		</ul>
+		<!-- context -->
+		<div class="tabcontent" id="context">
+		
+			<h2 id="milestoneinformation">Project Overview</h2>
+			<!-- Group Info -->
+			<fieldset>
+				<legend>Basic Information</legend>
+				<ul id="members">
+					<li class="team"><span class="teamName">Project</span>: Breakout</li>
+					<li class="team"><span class="teamName">Author</span>: Yang Hu</li>
+					<li class="team"><span class="teamName">Institution</span>: Northeastern University</li>
+					<li class="team"><span class="teamName">Class</span>: CS5850 - Building Game Engine</li>
+					<li class="team"><span class="teamName">Instructor</span>: Mike Shah</li>
+				</ul>
+			</fieldset>
+			<!-- context -->
+			<h2>Game Introduction</h2>
+			<a href="img/Breakout_screenshot_full.png"><img src="img/Breakout_screenshot.png" alt="Screenshot of the game" class="center"></a>
+			<h3>Rules:</h3>
+			<ol id="update">
+				<li><span class="teamName">Movement</span>: Press A or D to move the paddle</li>
+				<li><span class="teamName">Win/lose conditions</span>: Player wins the game if all levels' bricks are cleared before losing all 3 lives, and loses if not</li>
+				<li><span class="teamName">Ball movement</span>: The ball bounces on paddle, wall and bricks. The bouncing angle is affected when interacting with paddle, on which different part (left, middle and right) rebounce balls in respective angles</li>
+				<li><span class="teamName">Levels</span>: The game currently have 3 levels, for more information, please see game demonstration section</li>
+			</ol>
+			<!--  -->
+		</div>
+		<!-- demo -->
+		<div class="tabcontent" id="demo">
+			<h2>Game Demonstration</h2>
+			<h3>Game play</h3>
+			<p>A video demo shows the first 2 levels. The first level only have 1 giant block, demonstrating how level proceeds. A losing scenario is presented at th end.</p>
+			<iframe width="610" height="440" class="center" src="https://www.youtube.com/embed/Onk7zhsbsTc" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+
+			<h3>Screen shots</h3>
+			<p>The last level</p>
+			<a href="img/level_3_full.png"><img src="img/level_3.png" alt="Screenshot of the game" class="center"></a>
+			<p>The winning screen</p>
+			<a href="img/win_full.png"><img src="img/win.png" alt="Screenshot of the game" class="center"></a>
+			<p>Localization with French</p>
+			<a href="img/localization_full.png"><img src="img/localization.png" alt="Screenshot of the game" class="center"></a>
+			
+		</div>
+		<!-- play -->
+		<div class="tabcontent" id="play">
+			<h2>Game build and executable</h2>
+			 <a href="https://github.com/CottageLord/Breakout_SDL_build">GitHub Repository
+      		</a>
+		</div>
+		<!-- prototype -->
+		<div class="tabcontent" id="math">
+			<h2>Collision check</h2>
+			<p>The collision check method is adapted from the Separating Axis Theorem (SAT) in <a target="_blank" href="https://austinmorlan.com/posts/pong_clone/">Austin Morlan 's tutorial</a>.</p>
+			<a href="img/collision_example_03.png"><img src="img/collision_example_03.png" alt="Screenshot of the game" class="center"></a>
+			<p>Also, I used an original idea for determing which side doesn the ball hit the brick (though I am quite sure another genius had this idea long before). Here is the demonstration: </p>
+			<p>When the ball collide with the brick/paddle, it is hard to tell which side does the ball collide on. In the example and previous assignments, we assumed that collision only happen on horizontal/vertical surfaces, hence didn't need such check.</p>
+			<a href="img/math_2_full.png"><img src="img/math_2.png" alt="Screenshot of the game" class="center"></a>
+			<p>My idea is, given a box-shape collider, calculate the x and y difference with the in coming object, and calculate that ratio. If the abs[(delta y)/(delta x)] ratio is larger than the box-shape collider's h/w, the ball collide on horizontal surface, and vise versa.</p>
+			<a href="img/math_1_full.png"><img src="img/math_1.png" alt="Screenshot of the game" class="center"></a>
+			<p>I used double for this calculation specifically to ensure precision. However, the behaviour is still not 100% stable. Finding a better collision check (involving vector calculations) could be a explorable improvement in the future.</p>
+		</div>
+
+		<div class="tabcontent" id="doc">
+			<h2>Project documentation</h2>
+			 <a href="../docs/html/index.html">Documentation</a>
+		</div>
+
+		<div class="tabcontent" id="post">
+			<h2>Possible improvements with 8 extra weeks</h2>
+			<h4>A post mortem</h4>
+			<h5>Better graphics:</h5>
+			<p>Backgroup image, brick/paddle/ball texture. <span class="teamName">(1 day)</span></p>
+			<p>add <span class="teamName">particle effect and animations</span>, like the fire effect on ball when the ball could penetrate through bricks and animations like the brick breaks. <span class="teamName">(2 week)</span></p>
+			<h5>Better control:</h5>
+			<p>Smooth mouse paddle control <span class="teamName">(1 day)</span></p>
+			<h5>More mechanics:</h5>
+			<p><span class="teamName">Special bricks</span> that generate items when broken, which takes effect when falls on the paddle <span class="teamName">(1 day)</span></p>
+			<p>Various <span class="teamName">special item</span> mechanics, for example, stretch or shorten the paddle, slow down or speed up the ball, make the paddle absorbing the ball and allow players do launch all the time, generate multiple balls, etc. (depends on the mechanic's implementation difficulty, could take up to <span class="teamName">2 weeks</span> for rewriting the game's logic)</p>
+			<h5>More contents:</h5>
+			<p>Add <span class="teamName">more levels</span>, even chapters, make a new game process manager and UI for all level displays <span class="teamName">(1 to 2 week)</span></p>
+			<p>Add <span class="teamName">narratives (1 week)</span>
+			<h5>Refine build:</h5>
+			<p>Make a <span class="teamName">title screen and pause menu</span> with clickable buttons <span class="teamName">(1 week)</span></p>
+
+		</div>
+		
+		<div class="tabcontent" id="contact">
+			<h4>My email:</h4>
+			<p>huyangmf@gmail.com</p>
+		</div>
+	</body>
+</html>

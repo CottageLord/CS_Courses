@@ -1,0 +1,95 @@
+\hypertarget{lab_8hpp}{}\doxysection{include/lab.hpp File Reference}
+\label{lab_8hpp}\index{include/lab.hpp@{include/lab.hpp}}
+
+
+The interface file describing the game\textquotesingle{}s main logic loop.  
+
+
+{\ttfamily \#include \char`\"{}config.\+hpp\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Ball.\+hpp\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Paddle.\+hpp\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Brick.\+hpp\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}tiny\+\_\+math.\+hpp\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Resource\+\_\+manager.\+hpp\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Text\+\_\+display.\+hpp\char`\"{}}\newline
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{lab_8hpp_a41ddf8852ee47eb5e95e84db5a687f63}\label{lab_8hpp_a41ddf8852ee47eb5e95e84db5a687f63}} 
+bool \mbox{\hyperlink{lab_8hpp_a41ddf8852ee47eb5e95e84db5a687f63}{init\+\_\+window}} ()
+\begin{DoxyCompactList}\small\item\em Starts up SDL, creates window, and initializes Open\+GL. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{lab_8hpp_adc3515c680106ee471100ec8bbeb1489}\label{lab_8hpp_adc3515c680106ee471100ec8bbeb1489}} 
+bool \mbox{\hyperlink{lab_8hpp_adc3515c680106ee471100ec8bbeb1489}{init\+\_\+components}} ()
+\begin{DoxyCompactList}\small\item\em Starts up text display, audio player and singleton resource manager. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{lab_8hpp_a6e4540f0e30446b8a1806cd830267ec2}\label{lab_8hpp_a6e4540f0e30446b8a1806cd830267ec2}} 
+bool \mbox{\hyperlink{lab_8hpp_a6e4540f0e30446b8a1806cd830267ec2}{game\+\_\+running}} ()
+\begin{DoxyCompactList}\small\item\em A little helper function that checks if things like language selection have been done. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{lab_8hpp_aea59c3995e0c2ef3892efb000a1fc8e4}\label{lab_8hpp_aea59c3995e0c2ef3892efb000a1fc8e4}} 
+void \mbox{\hyperlink{lab_8hpp_aea59c3995e0c2ef3892efb000a1fc8e4}{language\+\_\+selection}} ()
+\begin{DoxyCompactList}\small\item\em renders a language selection text before the game starts \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{lab_8hpp_a3b801c71e8729e3136106ca44cbce1d9}\label{lab_8hpp_a3b801c71e8729e3136106ca44cbce1d9}} 
+void \mbox{\hyperlink{lab_8hpp_a3b801c71e8729e3136106ca44cbce1d9}{handle\+\_\+event}} (bool \&quit)
+\begin{DoxyCompactList}\small\item\em The first function in each loop. Read user input and update game state accordingly. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{lab_8hpp_ac5c54df7ed3b930268c8d7752c101725}\label{lab_8hpp_ac5c54df7ed3b930268c8d7752c101725}} 
+void \mbox{\hyperlink{lab_8hpp_ac5c54df7ed3b930268c8d7752c101725}{update}} ()
+\begin{DoxyCompactList}\small\item\em The second function in each loop. Update all game objects\textquotesingle{} properties like position. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{lab_8hpp_a7d9edd8b0a8d0d2f737eb5ee0b0a5040}\label{lab_8hpp_a7d9edd8b0a8d0d2f737eb5ee0b0a5040}} 
+void \mbox{\hyperlink{lab_8hpp_a7d9edd8b0a8d0d2f737eb5ee0b0a5040}{render}} ()
+\begin{DoxyCompactList}\small\item\em The third function in each loop. Render all game objects. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{lab_8hpp_afe461d27b9c48d5921c00d521181f12f}\label{lab_8hpp_afe461d27b9c48d5921c00d521181f12f}} 
+void \mbox{\hyperlink{lab_8hpp_afe461d27b9c48d5921c00d521181f12f}{loop}} ()
+\begin{DoxyCompactList}\small\item\em Triggers the game\textquotesingle{}s main while-\/loop. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{lab_8hpp_a5ae591df94fc66ccb85cbb6565368bca}\label{lab_8hpp_a5ae591df94fc66ccb85cbb6565368bca}} 
+void \mbox{\hyperlink{lab_8hpp_a5ae591df94fc66ccb85cbb6565368bca}{close}} ()
+\begin{DoxyCompactList}\small\item\em Properly shutdown and destroy initialized objects. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{lab_8hpp_a86ed67553b80b10eb89dda0ccf40e9a7}{update\+\_\+with\+\_\+timer}} (std\+::chrono\+::steady\+\_\+clock\+::time\+\_\+point \&previous\+\_\+time, double \&elapsed\+\_\+time\+\_\+total, int \&frame\+\_\+counter, double \&lag, double \&mcs\+\_\+per\+\_\+update)
+\begin{DoxyCompactList}\small\item\em An \mbox{\hyperlink{lab_8hpp_ac5c54df7ed3b930268c8d7752c101725}{update()}} wrapper function that implements a frame stablizer. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{lab_8hpp_a77b4c23a81efc800de63e930b68b046f}\label{lab_8hpp_a77b4c23a81efc800de63e930b68b046f}} 
+\mbox{\hyperlink{class_ball}{Ball}} \mbox{\hyperlink{lab_8hpp_a77b4c23a81efc800de63e930b68b046f}{ball}} (\mbox{\hyperlink{class_vec2}{Vec2}}((\mbox{\hyperlink{config_8hpp_a3482785bd2a4c8b307f9e0b6f54e2c36}{SCREEN\+\_\+\+WIDTH}}/2.\+0f) -\/(\mbox{\hyperlink{config_8hpp_a2d5bc6fb7d539d49b9886d7e55bf2f09}{BALL\+\_\+\+WIDTH}}/2.\+0f),(\mbox{\hyperlink{config_8hpp_ab454541ae58bcf6555e8d723b1eb95e7}{SCREEN\+\_\+\+HEIGHT}}/2.\+0f) -\/(\mbox{\hyperlink{config_8hpp_a2d5bc6fb7d539d49b9886d7e55bf2f09}{BALL\+\_\+\+WIDTH}}/2.\+0f)), \mbox{\hyperlink{class_vec2}{Vec2}}(0.\+0f, \mbox{\hyperlink{config_8hpp_a2b05bdb04b891bedfa9ddb2eeeef246c}{BALL\+\_\+\+SPEED}}))
+\begin{DoxyCompactList}\small\item\em initialize the ball at the center of the screen \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{lab_8hpp_aff5c7f19879eb55058ac3178272fee32}\label{lab_8hpp_aff5c7f19879eb55058ac3178272fee32}} 
+\mbox{\hyperlink{class_paddle}{Paddle}} \mbox{\hyperlink{lab_8hpp_aff5c7f19879eb55058ac3178272fee32}{paddle\+\_\+1}} (\mbox{\hyperlink{class_vec2}{Vec2}}(50.\+0f, \mbox{\hyperlink{config_8hpp_ab454541ae58bcf6555e8d723b1eb95e7}{SCREEN\+\_\+\+HEIGHT}} -\/ \mbox{\hyperlink{config_8hpp_a2694b786c523c48bad4148c460553dd1}{PADDLE\+\_\+\+HEIGHT}} $\ast$2.\+0f), \mbox{\hyperlink{class_vec2}{Vec2}}(0.\+0f, 0.\+0f))
+\begin{DoxyCompactList}\small\item\em initialize the paddle at the mid-\/bottom of the screen \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+The interface file describing the game\textquotesingle{}s main logic loop. 
+
+\begin{DoxyAuthor}{Author}
+yang hu 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+1.\+0
+\end{DoxyVersion}
+The game implements a conventional input-\/update-\/render loop, and this file holds the main logic of that game process. All objects\textquotesingle{} Update() and Render() functions will be called here. \begin{DoxyDate}{Date}
+Monday, Feburuary 22, 2021 
+\end{DoxyDate}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{lab_8hpp_a86ed67553b80b10eb89dda0ccf40e9a7}\label{lab_8hpp_a86ed67553b80b10eb89dda0ccf40e9a7}} 
+\index{lab.hpp@{lab.hpp}!update\_with\_timer@{update\_with\_timer}}
+\index{update\_with\_timer@{update\_with\_timer}!lab.hpp@{lab.hpp}}
+\doxysubsubsection{\texorpdfstring{update\_with\_timer()}{update\_with\_timer()}}
+{\footnotesize\ttfamily void update\+\_\+with\+\_\+timer (\begin{DoxyParamCaption}\item[{std\+::chrono\+::steady\+\_\+clock\+::time\+\_\+point \&}]{previous\+\_\+time,  }\item[{double \&}]{elapsed\+\_\+time\+\_\+total,  }\item[{int \&}]{frame\+\_\+counter,  }\item[{double \&}]{lag,  }\item[{double \&}]{mcs\+\_\+per\+\_\+update }\end{DoxyParamCaption})}
+
+
+
+An \mbox{\hyperlink{lab_8hpp_ac5c54df7ed3b930268c8d7752c101725}{update()}} wrapper function that implements a frame stablizer. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em previous\+\_\+time} & The time stamp recorded one loop earlier \\
+\hline
+{\em elapsed\+\_\+time\+\_\+total} & Total time spent since last second, in microseconds \\
+\hline
+{\em frame\+\_\+counter} & The total frame rendered in the current second \\
+\hline
+{\em lag} & Total time spent since last render \\
+\hline
+{\em mcs\+\_\+per\+\_\+update} & A calculated constant that specifies how many microseconds we have for rendering 1 frame \\
+\hline
+\end{DoxyParams}

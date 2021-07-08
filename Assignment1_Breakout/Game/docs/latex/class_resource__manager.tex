@@ -1,0 +1,71 @@
+\hypertarget{class_resource__manager}{}\doxysection{Resource\+\_\+manager Class Reference}
+\label{class_resource__manager}\index{Resource\_manager@{Resource\_manager}}
+
+
+defines resource loading, managig and offloading  
+
+
+
+
+{\ttfamily \#include $<$Resource\+\_\+manager.\+hpp$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_resource__manager_af9701a12372c810415d932d833fdc59f}\label{class_resource__manager_af9701a12372c810415d932d833fdc59f}} 
+void \mbox{\hyperlink{class_resource__manager_af9701a12372c810415d932d833fdc59f}{load\+\_\+resources}} (SDL\+\_\+\+Renderer $\ast$renderer)
+\begin{DoxyCompactList}\small\item\em load all resources, happens only once at the beginning of the game \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_resource__manager_a55ce3cd658bfc224dc0591b3e3626036}\label{class_resource__manager_a55ce3cd658bfc224dc0591b3e3626036}} 
+void \mbox{\hyperlink{class_resource__manager_a55ce3cd658bfc224dc0591b3e3626036}{load\+\_\+text}} (const std\+::string \&filename)
+\begin{DoxyCompactList}\small\item\em load localization text after the player has chose language \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_resource__manager_af11709b488145664334db40d5ae774d5}\label{class_resource__manager_af11709b488145664334db40d5ae774d5}} 
+void \mbox{\hyperlink{class_resource__manager_af11709b488145664334db40d5ae774d5}{load\+\_\+level}} (const std\+::string \&filename)
+\begin{DoxyCompactList}\small\item\em load all levels from files, store in 2d vector \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_resource__manager_a601d1a9dab4af72c3d6327c5f25fe135}\label{class_resource__manager_a601d1a9dab4af72c3d6327c5f25fe135}} 
+\mbox{\hyperlink{class_resource__manager_a601d1a9dab4af72c3d6327c5f25fe135}{$\sim$\+Resource\+\_\+manager}} ()
+\begin{DoxyCompactList}\small\item\em empty deconstructor \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_resource__manager_a7eacc912ca148999c3fbd61ef9834f0c}\label{class_resource__manager_a7eacc912ca148999c3fbd61ef9834f0c}} 
+void \mbox{\hyperlink{class_resource__manager_a7eacc912ca148999c3fbd61ef9834f0c}{destroy}} ()
+\begin{DoxyCompactList}\small\item\em offload all loaded resources \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_resource__manager_a68305d4ecf7f427dfd3273396a73e7e1}\label{class_resource__manager_a68305d4ecf7f427dfd3273396a73e7e1}} 
+static \mbox{\hyperlink{class_resource__manager}{Resource\+\_\+manager}} $\ast$ \mbox{\hyperlink{class_resource__manager_a68305d4ecf7f427dfd3273396a73e7e1}{get\+\_\+instance}} ()
+\begin{DoxyCompactList}\small\item\em get the instance of the resource manager, create one if not instanciated \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_resource__manager_a069ad9e558f7ddc7ea58a9b3626323b1}\label{class_resource__manager_a069ad9e558f7ddc7ea58a9b3626323b1}} 
+std\+::vector$<$ std\+::vector$<$ \mbox{\hyperlink{class_brick}{Brick}} $>$ $>$ \mbox{\hyperlink{class_resource__manager_a069ad9e558f7ddc7ea58a9b3626323b1}{level\+\_\+bricks}}
+\begin{DoxyCompactList}\small\item\em data structure to store all bricks \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_resource__manager_a088f29a3f8880bcbc01afc17f989070f}\label{class_resource__manager_a088f29a3f8880bcbc01afc17f989070f}} 
+std\+::vector$<$ std\+::string $>$ \mbox{\hyperlink{class_resource__manager_a088f29a3f8880bcbc01afc17f989070f}{text\+\_\+display}}
+\begin{DoxyCompactList}\small\item\em stores referece to all text displayer \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_resource__manager_ab3a530e75bcebcfe92e0e1bcd41f77f6}\label{class_resource__manager_ab3a530e75bcebcfe92e0e1bcd41f77f6}} 
+\mbox{\hyperlink{class_text__display}{Text\+\_\+display}} $\ast$ \mbox{\hyperlink{class_resource__manager_ab3a530e75bcebcfe92e0e1bcd41f77f6}{display\+\_\+1}}
+\begin{DoxyCompactList}\small\item\em text display for score, lives \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_resource__manager_a0d9aadc82ee83808df3a5772aaab1741}\label{class_resource__manager_a0d9aadc82ee83808df3a5772aaab1741}} 
+\mbox{\hyperlink{class_text__display}{Text\+\_\+display}} $\ast$ \mbox{\hyperlink{class_resource__manager_a0d9aadc82ee83808df3a5772aaab1741}{display\+\_\+2}}
+\begin{DoxyCompactList}\small\item\em text display for messages like win/lose \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_resource__manager_a83bbbb41d9d8aaf3ceaae502d603969b}\label{class_resource__manager_a83bbbb41d9d8aaf3ceaae502d603969b}} 
+\mbox{\hyperlink{struct_mix___chunk}{Mix\+\_\+\+Chunk}} $\ast$ \mbox{\hyperlink{class_resource__manager_a83bbbb41d9d8aaf3ceaae502d603969b}{wall\+\_\+hit\+\_\+sound}}
+\begin{DoxyCompactList}\small\item\em sound resource for wall hit sound \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_resource__manager_af26a98c550185a65e3baf07794bda6f9}\label{class_resource__manager_af26a98c550185a65e3baf07794bda6f9}} 
+\mbox{\hyperlink{struct_mix___chunk}{Mix\+\_\+\+Chunk}} $\ast$ \mbox{\hyperlink{class_resource__manager_af26a98c550185a65e3baf07794bda6f9}{paddle\+\_\+hit\+\_\+sound}}
+\begin{DoxyCompactList}\small\item\em sound resource for paddle hit sound \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_resource__manager_ab442546757e0371351af117ddd865055}\label{class_resource__manager_ab442546757e0371351af117ddd865055}} 
+Mix\+\_\+\+Music $\ast$ \mbox{\hyperlink{class_resource__manager_ab442546757e0371351af117ddd865055}{background\+\_\+music}}
+\begin{DoxyCompactList}\small\item\em sound resource for bgm \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_resource__manager_ad92982b948f65016eef54e52d3a45a02}\label{class_resource__manager_ad92982b948f65016eef54e52d3a45a02}} 
+TTF\+\_\+\+Font $\ast$ \mbox{\hyperlink{class_resource__manager_ad92982b948f65016eef54e52d3a45a02}{score\+\_\+font}}
+\begin{DoxyCompactList}\small\item\em font resource for display text \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+defines resource loading, managig and offloading 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+include/\mbox{\hyperlink{_resource__manager_8hpp}{Resource\+\_\+manager.\+hpp}}\item 
+src/\mbox{\hyperlink{lab_8cpp}{lab.\+cpp}}\end{DoxyCompactItemize}

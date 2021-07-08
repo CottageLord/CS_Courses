@@ -1,0 +1,40 @@
+\hypertarget{class_paddle}{}\doxysection{Paddle Class Reference}
+\label{class_paddle}\index{Paddle@{Paddle}}
+
+
+A collidable, moveable box object.  
+
+
+
+
+{\ttfamily \#include $<$Paddle.\+hpp$>$}
+
+Inheritance diagram for Paddle\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_paddle}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_paddle_a41802baf6d498954b55f87f5996cada2}\label{class_paddle_a41802baf6d498954b55f87f5996cada2}} 
+\mbox{\hyperlink{class_paddle_a41802baf6d498954b55f87f5996cada2}{Paddle}} (\mbox{\hyperlink{class_vec2}{Vec2}} \mbox{\hyperlink{class_collision__obj_a145c69c33ab3a5347ad87b12827d4b29}{position}}, \mbox{\hyperlink{class_vec2}{Vec2}} \mbox{\hyperlink{class_collision__obj_a85548235e769c7a77268e4d12f0e84e6}{velocity}})
+\begin{DoxyCompactList}\small\item\em initialize paddle with given sizes \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_paddle_a2e0edce0c38b90a057c373cebaadf160}\label{class_paddle_a2e0edce0c38b90a057c373cebaadf160}} 
+void \mbox{\hyperlink{class_paddle_a2e0edce0c38b90a057c373cebaadf160}{Update}} (float dt)
+\begin{DoxyCompactList}\small\item\em move the paddle by position = dt $\ast$ v, bound paddle within window area \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_paddle_ab9748edffd50cb22d56425160ac4477a}\label{class_paddle_ab9748edffd50cb22d56425160ac4477a}} 
+void \mbox{\hyperlink{class_paddle_ab9748edffd50cb22d56425160ac4477a}{Draw}} (SDL\+\_\+\+Renderer $\ast$renderer)
+\begin{DoxyCompactList}\small\item\em Draw the paddle. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+A collidable, moveable box object. 
+
+Defines the movement and draw of a paddle 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/\mbox{\hyperlink{_paddle_8hpp}{Paddle.\+hpp}}\end{DoxyCompactItemize}
