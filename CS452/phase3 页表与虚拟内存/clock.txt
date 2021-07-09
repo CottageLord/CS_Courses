@@ -1,0 +1,13 @@
+
+int Clock()
+    static int hand = -1;
+    while (1)
+        hand = (hand + 1) % NUM_FRAMES
+        if frame[hand].referenced == TRUE
+            clear referenced[hand]
+        else
+            break
+
+    if frame[hand].dirty == TRUE
+        write frame to disk
+    return hand
