@@ -1,0 +1,667 @@
+﻿
+1.使用TNT会遭到神秘力量的制裁，请慎用
+2.玩家圈地不可以阻挡其他玩家的必经之路，如果建在地表，请搭设平台以使其他玩家可以越过建筑。
+3.腐竹是强迫症，所以地表建筑不能修的太丑。
+4.使用外挂一次会被删档，使用两次封禁IP。
+
+
+
+      "Messages": [
+        "1.使用TNT会遭到神秘力量的制裁，请慎用",
+        "2.玩家圈地不可以阻挡其他玩家的必经之路，如果建在地表，请搭设平台以使其他玩家可以越过建筑。",
+        "3.地表建筑不能修的太丑，影响服容。",
+        "4.使用外挂一次会被删档，使用两次封禁IP。",
+        "/clear item 4200"
+      ],
+
+
+AllowAllowedGroupsToSpawnBannedItems  
+类型: Boolean  
+描述: 允许特定组用命令刷出被封禁物品。  
+默认值: "False"  
+
+AllowCorruptionCreep  
+类型: Boolean  
+描述: 允许腐化传播  
+默认值: "True"  
+
+AllowCrimsonCreep  
+类型: Boolean  
+描述: 允许血腥传播  
+默认值: "True"  
+
+AllowCutTilesAndBreakables  
+类型: Boolean  
+描述: 允许任何人破坏草和罐子。  
+默认值: "False"  
+
+AllowHallowCreep  
+类型: Boolean  
+描述: 允许神圣传播  
+默认值: "True"  
+
+AllowIce  
+类型: Boolean  
+描述: 地图被保护时允许玩家使用寒冰魔杖  
+默认值: "False"  
+
+AllowLoginAnyUsername  
+类型: Boolean  
+描述: 允许自由登录。  
+默认值: "True"  
+
+AllowRegisterAnyUsername  
+类型: Boolean  
+描述: 允许自由注册。  
+默认值: "False"  
+
+AnnounceSave  
+类型: Boolean  
+描述: 自动保存的时候是否进行提示。  
+默认值: "True"  
+
+AnonymousBossInvasions  
+类型: Boolean  
+描述: 匿名召唤Boss或入侵  
+默认值: "True"  
+
+ApplicationRestTokens  
+类型: Dictionary`2  
+描述: A dictionary of REST tokens that external applications may use to make queries to your server.  
+默认值: "System.Collections.Generic.Dictionary`2[System.String,Rests.SecureRest+TokenData]"  
+
+AutoSave  
+类型: Boolean  
+描述: 是否自动保存地图，建议开启。  
+默认值: "True"  
+
+BackupInterval  
+类型: Int32  
+描述: 备份间隔 单位分钟。  
+默认值: "0"  
+
+BackupKeepFor  
+类型: Int32  
+描述: 地图备份保留时间。  
+默认值: "60"  
+
+BanOnHardcoreDeath  
+类型: Boolean  
+描述: 困难难度死亡封禁  
+默认值: "False"  
+
+BanOnMediumcoreDeath  
+类型: Boolean  
+描述: 封禁死亡的中等难度的玩家。  
+默认值: "False"  
+
+BCryptWorkFactor  
+类型: Int32  
+描述: BCrypt加密工作因子  
+默认值: "7"  
+
+BroadcastRGB  
+类型: Int32[]  
+描述: 服务器广播颜色。  
+默认值: "System.Int32[]"  
+
+BufferPackets  
+类型: Boolean  
+描述: 缓冲包。  
+默认值: "True"  
+
+ChatAboveHeadsFormat  
+类型: String  
+描述: 头顶显示聊天文字。格式同上。  
+默认值: "{2}"  
+
+ChatFormat  
+类型: String  
+描述: 聊天格式 {0}组名 {1}前缀 {2}玩家名 {3}后缀 {4}说的话  
+默认值: "{1}{2}{3}: {4}"  
+
+CommandSilentSpecifier  
+类型: String  
+描述: 静默命令标志  
+默认值: "."  
+
+CommandSpecifier  
+类型: String  
+描述: 命令标志  
+默认值: "/"  
+
+DefaultGuestGroupName  
+类型: String  
+描述: 默认未注册玩家所在组。  
+默认值: "guest"  
+
+DefaultMaximumSpawns  
+类型: Int32  
+描述: 默认最大刷怪数量。数字越大，怪物越多。  
+默认值: "5"  
+
+DefaultRegistrationGroupName  
+类型: String  
+描述: 默认注册玩家所在组。  
+默认值: "default"  
+
+DefaultSpawnRate  
+类型: Int32  
+描述: 默认刷怪频率。数字越小，刷怪越快。  
+默认值: "600"  
+
+DisableBuild  
+类型: Boolean  
+描述: 全图保护。  
+默认值: "False"  
+
+DisableClownBombs  
+类型: Boolean  
+描述: 禁止小丑丢炸弹  
+默认值: "False"  
+
+DisableDungeonGuardian  
+类型: Boolean  
+描述: 禁止打地牢骷髅。  
+默认值: "False"  
+
+DisableHardmode  
+类型: Boolean  
+描述: 锁定肉山前。  
+默认值: "False"  
+
+DisableInvisPvP  
+类型: Boolean  
+描述: 禁止隐身PVP  
+默认值: "False"  
+
+DisableLoginBeforeJoin  
+类型: Boolean  
+描述: 禁止进服前登录。  
+默认值: "False"  
+
+DisableSecondUpdateLogs  
+类型: Boolean  
+描述: 预防OnSecondUpdate刷出大量日志。  
+默认值: "False"  
+
+DisableSnowBalls  
+类型: Boolean  
+描述: 禁止雪人丢雪球  
+默认值: "False"  
+
+DisableSpewLogs  
+类型: Boolean  
+描述: 不对玩家显示日志。  
+默认值: "True"  
+
+DisableTombstones  
+类型: Boolean  
+描述: 禁止墓碑。  
+默认值: "True"  
+
+DisableUUIDLogin  
+类型: Boolean  
+描述: 强制密码登录。  
+默认值: "False"  
+
+DisplayIPToAdmins  
+类型: Boolean  
+描述: 对管理员显示玩家IP。  
+默认值: "False"  
+
+EnableBanOnUsernames  
+类型: Boolean  
+描述: 自动封禁玩家名。  
+默认值: "False"  
+
+EnableChatAboveHeads  
+类型: Boolean  
+描述: 头顶显示聊天文字。  
+默认值: "False"  
+
+EnableDNSHostResolution  
+类型: Boolean  
+描述: 使用GetGroupForIPExpensive。  
+默认值: "False"  
+
+EnableGeoIP  
+类型: Boolean  
+描述: 显示玩家IP国家  
+默认值: "False"  
+
+EnableIPBans  
+类型: Boolean  
+描述: 自动封禁IP。  
+默认值: "True"  
+
+EnableMaxBytesInBuffer  
+类型: Boolean  
+描述: 开启最大缓冲。  
+默认值: "False"  
+
+EnableTokenEndpointAuthentication  
+类型: Boolean  
+描述: 远程端口要求强制认证。  
+默认值: "False"  
+
+EnableUUIDBans  
+类型: Boolean  
+描述: 自动封禁UUID。  
+默认值: "True"  
+
+EnableWhitelist  
+类型: Boolean  
+描述: 是否开启白名单。  
+默认值: "False"  
+
+ForceHalloween  
+类型: Boolean  
+描述: 强制万圣。  
+默认值: "False"  
+
+ForceTime  
+类型: String  
+描述: 锁定时间。normal正常 day白天 night晚上。  
+默认值: "normal"  
+
+ForceXmas  
+类型: Boolean  
+描述: 开启圣诞  
+默认值: "False"  
+
+HardcoreBanReason  
+类型: String  
+描述: 困难难度死亡封禁  
+默认值: "死亡而被封禁"  
+
+HardcoreKickReason  
+类型: String  
+描述: 困难难度死亡踢出  
+默认值: "死亡而被踢出"  
+
+HardcoreOnly  
+类型: Boolean  
+描述: 仅允许困难模式的玩家进入服务器。  
+默认值: "False"  
+
+HashAlgorithm  
+类型: String  
+描述: 密码加密算法 "sha512", "sha256", "md5"。  
+默认值: "sha512"  
+
+IgnoreChestStacksOnLoad  
+类型: Boolean  
+描述: 忽略箱子中的作弊物品。  
+默认值: "False"  
+
+IgnoreNoClip  
+类型: Boolean  
+描述: 忽略所有no clip检查（什么鬼）  
+默认值: "False"  
+
+IgnoreProjKill  
+类型: Boolean  
+描述: 忽略弹幕消灭检查  
+默认值: "False"  
+
+IgnoreProjUpdate  
+类型: Boolean  
+描述: 忽略弹幕更新检查  
+默认值: "False"  
+
+InfiniteInvasion  
+类型: Boolean  
+描述: 是否开启无限入侵（2000000+只怪物）。  
+默认值: "False"  
+
+InvasionMultiplier  
+类型: Int32  
+描述: 入侵怪物数量=这个数字*200血以上玩家数量 + 100  
+默认值: "1"  
+
+KickEmptyUUID  
+类型: Boolean  
+描述: 踢出异常客户端。  
+默认值: "False"  
+
+KickOnDamageThresholdBroken  
+类型: Boolean  
+描述: 踢出受伤超过攻击力上限的玩家  
+默认值: "False"  
+
+KickOnHardcoreDeath  
+类型: Boolean  
+描述: 困难难度死亡踢出  
+默认值: "False"  
+
+KickOnMediumcoreDeath  
+类型: Boolean  
+描述: 踢出死亡的中等难度的玩家。  
+默认值: "False"  
+
+KickProxyUsers  
+类型: Boolean  
+描述: 自动踢出代理玩家。  
+默认值: "True"  
+
+LogPath  
+类型: String  
+描述: 日志保存文件夹。  
+默认值: "tshock"  
+
+LogRest  
+类型: Boolean  
+描述: 预留空位数。  
+默认值: "False"  
+
+MasterServer  
+类型: String  
+描述: 没吊用。  
+默认值: "127.0.0.1"  
+
+MaxBytesInBuffer  
+类型: Int32  
+描述: 缓冲大小。  
+默认值: "5242880"  
+
+MaxDamage  
+类型: Int32  
+描述: 攻击力上限。  
+默认值: "1175"  
+
+MaxHP  
+类型: Int32  
+描述: 最大血量  
+默认值: "500"  
+
+MaximumLoginAttempts  
+类型: Int32  
+描述: 允许输错密码次数。  
+默认值: "3"  
+
+MaxMP  
+类型: Int32  
+描述: 最大魔法  
+默认值: "200"  
+
+MaxProjDamage  
+类型: Int32  
+描述: 弹幕攻击力上限。  
+默认值: "1175"  
+
+MaxRangeForDisabled  
+类型: Int32  
+描述: 石化后可移动距离。  
+默认值: "10"  
+
+MaxSlots  
+类型: Int32  
+描述: 最大玩家数量。  
+默认值: "8"  
+
+MediumcoreBanReason  
+类型: String  
+描述: 封禁死亡的中等难度的玩家。  
+默认值: "死亡而被封禁"  
+
+MediumcoreKickReason  
+类型: String  
+描述: 踢出死亡的中等难度的玩家。  
+默认值: "死亡而被踢出"  
+
+MediumcoreOnly  
+类型: Boolean  
+描述: 仅允许中等模式的玩家进入服务器。  
+默认值: "False"  
+
+MinimumPasswordLength  
+类型: Int32  
+描述: 最小密码长度  
+默认值: "4"  
+
+MySqlDbName  
+类型: String  
+描述: 数据库名。  
+默认值: ""  
+
+MySqlHost  
+类型: String  
+描述: MySQL主机名。  
+默认值: "localhost:3306"  
+
+MySqlPassword  
+类型: String  
+描述: 数据库密码。  
+默认值: ""  
+
+MySqlUsername  
+类型: String  
+描述: 数据库用户名。  
+默认值: ""  
+
+PreventBannedItemSpawn  
+类型: Boolean  
+描述: 预防命令刷出被封禁物品。  
+默认值: "False"  
+
+PreventDeadModification  
+类型: Boolean  
+描述: 玩家死后不能修改地图。  
+默认值: "True"  
+
+PreventInvalidPlaceStyle  
+类型: Boolean  
+描述: 预防非法放置方式  
+默认值: "True"  
+
+ProjectileThreshold  
+类型: Int32  
+描述: 每秒弹幕发射上限  
+默认值: "50"  
+
+ProjIgnoreShrapnel  
+类型: Boolean  
+描述: 忽略弹幕碎片  
+默认值: "True"  
+
+PvPMode  
+类型: String  
+描述: "normal"普通模式 "always"强制PVP模式 "disabled"禁止PVP模式。  
+默认值: "normal"  
+
+RangeChecks  
+类型: Boolean  
+描述: 范围检查。  
+默认值: "True"  
+
+RegionProtectChests  
+类型: Boolean  
+描述: 保护领地里的箱子  
+默认值: "False"  
+
+RememberLeavePos  
+类型: Boolean  
+描述: 记录玩家最后位置，下次进入服务器时传送回去。  
+默认值: "False"  
+
+RequireLogin  
+类型: Boolean  
+描述: 强制登录。  
+默认值: "False"  
+
+ReservedSlots  
+类型: Int32  
+描述: 预留空位数。  
+默认值: "20"  
+
+RespawnBossSeconds  
+类型: Int32  
+描述: Boss战复活时间。  
+默认值: "10"  
+
+RespawnSeconds  
+类型: Int32  
+描述: 复活时间。  
+默认值: "5"  
+
+RestApiEnabled  
+类型: Boolean  
+描述: 远程控制。  
+默认值: "False"  
+
+RestApiPort  
+类型: Int32  
+描述: 远程控制端口。  
+默认值: "7878"  
+
+RESTLimitOnlyFailedLoginRequests  
+类型: Boolean  
+描述: 远程请求只限制错误密码  
+默认值: "True"  
+
+RESTMaximumRequestsPerInterval  
+类型: Int32  
+描述: 远程请求间隔  
+默认值: "5"  
+
+RESTRequestBucketDecreaseIntervalMinutes  
+类型: Int32  
+描述: 远程请求减少速度  
+默认值: "1"  
+
+RestUseNewPermissionModel  
+类型: Boolean  
+描述: 远程使用新的权限  
+默认值: "True"  
+
+RevertToTextLogsOnSqlFailures  
+类型: Int32  
+描述: SQL记录前失败次数  
+默认值: "10"  
+
+SaveWorldOnCrash  
+类型: Boolean  
+描述: 崩溃时保存地图。  
+默认值: "True"  
+
+SaveWorldOnLastPlayerExit  
+类型: Boolean  
+描述: 玩家退出时保存地图  
+默认值: "False"  
+
+ServerFullNoReservedReason  
+类型: String  
+描述: 服务器爆满时提示信息。  
+默认值: "服务器爆满。"  
+
+ServerFullReason  
+类型: String  
+描述: 服务器满时提示信息。  
+默认值: "服务器已满。"  
+
+ServerName  
+类型: String  
+描述: 远程服务器名。  
+默认值: ""  
+
+ServerPassword  
+类型: String  
+描述: 服务器密码  
+默认值: ""  
+
+ServerPort  
+类型: Int32  
+描述: 服务器端口。  
+默认值: "7777"  
+
+ShowBackupAutosaveMessages  
+类型: Boolean  
+描述: 显示自动保存信息  
+默认值: "True"  
+
+SpawnProtection  
+类型: Boolean  
+描述: 是否进行复活点保护。  
+默认值: "True"  
+
+SpawnProtectionRadius  
+类型: Int32  
+描述: 复活点保护的范围。  
+默认值: "10"  
+
+StatueSpawn200  
+类型: Int32  
+描述: 雕像200像素刷物品上限  
+默认值: "3"  
+
+StatueSpawn600  
+类型: Int32  
+描述: 雕像600像素刷物品上限  
+默认值: "6"  
+
+StatueSpawnWorld  
+类型: Int32  
+描述: 雕像全图刷物品上限  
+默认值: "10"  
+
+StorageType  
+类型: String  
+描述: 数据库类型，"sqlite" 或 "mysql"  
+默认值: "sqlite"  
+
+SuperAdminChatPrefix  
+类型: String  
+描述: 超级管理员聊天前缀。  
+默认值: "(管理员) "  
+
+SuperAdminChatRGB  
+类型: Int32[]  
+描述: 超级管理员聊天颜色。  
+默认值: "System.Int32[]"  
+
+SuperAdminChatSuffix  
+类型: String  
+描述: 超级管理员聊天后缀。  
+默认值: ""  
+
+TileKillThreshold  
+类型: Int32  
+描述: 每秒方块破坏上限  
+默认值: "60"  
+
+TileLiquidThreshold  
+类型: Int32  
+描述: 每秒液体放置上限  
+默认值: "15"  
+
+TilePaintThreshold  
+类型: Int32  
+描述: 每秒涂漆上限  
+默认值: "15"  
+
+TilePlaceThreshold  
+类型: Int32  
+描述: 每秒方块放置上限  
+默认值: "20"  
+
+UseServerName  
+类型: Boolean  
+描述: 用服务器名代替地图名。  
+默认值: "False"  
+
+UseSqlLogs  
+类型: Boolean  
+描述: 保存SQL记录至文件。  
+默认值: "False"  
+
+VeryDangerousDoNotChangeEnableDrillContainmentUnit  
+类型: Boolean  
+描述: 允许使用挖掘机，非常危险，可能被毁服。  
+默认值: "True"  
+
+WhitelistKickReason  
+类型: String  
+描述: 不在白名单而被踢时提示信息。  
+默认值: "你不在白名单里。"  
+

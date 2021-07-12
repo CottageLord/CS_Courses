@@ -1,0 +1,595 @@
+权限： tshock.ignore.sendtilesquare
+
+说明： Allow unrestricted SendTileSquare usage, for client side world editing.
+
+指令： 无
+
+权限： tshock.annoy
+
+说明： 让玩家能使用这些烦人的指令
+
+指令： /annoy /confuse /rocket /firework
+
+分别为 噪音、迷惑、火箭(将人射上天空，只能在SSC伺服器使用)、烟火
+
+权限： tshock.admin.antibuild
+
+说明： 让玩家可以使用建造保护指令(使用后基本上所有方块都挖不掉)
+
+指令： /antibuild
+
+权限： tshock.superadmin.authverify
+
+说明： 通常创服后只需由超级管理员输入一次来验证
+
+指令： /auth-verify
+
+权限： tshock.admin.ban
+
+说明： 让玩家能够使用ban人指令
+
+指令： /ban
+
+权限： tshock.world.time.bloodmoon
+
+说明： 让玩家能够使用指令切换至血月(Blood Moon)
+
+指令： /bloodmoon
+
+权限： tshock.admin.broadcast
+
+说明： 让玩家能够使用广播指令
+
+指令： /broadcast(/bc /say)
+
+权限： tshock.buff.self
+
+说明： 让玩家能够使用指令buff自己
+
+指令： /buff
+
+权限： tshock.buff.others
+
+说明： 让玩家能够使用指令buff其他玩家
+
+指令： /gbuff(/buffplayer)
+
+权限： tshock.npc.butcher
+
+说明： 让玩家能够使用指令杀死周围怪物
+
+指令： /butcher
+
+权限： tshock.ignore.ssc
+
+说明： 如果伺服器是SSC模式，允许玩家携带自己的脚色存档进入伺服器
+
+(Bypass server side inventory checks )
+
+指令： 无
+
+权限： tshock.world.modify
+
+说明： 让玩家有挖物件或者放物件的权力，通常是必要的权限
+
+指令： 无
+
+权限： tshock.account.changepassword
+
+说明： 让玩家能够更改密码
+
+指令： /password
+
+权限： tshock.canchat
+
+说明： 让玩家能够聊天
+
+指令： 无
+
+权限： tshock.account.register
+
+说明： 让玩家能够註册
+
+指令： /register
+
+权限： tshock.account.login
+
+说明： 让玩家能够登入
+
+指令： /login
+
+权限： tshock.world.paint
+
+说明： 让玩家能够使用油漆
+
+指令： 无
+
+权限： tshock.partychat
+
+说明： 让玩家能够使用队伍的聊天频道
+
+指令： /party(/p)
+
+权限： tshock.thirdperson
+
+说明： 让用户能够使用第叁方发言
+
+指令： /me
+
+权限： tshock.cfg.password
+
+说明： 让玩家能够修改伺服器密码
+
+指令： /serverpassword
+
+权限： tshock.cfg.reload
+
+说明： 让玩家能够重新载入配置文件
+
+指令： 无
+
+权限： tshock.clear
+
+说明： 让玩家能够清除範围内指定的物品或弹药
+
+指令： /clear
+
+权限： tshock.world.converthardmode
+
+说明： 让玩家能够将腐地(Corruption)净化为圣地(Hallow)
+
+指令： 无
+
+权限： tshock.world.time.dropmeteor
+
+说明： 让玩家能够召唤陨石(Meteorite)
+
+指令： /dropmeteor
+
+※伺服器一次只能存在一颗未挖掘完毕的陨石
+
+权限： tshock.world.time.eclipse
+
+说明： 让玩家能够使用指令切换至日食(Solar Eclipse)
+
+指令： /eclipse
+
+权限： tshock.world.editregion
+
+说明： 允许玩家修改设定好的区域
+
+指令： 无
+
+权限： tshock.world.editspawn
+
+说明： 让玩家能够切换重生点保护状态
+
+指令： /protectspawn
+
+※开启之后伺服器重生点周围的物件皆不能破坏
+
+权限： tshock.world.time.fullmoon
+
+说明： 让玩家能够使用指令切换至满月(Full moon)
+
+指令： /fullmoon
+
+权限： tshock.godmode
+
+说明： 让玩家能够切换至神模式，神模式只要一损血就会补回来，此指令能够指定切换其他玩家
+
+指令： /godmode
+
+※伤害大于自身最大血量一样会死，并不是无敌
+
+权限： tshock.world.grow
+
+说明： 让玩家能够使用指令种植植物
+
+指令： /grow
+
+权限： tshock.world.hardmode
+
+说明： 让玩家能够使用指令切换至困难模式
+
+指令： /hardmode
+
+权限： tshock.heal
+
+说明： 让玩家能够使用指令补血
+
+指令： /heal
+
+权限： tshock.tp.home
+
+说明： 让玩家能够使用指令回到记录点(记录过的床或是伺服器重生点)
+
+指令： /home
+
+权限： tshock.ignore.damage
+
+说明： 让玩家不会被侦测到伤害过高
+
+指令： 无
+
+权限： tshock.ignore.removetile
+
+说明： 让玩家不会被侦测过于频繁乱挖砖块(测试后应该是使用炸弹)(2014/7/7)
+
+指令： 无
+
+权限： tshock.ignore.liquid
+
+说明： 让玩家不会被侦测过于频繁使用液体物件(liquid)
+
+指令： 无
+
+权限： tshock.ignore.noclip
+
+说明： 让玩家不会被侦测使用穿墙(no cilp)
+
+指令： 无
+
+权限： tshock.ignore.paint
+
+说明： 让玩家不会被侦测过于频繁使用油漆(paint)
+
+指令： 无
+
+权限： tshock.ignore.placetile
+
+说明： 让玩家不会被侦测过于频繁放置方块(tile)
+
+指令： 无
+
+权限： tshock.ignore.projectile
+
+说明： 让玩家不会被侦测过于频繁使用弹药(projectile)
+
+指令： 无
+
+权限： tshock.ignore.itemstack
+
+说明： 让玩家不会被侦测使用堆叠外挂(可能是指此类MOD)
+
+指令： 无
+
+※我也不确定是什么，也无法提供
+
+权限： tshock.admin.noban
+
+说明： 让玩家能够防止被ban
+
+指令： 无
+
+权限： tshock.admin.nokick
+
+说明： 让玩家能够防止被踢出伺服器
+
+指令： 无
+
+权限： tshock.npc.invade
+
+说明： 让玩家能够使用指令招换一个入侵事件(event)
+
+指令： /invade
+
+权限： tshock.item.spawn
+
+说明： 让玩家能够使用指令拿到或给予指定玩家物品
+
+指令： /give(/g) /item(/i)
+
+权限： tshock.admin.kick
+
+说明： 让玩家能够将指定玩家踢出伺服器
+
+指令： /kick
+
+权限： tshock.kill
+
+说明： 让玩家能够使用指令杀死指定玩家
+
+指令： /kill
+
+权限： tshock.admin.viewlogs
+
+说明： 让玩家能够切换自己是否收到伺服器的纪录
+
+指令： /displaylogs
+
+权限： tshock.cfg.maintenance
+
+说明： 当玩家被通知有更新的时候，可以使用指令重启或关闭伺服器
+
+指令： /checkupdates /off(/exit) /off-nosave(/exit-nosave) /reload /restart /version
+
+权限： tshock.admin.group
+
+说明： 让玩家能够使用管理群组的指令
+
+指令： /group
+
+※权限就是利用这一系列指令配置的
+
+权限： tshock.admin.itemban
+
+说明： 让玩家可以管理或是将指定的物件设为违禁物品
+
+指令： /itemban
+
+权限： tshock.admin.region
+
+说明： 让玩家能够使用区域保护指令
+
+指令： /region
+
+权限： tshock.admin.warp
+
+说明： 让玩家能够管理伺服器传送点
+
+指令： /warp
+
+权限： tshock.npc.maxspawns
+
+说明： 让玩家能够修改最大怪物数量
+
+指令： /maxspawns
+
+权限： tshock.world.movenpc
+
+说明： 让玩家能够移动NPC至指定的家
+
+指令： 无
+
+权限： tshock.admin.mute
+
+说明： 让玩家能够开启或关闭禁言其他玩家
+
+指令： /mute(/unmute)
+
+权限： tshock.world.rain
+
+说明： 让玩家能够开启或关闭下雨
+
+指令： /rain
+
+权限： tshock.reservedslot
+
+说明： 让玩家在伺服器满人后依然可以进来，类似VIP
+
+指令： 无
+
+权限： tshock.tp.rod
+
+说明： 让玩家能够使用不和谐棒(Rod of Discord)
+
+指令： 无
+
+权限： tshock.admin.savessi
+
+说明： 让玩家能够使用指令存档所有玩家的SSI状态
+
+指令： /overridessc(/ossc) /savessc
+
+权限： tshock.admin.seeplayerids
+
+说明： 让玩家能够使用指令查看在线玩家
+
+指令： /who
+
+权限： tshock.info
+
+说明： 让玩家能够使用指令查看伺服器资讯
+
+指令： /stats
+
+权限： tshock.admin.tempgroup
+
+说明： 让玩家能够暂时提升指定玩家的权限群组
+
+指令： /tempgroup
+
+权限： tshock.slap
+
+说明： 让玩家能够使用指令拍人家一巴掌(一下一滴血)
+
+指令： /slap
+
+权限： tshock.tp.spawn
+
+说明： 让玩家能够使用指令回到伺服器重生点
+
+指令： /spawn
+
+权限： tshock.npc.spawnboss
+
+说明： 让玩家能够使用指令召唤boss
+
+指令： /spawnboss(/sb)
+
+权限： tshock.npc.spawnmob
+
+说明： 让玩家能够使用指令招唤怪物
+
+指令： /spawnmob(/sm)
+
+权限： tshock.npc.spawnrate
+
+说明： 让玩家能够修改怪物重生速率
+
+指令： /spawnrate
+
+权限： tshock.npc.startinvasion
+
+说明： 让玩家能够使用道具召唤入侵事件(哥布林/冰霜军团)
+
+指令： 无
+
+权限： tshock.npc.summonboss
+
+说明： 让玩家能够使用道具召唤boss
+
+指令： 无
+
+※好几次因为忘记给权限，使用后召唤用的道具不见了
+
+权限： tshock.world.time.set
+
+说明： 让玩家能够使用指令设定时间
+
+指令： /time
+
+权限： tshock.tp.self
+
+说明： 让玩家能够使用指令传送
+
+指令： /tp
+
+/tp A B - 将A传送至B
+
+/tp A - 将自己传送至A
+
+权限： tshock.tp.override
+
+说明： 让玩家能够无限制的传送至任何玩家
+
+指令： 无
+
+权限： tshock.tp.block
+
+说明： 让玩家能够切换自己是否要让其他玩家传送到自己
+
+指令： /tpallow
+
+权限： tshock.tp.others
+
+说明： 可以传送玩家至自己旁边
+
+指令： /tphere
+
+2014/7/2在TShock 4.2.3已经和/tp指令合併了
+
+权限： tshock.tp.silent
+
+说明： 让玩家能够在传送至其他玩家时不出现提醒讯息
+
+指令： 无
+
+权限： tshock.cfg.updateplugins
+
+说明： 让玩家可以下载更新到当前正在运行的插件
+
+指令： 无
+
+权限： tshock.item.usebanned
+
+说明： 允许玩家使用违禁物品
+
+指令： 无
+
+权限： tshock.superadmin.user
+
+说明： 让玩家能够管理每个玩家所在的权限群组以及密码
+
+指令： /user
+
+权限： tshock.admin.userinfo
+
+说明： 让玩家能够使用指令查看指定玩家的资讯(IP、所在权限群组)
+
+指令： /userinfo(/ui)
+
+权限： tshock.warp
+
+说明： 让玩家能够使用传送(仅传送而不是管理)指令
+
+指令： /warp
+
+权限： tshock.whisper
+
+说明： 让玩家能够使用密语
+
+指令： /reply(/r) /whisper(/w /tell)
+
+权限： tshock.cfg.whitelist
+
+说明： 让玩家能够修改白名单
+
+指令： /whitelist
+
+权限： tshock.world.info
+
+说明： 让玩家能够查看这个世界的资讯(名字、大小、世界ID)
+
+指令： /world
+
+权限： tshock.world.save
+
+说明： 让玩家能够使用手动存档指令
+
+指令： /save
+
+权限： tshock.world.settleliquids
+
+说明： 让玩家能够使用指令清除周围流动液体
+
+指令： /settle
+
+※只会清除流动的细流，水或水池本身是不会被清除的
+
+权限： tshock.world.setspawn
+
+说明： 让玩家能够设定伺服器重生点
+
+指令： /setspawn
+
+权限： tshock.world.setxmas
+
+说明： 让玩家能够使用指令切换至圣诞模式(Christmas)
+
+指令： /forcexmas
+
+权限： tshock.tp.allothers
+
+说明： 玩家能够使用指令一次传送所有玩家至指定玩家
+
+指令： /tp * 玩家
+
+权限： tshock.npc.hurttown
+
+说明： 让玩家能够对城镇NPC造成伤害
+
+指令： 无
+
+※还是需要装备能够对NPC造成伤害的道具
+
+权限： tshock.world.sethalloween
+
+说明： 让玩家能够使用指令切换至万圣节模式(Halloween)
+
+指令： /forcehalloween
+
+权限： tshock.npc.rename
+
+说明： 让玩家能够使用指令更改NPC名称
+
+指令： /renamenpc
+
+权限： tshock.tp.pos
+
+说明： 玩家能够传送至指定的座标
+
+指令： /tppos
+
+权限： tshock.world.wind
+
+说明： 玩家能够利用指令改变风速
+
+指令： /wind
+
+权限： regionvision.regionviewnear 
+
+说明： 让领地(region)可以用肉眼看见。
+
+指令： /rvn
