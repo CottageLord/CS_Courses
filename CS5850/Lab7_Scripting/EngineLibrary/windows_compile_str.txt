@@ -1,0 +1,1 @@
+g++ -std=c++14 -shared -fPIC -static-libgcc -static-libstdc++ -I./include/ -I./pybind11/include/ `python3 -m pybind11 --includes` ./src/*.cpp -o mygameengine.pyd `python3-config --ldflags` -lSDL2 -lmingw32 -mwindows -L libwinpthread-1.dll
