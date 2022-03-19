@@ -60,6 +60,7 @@ namespace rst
     class rasterizer
     {
     public:
+        rasterizer();
         rasterizer(int w, int h);
         pos_buf_id load_positions(const std::vector<Eigen::Vector3f>& positions);
         ind_buf_id load_indices(const std::vector<Eigen::Vector3i>& indices);
@@ -88,7 +89,7 @@ namespace rst
         void draw_line(Eigen::Vector3f begin, Eigen::Vector3f end);
 
         void rasterize_triangle(const Triangle& t, const std::array<Eigen::Vector3f, 3>& world_pos);
-
+        //void rasterize_ssaa_triangle(const Triangle& t, const std::array<Eigen::Vector3f, 3>& view_pos);
         // VERTEX SHADER -> MVP -> Clipping -> /.W -> VIEWPORT -> DRAWLINE/DRAWTRI -> FRAGSHADER
 
     private:
